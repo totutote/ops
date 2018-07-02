@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS master_options;
+CREATE TABLE master_options (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT DEFAULT NULL
+);
+.separator ,

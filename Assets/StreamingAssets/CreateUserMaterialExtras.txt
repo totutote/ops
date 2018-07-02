@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS user_material_extras;
+CREATE TABLE user_material_extras (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_material_refs_id,
+    extra_type INTEGER, -- •ñVŠúŠÔA’Ç‰Á”\—ÍA¬Œ÷—¦‚È‚Ç
+);
+.separator ,

@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS master_options;
+CREATE TABLE master_options (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    group_id INTEGER,
+    option_type INTEGER, -- ˆöŽq‚È‚Ç
+    master_option_id INTEGER,
+);
+.separator ,

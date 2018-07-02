@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS master_options;
+CREATE TABLE master_options (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_material_ref_lists_id INTEGER,
+    user_materials_group_id INTEGER
+);
+.separator ,
