@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS master_options;
-CREATE TABLE master_options (
+DROP TABLE IF EXISTS user_material_refs;
+CREATE TABLE user_material_refs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_material_ref_lists_id INTEGER,
     user_materials_group_id INTEGER

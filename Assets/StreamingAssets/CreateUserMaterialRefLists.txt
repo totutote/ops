@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS master_options;
-CREATE TABLE master_options (
+DROP TABLE IF EXISTS user_material_ref_lists;
+CREATE TABLE user_material_ref_lists (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT DEFAULT "çáê¨ÉOÉãÅ[Év"
 );
