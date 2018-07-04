@@ -5,14 +5,13 @@ using UnityEngine;
 namespace OPS.Model
 {
 
-	public class MasterOption
+	public class MasterOption : BaseMasterModel, IDataModel
 	{
 		const string dbName = "master.sqlite3";
-
 		const string tableName = "master_options";
 
-		public int id;
-		public string name;
+		public Dictionary<string, object> Record {get {return record;}}
+		Dictionary<string, object> record = new Dictionary<string, object>();
 
 		static DatabaseConnection db = null;
 
@@ -24,28 +23,14 @@ namespace OPS.Model
 			return db;
 		}
 
-		private static List<MasterOption> assine(DataTable table)
-		{
-			var list = new List<MasterOption>();
-			foreach (var row in table.Rows) {
-				var master = new MasterOption();
-				master.id = (int)row["id"];
-				master.name = (string)row["name"];
-				list.Add(master);
-			}
-			return list;
-		}
-
 		public static MasterOption Option(int id)
 		{
-			DataTable table = GetDatabase().Id(id);
-			return assine(table)[0];
+			return GetDatabase().Id<MasterOption>(id);
 		}
 
 		public static List<MasterOption> AllOptions()
 		{
-			DataTable table = GetDatabase().All();
-			return assine(table);
+			return GetDatabase().All<MasterOption>();
 		}
 	}
 

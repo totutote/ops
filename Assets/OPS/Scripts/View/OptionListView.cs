@@ -21,7 +21,7 @@ namespace OPS.View
 				var culumn = Instantiate(Culumn);
 				culumn.SetActive(true);
 				var culumnText = culumn.transform.Find("Text").GetComponent<TextMeshProUGUI>();
-				culumnText.text = option.name;
+				culumnText.text = (string)option.Record["name"];
 				culumn.transform.SetParent(Culumn.transform.parent, false);
 			}
 		}
