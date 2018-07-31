@@ -2,26 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using OPS.ViewModel;
+using OPS.Model;
 using TMPro;
+using Zenject;
 
-namespace OPS.View
+namespace OPS.Presenter
 {
 
-	public class OptionListView : MonoBehaviour
+	public class OptionListPresenter : MonoBehaviour
 	{
 		public GameObject Culumn;
 
-		private OptionListViewModel optionListViewModel;
+		[Inject]
+		ModelService<MasterOption> masterOptionService;
 
 		void Start()
 		{
-			optionListViewModel = new OptionListViewModel();
-			foreach (var option in optionListViewModel.option) {
+			var options = masterOptionService.Regist(MasterOption.AllOptions());
+			foreach (var option in options) {
 				var culumn = Instantiate(Culumn);
 				culumn.SetActive(true);
 				var culumnText = culumn.transform.Find("Text").GetComponent<TextMeshProUGUI>();
-				culumnText.text = (string)option.Record["name"];
+				culumnText.text = (string)option.Value.Record["name"].Value;
 				culumn.transform.SetParent(Culumn.transform.parent, false);
 			}
 		}

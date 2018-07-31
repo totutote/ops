@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 namespace OPS.Model
 {
@@ -10,8 +11,8 @@ namespace OPS.Model
 		const string dbName = "user.sqlite3";
 		const string tableName = "user_material";
 
-		public Dictionary<string, object> Record {get {return record;}}
-		Dictionary<string, object> record = new Dictionary<string, object>();
+		public Dictionary<string, ReactiveProperty<object>> Record {get {return record;}}
+		Dictionary<string, ReactiveProperty<object>> record = new Dictionary<string, ReactiveProperty<object>>();
 
 		static DatabaseConnection db = null;
 
@@ -28,7 +29,7 @@ namespace OPS.Model
 			return GetDatabase().Id<UserMaterialOption>(id);
 		}
 
-		public static List<UserMaterialOption> AllOptions()
+		public static Dictionary<int, UserMaterialOption> AllOptions()
 		{
 			return GetDatabase().All<UserMaterialOption>();
 		}

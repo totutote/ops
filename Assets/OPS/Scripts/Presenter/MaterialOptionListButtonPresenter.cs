@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using OPS.ViewModel;
 using TMPro;
 
-namespace OPS.View
+namespace OPS.Presenter
 {
 
-	public class MaterailOptionListButtonView : MonoBehaviour
+	public class MaterailOptionListButtonPresenter : MonoBehaviour
 	{
-		public MaterailOptionListView materailOptionListView;
+		public MaterailOptionListPresenter materailOptionListView;
 
 		public Text culumnText;
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 namespace OPS.Model
 {
@@ -23,20 +24,20 @@ namespace OPS.Model
 			return db.ExecuteQuery(query);
 		}
 
-		public static List<T> assign<T>(DataTable table) where T : IDataModel, new()
+		public static Dictionary<int, T> assign<T>(DataTable table) where T : IDataModel, new()
 		{
-			var list = new List<T>();
+			var list = new Dictionary<int, T>();
 			foreach (var row in table.Rows) {
 				var obj = new T();
 				foreach (var culumn in table.Columns) { 
-					obj.Record.Add((string)culumn, row[(string)culumn]);
+					obj.Record.Add((string)culumn, new ReactiveProperty<object>(row[(string)culumn]));
 				}
-				list.Add(obj);
+				list.Add((int)row["id"], obj);
 			}
 			return list;
 		}
 
-		public List<T> All<T>() where T : BaseMasterModel, IDataModel, new()
+		public Dictionary<int, T> All<T>() where T : BaseMasterModel, IDataModel, new()
 		{
 			return assign<T>(db.ExecuteQuery("select * from " + tableName));
 		}
