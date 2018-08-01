@@ -16,6 +16,8 @@ namespace OPS.Model
 
 		static DatabaseConnection db = null;
 
+		public static Subject<string> subject = new Subject<string>();
+
 		static DatabaseConnection GetDatabase()
 		{
 			if (db == null) {
@@ -33,6 +35,20 @@ namespace OPS.Model
 		{
 			return GetDatabase().All<UserMaterialOption>();
 		}
+
+		public void Save()
+		{
+			var saveData = GetDatabase().Save<UserMaterialOption>(record);
+			record["id"].Value = saveData.Record["id"].Value;
+			subject.OnNext("Save");
+		}
+
+        public void Delete()
+		{
+			GetDatabase().Delete(record);
+			subject.OnNext("Delete");
+		}
+
 	}
 
 }

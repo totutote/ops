@@ -47,16 +47,46 @@ namespace OPS.Model
 			return assign<T>(db.ExecuteQuery("select * from " + tableName + " where " + " id = " + id))[0];
 		}
 
-		public DataTable Where(string culumn, string value)
+		public Dictionary<int, T> Where<T>(string culumn, string value) where T : BaseMasterModel, IDataModel, new()
 		{
-			return db.ExecuteQuery("select * from " + tableName + " where " + culumn + " = " + value);
+			return assign<T>(db.ExecuteQuery("select * from " + tableName + " where " + culumn + " = " + value));
 		}
 
-		public void Insert(Dictionary<string, object> insertData)
+		public T Save<T>(Dictionary<string, ReactiveProperty<object>> saveData) where T : BaseMasterModel, IDataModel, new()
 		{
-			foreach (var record in insertData) {
-				db.ExecuteQuery("insert into" + tableName + "values("+record.Key+", "+record.Value+")");
+			if((string)saveData["id"].Value == "")
+			{
+				return Insert<T>(saveData);
 			}
+			else
+			{
+				return Update<T>(saveData);
+			}
+		}
+
+		public T Insert<T>(Dictionary<string, ReactiveProperty<object>> insertData) where T : BaseMasterModel, IDataModel, new()
+		{
+			string culumnsString = "";
+			string valuesString = "";
+			foreach (var record in insertData) {
+				culumnsString += ", " + record.Key;
+				valuesString += ", " + record.Value;
+			}
+			return assign<T>(db.ExecuteQuery("insert into " + tableName + "(" + culumnsString.Remove(0, 1) + ") values("+ valuesString.Remove(0, 1) +")"))[0];
+		}
+
+		public T Update<T>(Dictionary<string, ReactiveProperty<object>> insertData) where T : BaseMasterModel, IDataModel, new()
+		{
+			string setString = "";
+			foreach (var record in insertData) {
+				setString += ", " + record.Key + " = " + (string)record.Value.Value;
+			}
+			return assign<T>(db.ExecuteQuery("update " + tableName + " set " + setString.Remove(0, 1) + " where id = " + (string)insertData["id"].Value))[0];
+		}
+
+		public void Delete(Dictionary<string, ReactiveProperty<object>> deleteData)
+		{
+			db.ExecuteQuery("delete from " + tableName + " where id = " + deleteData["id"].Value);
 		}
 
 	}

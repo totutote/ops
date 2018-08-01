@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Zenject;
+using UniRx;
 using OPS.Model;
 
 namespace OPS.Presenter
@@ -19,6 +20,7 @@ namespace OPS.Presenter
 		void Start()
 		{
 			var options = masterOptionService.Regist(UserMaterialOption.AllOptions());
+			UserMaterialOption.subject.Subscribe(msg => Debug.Log("Subscribe1:" + msg));
 			foreach (var option in options) {
 				var culumn = Instantiate(Culumn);
 				culumn.SetActive(true);
