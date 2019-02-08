@@ -1,18 +1,17 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using UniRx;
 
 namespace OPS.Model
 {
 
-	public abstract class BaseSqliteModel<T>
-	{
-        public abstract string DbName {get;}
+    public abstract class BaseSqliteModel<T>
+    {
+        public abstract string DbName { get; }
 
-        public abstract string TableName {get;}
+        public abstract string TableName { get; }
 
-		public ReactiveDictionary<int, T> cacheRecords = new ReactiveDictionary<int, T>();
+        // TODO: publicにせずにメソッドを介して状態を通知する
+        public ReactiveDictionary<int, T> cacheRecords = new ReactiveDictionary<int, T>();
 
         protected DatabaseConnection db = null;
 
@@ -23,16 +22,16 @@ namespace OPS.Model
 
         public Dictionary<int, T> Regist(Dictionary<int, T> records)
         {
-			var refRecords = new Dictionary<int, T>();
-			foreach (var record in records)
-			{
-				if(!cacheRecords.ContainsKey(record.Key))
-				{
-					cacheRecords[record.Key] = record.Value;
-				}
-				refRecords[record.Key] = cacheRecords[record.Key];
-			}
-			return refRecords;
+            var refRecords = new Dictionary<int, T>();
+            foreach (var record in records)
+            {
+                if (!cacheRecords.ContainsKey(record.Key))
+                {
+                    cacheRecords[record.Key] = record.Value;
+                }
+                refRecords[record.Key] = cacheRecords[record.Key];
+            }
+            return refRecords;
         }
 
         Dictionary<int, T> ConvertDataTable(DataTable dataTable)
@@ -50,20 +49,20 @@ namespace OPS.Model
 
         protected abstract DataRow Model2DataRow(T model);
 
-		public Dictionary<int, T> All()
-		{
-			return ConvertDataTable(db.All());
-		}
+        public Dictionary<int, T> All()
+        {
+            return ConvertDataTable(db.All());
+        }
 
-		public Dictionary<int, T> Id(int id)
-		{
-			return ConvertDataTable(db.Id(id));
-		}
+        public Dictionary<int, T> Id(int id)
+        {
+            return ConvertDataTable(db.Id(id));
+        }
 
-		public Dictionary<int, T> Where(string culumn, string value)
-		{
-			return ConvertDataTable(db.Where(culumn, value));
-		}
+        public Dictionary<int, T> Where(string culumn, string value)
+        {
+            return ConvertDataTable(db.Where(culumn, value));
+        }
     }
 
 }

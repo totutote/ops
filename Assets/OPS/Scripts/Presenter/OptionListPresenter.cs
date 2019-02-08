@@ -7,23 +7,24 @@ namespace OPS.Presenter
 {
 
     public class OptionListPresenter : MonoBehaviour
-	{
-		public GameObject Culumn;
+    {
+        public GameObject Culumn;
 
-		[Inject]
-		MasterOptionDB masterOptionDB;
+        [Inject]
+        MasterOptionDB masterOptionDB;
 
-		void Start()
-		{
-			var options = masterOptionDB.All();
-			foreach (var option in options) {
-				var culumn = Instantiate(Culumn);
-				culumn.SetActive(true);
-				var culumnText = culumn.transform.Find("Text").GetComponent<TextMeshProUGUI>();
-				culumnText.text = option.Value.name.Value;
-				culumn.transform.SetParent(Culumn.transform.parent, false);
-			}
-		}
-	}
+        void Start()
+        {
+            var options = masterOptionDB.All();
+            foreach (var option in options)
+            {
+                var culumn = Instantiate(Culumn);
+                culumn.SetActive(true);
+                var culumnText = culumn.transform.Find("Text").GetComponent<TextMeshProUGUI>();
+                culumnText.text = option.Value.name.Value;
+                culumn.transform.SetParent(Culumn.transform.parent, false);
+            }
+        }
+    }
 
 }
