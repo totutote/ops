@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UniRx;
 
 namespace OPS.Model
 {
@@ -24,47 +23,34 @@ namespace OPS.Model
 			return db.ExecuteQuery(query);
 		}
 
-		public static Dictionary<int, T> assign<T>(DataTable table) where T : IDataModel, new()
+		public DataTable All()
 		{
-			var list = new Dictionary<int, T>();
-			foreach (var row in table.Rows) {
-				var obj = new T();
-				foreach (var culumn in table.Columns) { 
-					obj.Record.Add((string)culumn, new ReactiveProperty<object>(row[(string)culumn]));
-				}
-				list.Add((int)row["id"], obj);
-			}
-			return list;
+			return db.ExecuteQuery("select * from " + tableName);
 		}
 
-		public Dictionary<int, T> All<T>() where T : BaseMasterModel, IDataModel, new()
+		public DataTable Id(int id)
 		{
-			return assign<T>(db.ExecuteQuery("select * from " + tableName));
+			return db.ExecuteQuery("select * from " + tableName + " where " + " id = " + id);
 		}
 
-		public T Id<T>(int id) where T : BaseMasterModel, IDataModel, new()
+		public DataTable Where(string culumn, string value)
 		{
-			return assign<T>(db.ExecuteQuery("select * from " + tableName + " where " + " id = " + id))[0];
+			return db.ExecuteQuery("select * from " + tableName + " where " + culumn + " = " + value);
 		}
 
-		public Dictionary<int, T> Where<T>(string culumn, string value) where T : BaseMasterModel, IDataModel, new()
+		public DataTable Save(DataRow saveData)
 		{
-			return assign<T>(db.ExecuteQuery("select * from " + tableName + " where " + culumn + " = " + value));
-		}
-
-		public T Save<T>(Dictionary<string, ReactiveProperty<object>> saveData) where T : BaseMasterModel, IDataModel, new()
-		{
-			if((string)saveData["id"].Value == "")
+			if((string)saveData["id"] == "")
 			{
-				return Insert<T>(saveData);
+				return Insert(saveData);
 			}
 			else
 			{
-				return Update<T>(saveData);
+				return Update(saveData);
 			}
 		}
 
-		public T Insert<T>(Dictionary<string, ReactiveProperty<object>> insertData) where T : BaseMasterModel, IDataModel, new()
+		public DataTable Insert(DataRow insertData)
 		{
 			string culumnsString = "";
 			string valuesString = "";
@@ -72,21 +58,21 @@ namespace OPS.Model
 				culumnsString += ", " + record.Key;
 				valuesString += ", " + record.Value;
 			}
-			return assign<T>(db.ExecuteQuery("insert into " + tableName + "(" + culumnsString.Remove(0, 1) + ") values("+ valuesString.Remove(0, 1) +")"))[0];
+			return db.ExecuteQuery("insert into " + tableName + "(" + culumnsString.Remove(0, 1) + ") values("+ valuesString.Remove(0, 1) +")");
 		}
 
-		public T Update<T>(Dictionary<string, ReactiveProperty<object>> insertData) where T : BaseMasterModel, IDataModel, new()
+		public DataTable Update(DataRow updateData)
 		{
 			string setString = "";
-			foreach (var record in insertData) {
-				setString += ", " + record.Key + " = " + (string)record.Value.Value;
+			foreach (var record in updateData) {
+				setString += ", " + record.Key + " = " + record.Value;
 			}
-			return assign<T>(db.ExecuteQuery("update " + tableName + " set " + setString.Remove(0, 1) + " where id = " + (string)insertData["id"].Value))[0];
+			return db.ExecuteQuery("update " + tableName + " set " + setString.Remove(0, 1) + " where id = " + (string)updateData["id"]);
 		}
 
-		public void Delete(Dictionary<string, ReactiveProperty<object>> deleteData)
+		public void Delete(Dictionary<string, object> deleteData)
 		{
-			db.ExecuteQuery("delete from " + tableName + " where id = " + deleteData["id"].Value);
+			db.ExecuteQuery("delete from " + tableName + " where id = " + deleteData["id"]);
 		}
 
 	}

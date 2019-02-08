@@ -15,17 +15,17 @@ namespace OPS.Presenter
 		public GameObject Culumn;
 
 		[Inject]
-		ModelService<UserMaterialOption> masterOptionService;
+		UserMaterialOptionDB userMaterialOptionDB;
 
 		void Start()
 		{
-			var options = masterOptionService.Regist(UserMaterialOption.AllOptions());
-			UserMaterialOption.subject.Subscribe(msg => Debug.Log("Subscribe1:" + msg));
+			var options = userMaterialOptionDB.All();
+			userMaterialOptionDB.cacheRecords.ObserveEveryValueChanged(x => x.Count).Subscribe(msg => Debug.Log("Subscribe1:" + msg));
 			foreach (var option in options) {
 				var culumn = Instantiate(Culumn);
 				culumn.SetActive(true);
 				var culumnText = culumn.transform.Find("Text").GetComponent<TextMeshProUGUI>();
-				culumnText.text = (string)option.Value.Record["name"].Value;
+				culumnText.text = option.Value.name.Value;
 				culumn.transform.SetParent(Culumn.transform.parent, false);
 			}
 		}

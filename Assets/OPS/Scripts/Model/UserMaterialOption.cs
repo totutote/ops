@@ -6,48 +6,33 @@ using UniRx;
 namespace OPS.Model
 {
 
-	public class UserMaterialOption : BaseMasterModel, IDataModel
+	public class UserMaterialOptionDB : BaseSqliteModel<UserMaterialOptionModel>
 	{
-		const string dbName = "user.sqlite3";
-		const string tableName = "user_material";
+		public override string DbName {get{return "user.sqlite3";}}
 
-		public Dictionary<string, ReactiveProperty<object>> Record {get {return record;}}
-		Dictionary<string, ReactiveProperty<object>> record = new Dictionary<string, ReactiveProperty<object>>();
+		public override string TableName {get{return "user_material";}}
 
-		static DatabaseConnection db = null;
-
-		public static Subject<string> subject = new Subject<string>();
-
-		static DatabaseConnection GetDatabase()
+       protected override UserMaterialOptionModel DataRow2Model(DataRow DataRow)
 		{
-			if (db == null) {
-				db = new DatabaseConnection(dbName, tableName);
-			}
-			return db;
+			var model = new UserMaterialOptionModel();
+			model.id.Value = (int)DataRow["id"];
+			model.name.Value = (string)DataRow["name"];
+			return model;
 		}
 
-		public static UserMaterialOption Option(int id)
+		protected override DataRow Model2DataRow(UserMaterialOptionModel model)
 		{
-			return GetDatabase().Id<UserMaterialOption>(id);
+			var dataRow = new DataRow();
+			dataRow["id"] = model.id;
+			dataRow["name"] = model.name;
+			return dataRow;
 		}
+	}
 
-		public static Dictionary<int, UserMaterialOption> AllOptions()
-		{
-			return GetDatabase().All<UserMaterialOption>();
-		}
-
-		public void Save()
-		{
-			var saveData = GetDatabase().Save<UserMaterialOption>(record);
-			record["id"].Value = saveData.Record["id"].Value;
-			subject.OnNext("Save");
-		}
-
-        public void Delete()
-		{
-			GetDatabase().Delete(record);
-			subject.OnNext("Delete");
-		}
+	public class UserMaterialOptionModel
+	{
+		public IntReactiveProperty id = new IntReactiveProperty();
+		public StringReactiveProperty name = new StringReactiveProperty();
 
 	}
 

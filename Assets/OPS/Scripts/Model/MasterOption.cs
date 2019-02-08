@@ -6,33 +6,33 @@ using UniRx;
 namespace OPS.Model
 {
 
-	public class MasterOption : BaseMasterModel, IDataModel
+	public class MasterOptionDB : BaseSqliteModel<MasterOptionModel>
 	{
-		const string dbName = "master.sqlite3";
-		const string tableName = "master_options";
+		public override string DbName {get{return "master.sqlite3";}}
 
-		public Dictionary<string, ReactiveProperty<object>> Record {get {return record;}}
-		Dictionary<string, ReactiveProperty<object>> record = new Dictionary<string, ReactiveProperty<object>>();
+		public override string TableName {get{return "master_options";}}
 
-		static DatabaseConnection db = null;
-
-		static DatabaseConnection GetDatabase()
+        protected override MasterOptionModel DataRow2Model(DataRow DataRow)
 		{
-			if (db == null) {
-				db = new DatabaseConnection(dbName, tableName);
-			}
-			return db;
+			var model = new MasterOptionModel();
+			model.id.Value = (int)DataRow["id"];
+			model.name.Value = (string)DataRow["name"];
+			return model;
 		}
 
-		public static MasterOption Option(int id)
+		protected override DataRow Model2DataRow(MasterOptionModel model)
 		{
-			return GetDatabase().Id<MasterOption>(id);
+			var dataRow = new DataRow();
+			dataRow["id"] = model.id;
+			dataRow["name"] = model.name;
+			return dataRow;
 		}
+	}
 
-		public static Dictionary<int, MasterOption> AllOptions()
-		{
-			return GetDatabase().All<MasterOption>();
-		}
+	public class MasterOptionModel
+	{
+		public IntReactiveProperty id = new IntReactiveProperty();
+		public StringReactiveProperty name = new StringReactiveProperty();
 	}
 
 }
