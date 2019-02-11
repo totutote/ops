@@ -9,8 +9,6 @@ namespace OPS.Presenter
 
 	public class MaterailOptionListButtonPresenter : MonoBehaviour
 	{
-		public MaterailOptionListPresenter materailOptionListView;
-
 		public Text culumnText;
 
 		int MaterialOptionId {get;set;}

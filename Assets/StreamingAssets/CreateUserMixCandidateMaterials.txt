@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS user_mix_candidate_materials;
+CREATE TABLE `user_mix_candidate_materials` (
+	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
+	`user_mix_id`	INTEGER,
+	`user_materials_group_id`	INTEGER
+);
+.separator ,

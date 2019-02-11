@@ -7,6 +7,7 @@ public class ModelServiceInstaller : MonoInstaller<ModelServiceInstaller>
     public override void InstallBindings()
     {
         Container.Bind<MasterOptionDB>().AsSingle();
-        Container.Bind<UserMaterialOptionDB>().AsSingle();
+        Container.Bind<UserMaterialDB>().AsSingle();
+        Container.Bind<UserMixDB>().AsSingle();
     }
 }

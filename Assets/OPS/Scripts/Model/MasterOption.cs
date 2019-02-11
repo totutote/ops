@@ -20,8 +20,8 @@ namespace OPS.Model
         protected override DataRow Model2DataRow(MasterOptionModel model)
         {
             var dataRow = new DataRow();
-            dataRow["id"] = model.id;
-            dataRow["name"] = model.name;
+            dataRow["id"] = model.id.Value;
+            dataRow["name"] = model.name.Value;
             return dataRow;
         }
     }

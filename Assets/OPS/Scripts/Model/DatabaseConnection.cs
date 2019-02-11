@@ -5,76 +5,87 @@ using UnityEngine;
 namespace OPS.Model
 {
 
-	public class DatabaseConnection
-	{
-		string dbName;
-		string tableName;
-		SqliteDatabase db = null;
+    public class DatabaseConnection
+    {
+        string dbName;
+        string tableName;
+        SqliteDatabase db = null;
 
-		public DatabaseConnection(string pdbName, string ptableName)
-		{
-			dbName = pdbName;
-			tableName = ptableName;
-			db = new SqliteDatabase(dbName);
-		}
-		
-		public DataTable Query(string query)
-		{
-			return db.ExecuteQuery(query);
-		}
+        public DatabaseConnection(string pdbName, string ptableName)
+        {
+            dbName = pdbName;
+            tableName = ptableName;
+            db = new SqliteDatabase(dbName);
+        }
 
-		public DataTable All()
-		{
-			return db.ExecuteQuery("select * from " + tableName);
-		}
+        public DataTable Query(string query)
+        {
+            return db.ExecuteQuery(query);
+        }
 
-		public DataTable Id(int id)
-		{
-			return db.ExecuteQuery("select * from " + tableName + " where " + " id = " + id);
-		}
+        public DataTable All()
+        {
+            return db.ExecuteQuery("select * from " + tableName);
+        }
 
-		public DataTable Where(string culumn, string value)
-		{
-			return db.ExecuteQuery("select * from " + tableName + " where " + culumn + " = " + value);
-		}
+        public DataTable Id(int id)
+        {
+            return db.ExecuteQuery("select * from " + tableName + " where " + " id = " + id);
+        }
 
-		public DataTable Save(DataRow saveData)
-		{
-			if((string)saveData["id"] == "")
-			{
-				return Insert(saveData);
-			}
-			else
-			{
-				return Update(saveData);
-			}
-		}
+        public DataTable Where(string culumn, string value)
+        {
+            return db.ExecuteQuery("select * from " + tableName + " where " + culumn + " = " + value);
+        }
 
-		public DataTable Insert(DataRow insertData)
-		{
-			string culumnsString = "";
-			string valuesString = "";
-			foreach (var record in insertData) {
-				culumnsString += ", " + record.Key;
-				valuesString += ", " + record.Value;
-			}
-			return db.ExecuteQuery("insert into " + tableName + "(" + culumnsString.Remove(0, 1) + ") values("+ valuesString.Remove(0, 1) +")");
-		}
+        public DataTable Save(DataRow saveData)
+        {
+            if ((int)saveData["id"] == 0)
+            {
+                return Insert(saveData);
+            }
+            else
+            {
+                return Update(saveData);
+            }
+        }
 
-		public DataTable Update(DataRow updateData)
-		{
-			string setString = "";
-			foreach (var record in updateData) {
-				setString += ", " + record.Key + " = " + record.Value;
-			}
-			return db.ExecuteQuery("update " + tableName + " set " + setString.Remove(0, 1) + " where id = " + (string)updateData["id"]);
-		}
+        public DataTable Insert(DataRow insertData)
+        {
+            string culumnsString = "";
+            string valuesString = "";
+            foreach (var record in insertData)
+            {
+				if (record.Key == "id") continue;
+                culumnsString += ", " + record.Key;
+                if (record.Value.GetType() == typeof(int))
+                {
+                    valuesString += ", " + record.Value;
+                }
+                else if (record.Value.GetType() == typeof(string))
+                {
+                    valuesString += ", " + "'" + record.Value + "'";
+                }
+            }
+            db.ExecuteQuery("insert into " + tableName + "(" + culumnsString.Remove(0, 1) + ") values(" + valuesString.Remove(0, 1) + ")");
+			return db.ExecuteQuery("select * from " + tableName + " order by id DESC LIMIT 1;");
+        }
 
-		public void Delete(Dictionary<string, object> deleteData)
-		{
-			db.ExecuteQuery("delete from " + tableName + " where id = " + deleteData["id"]);
-		}
+        public DataTable Update(DataRow updateData)
+        {
+            string setString = "";
+            foreach (var record in updateData)
+            {
+                setString += ", " + record.Key + " = " + record.Value;
+            }
+            return db.ExecuteQuery("update " + tableName + " set " + setString.Remove(0, 1) + " where id = " + (string)updateData["id"]);
+        }
 
-	}
+        public void Delete(Dictionary<string, object> deleteData)
+        {
+            db.ExecuteQuery("delete from " + tableName + " where id = " + deleteData["id"]);
+        }
+
+    }
 
 }

@@ -4,7 +4,7 @@ using UniRx;
 namespace OPS.Model
 {
 
-    public abstract class BaseSqliteModel<T>
+    public abstract class BaseSqliteModel<T> where T : new()
     {
         public abstract string DbName { get; }
 
@@ -62,6 +62,18 @@ namespace OPS.Model
         public Dictionary<int, T> Where(string culumn, string value)
         {
             return ConvertDataTable(db.Where(culumn, value));
+        }
+
+        public T New()
+        {
+            return new T();
+        }
+
+        public Dictionary<int, T> Save(T saveModel)
+        {
+            DataRow saveDataRow = Model2DataRow(saveModel);
+            DataTable savedDataTable = db.Save(saveDataRow);
+            return ConvertDataTable(savedDataTable);
         }
     }
 
