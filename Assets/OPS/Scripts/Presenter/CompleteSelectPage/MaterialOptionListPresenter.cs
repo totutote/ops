@@ -7,7 +7,7 @@ using OPS.Model;
 namespace OPS.Presenter
 {
 
-    public class MaterailOptionListPresenter : MonoBehaviour
+    public class MaterialOptionListPresenter : MonoBehaviour
     {
         public GameObject Culumn;
 

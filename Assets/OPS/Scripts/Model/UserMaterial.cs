@@ -22,10 +22,10 @@ namespace OPS.Model
         protected override DataRow Model2DataRow(UserMaterialModel model)
         {
             var dataRow = new DataRow();
-            dataRow["id"] = model.id;
-            dataRow["group_id"] = model.group_id;
-            dataRow["option_type"] = model.option_type;
-            dataRow["master_option_id"] = model.master_option_id;
+            dataRow["id"] = model.id.Value;
+            dataRow["group_id"] = model.group_id.Value;
+            dataRow["option_type"] = model.option_type.Value;
+            dataRow["master_option_id"] = model.master_option_id.Value;
             return dataRow;
         }
     }

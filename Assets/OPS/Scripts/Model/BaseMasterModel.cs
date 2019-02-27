@@ -39,7 +39,7 @@ namespace OPS.Model
             var records = new Dictionary<int, T>();
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                records[i] = DataRow2Model(dataTable[i]);
+                records[(int)dataTable[i]["id"]] = DataRow2Model(dataTable[i]);
             }
             var cachedRecords = Regist(records);
             return cachedRecords;

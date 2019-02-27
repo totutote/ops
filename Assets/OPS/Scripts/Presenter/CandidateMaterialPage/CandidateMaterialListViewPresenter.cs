@@ -2,13 +2,14 @@ using UnityEngine;
 using OPS.Model;
 using TMPro;
 using Zenject;
+using System.Linq;
 
 namespace OPS.Presenter
 {
 
     public class CandidateMaterialListViewPresenter : MonoBehaviour
     {
-        public GameObject Culumn;
+        public TMP_InputField nameInput;
 
         [Inject]
         UserMixDB UserMixDB;
@@ -22,10 +23,9 @@ namespace OPS.Presenter
         {
             var newUserMix = UserMixDB.New();
             Debug.Log(newUserMix);
-            newUserMix.name.Value = "testModel2";
+            newUserMix.name.Value = "合成名";
             var saveUserMix = UserMixDB.Save(newUserMix);
-            Debug.Log("id" + saveUserMix[0].id.Value);
-            Debug.Log("name" + saveUserMix[0].name.Value);
+            nameInput.text =  saveUserMix.Values.First().name.Value;
         }
 
         void Setup(int userMixId)
