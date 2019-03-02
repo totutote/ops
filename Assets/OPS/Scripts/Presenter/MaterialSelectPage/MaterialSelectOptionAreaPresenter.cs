@@ -7,7 +7,7 @@ using TMPro;
 namespace OPS.Presenter
 {
 
-	public class MaterailOptionListButtonPresenter : MonoBehaviour
+	public class MaterialSelectOptionAreaPresenter : MonoBehaviour
 	{
 		public Text culumnText;
 

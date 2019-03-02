@@ -7,7 +7,7 @@ using System.Linq;
 namespace OPS.Presenter
 {
 
-    public class CandidateMaterialListViewPresenter : MonoBehaviour
+    public class MaterialSelectMaterialListPresenter : MonoBehaviour
     {
         public TMP_InputField nameInput;
 

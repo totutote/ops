@@ -5,9 +5,9 @@ using Zenject;
 
 namespace OPS.Presenter
 {
-    public class MixMaterialListViewPresenter : MonoBehaviour
+    public class MaterialSelectOptionListPresenter : MonoBehaviour
     {
-        public MaterialOptionListPresenter row;
+        public MaterialSelectOptionAreaPresenter row;
 
         [Inject]
         UserMixCandidateMaterialDB userMixCandidateMaterialDB;
