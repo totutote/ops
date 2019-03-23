@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS master_option_categories;
+CREATE TABLE master_option_categories (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT DEFAULT NULL -- ソール系ファクター系など共存できないカテゴリ毎の名前
+);
+.separator ,

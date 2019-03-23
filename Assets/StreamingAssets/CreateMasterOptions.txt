@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS master_options;
 CREATE TABLE master_options (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT DEFAULT NULL
+    name TEXT DEFAULT NULL, -- アストラル・ソール、デウス・ファクターなど一つの特殊能力の名前
+    category_id INTEGER
 );
 .separator ,

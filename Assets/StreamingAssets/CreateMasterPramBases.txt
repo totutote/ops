@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS master_option_bases;
+CREATE TABLE master_option_bases (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT DEFAULT NULL -- パワー、シュートなど（システムでパワーⅢなどのテキストを合成表示したりできない）
+);
+.separator ,

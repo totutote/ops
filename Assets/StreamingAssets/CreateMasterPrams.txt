@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS master_option_params;
+CREATE TABLE master_option_params (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    option_id INTEGER, -- master_optionsへの参照（同一オプションということを示すためのID）
+    base_id INTEGER, -- master_option_basesへの参照
+    value INTEGER -- パワーⅢなら30などの数値
+);
+.separator ,
