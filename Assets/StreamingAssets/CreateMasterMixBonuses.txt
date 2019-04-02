@@ -1,0 +1,7 @@
+﻿DROP TABLE IF EXISTS master_mix_bonuses;
+CREATE TABLE master_mix_bonuses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    master_mix_id INTEGER, -- 
+    rate INTEGER
+);
+.separator ,

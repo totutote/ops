@@ -1,0 +1,9 @@
+﻿DROP TABLE IF EXISTS master_mix_chains;
+CREATE TABLE master_mix_chains (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    create_option_id INTEGER DEFAULT NULL, -- 継承後、合成後の特殊能力
+    material_option_id INTEGER, -- 素材特殊能力
+    over_mix_id INTEGER DEFAULT NULL, -- 複数の素材を表現するために指定（原則ボーナス系の素材はmix_bonusesテーブルに記入）
+    rate FLOAT -- 継承合成確率
+);
+.separator ,
