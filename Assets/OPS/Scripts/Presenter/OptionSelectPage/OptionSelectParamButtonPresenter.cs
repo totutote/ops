@@ -9,12 +9,12 @@ namespace OPS.Presenter
         [SerializeField]
         TextMeshProUGUI _optionText;
 
-        MasterOptionParamModel _model;
+        MasterOptionModel _model;
 
-        public void SetModel(MasterOptionParamModel model)
+        public void SetModel(MasterOptionModel model)
         {
             _model = model;
-            _optionText.text = model.MasterOptionModel.name.Value;
+            _optionText.text = _model.name.Value;
         }
     }
 }

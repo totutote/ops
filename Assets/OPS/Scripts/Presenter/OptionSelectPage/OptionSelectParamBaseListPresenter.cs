@@ -13,7 +13,7 @@ namespace OPS.Presenter
         OptionSelectOptionGroupButtonPresenter baseOptionButton;
 
         [Inject]
-        MasterOptionParamBaseDB masterOptionParamBaseDB;
+        MasterOptionCategoryDB masterOptionCategoryDB;
 
         void Start()
         {
@@ -22,12 +22,12 @@ namespace OPS.Presenter
 
         void Setup()
         {
-            var masterOptionParamBaseDic = masterOptionParamBaseDB.All();
-            foreach (var paramBase in masterOptionParamBaseDic)
+            var masterOptionCategoryDic = masterOptionCategoryDB.All();
+            foreach (var optionCategory in masterOptionCategoryDic)
             {
                 var cpyBaseOptionButton = Instantiate(baseOptionButton);
                 cpyBaseOptionButton.transform.SetParent(transform, false);
-                cpyBaseOptionButton.SetModel(paramBase.Value);
+                cpyBaseOptionButton.SetModel(optionCategory.Value);
             }
         }
 

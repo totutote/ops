@@ -1,4 +1,6 @@
-﻿using UniRx;
+﻿using System.Linq;
+using UniRx;
+using Zenject;
 
 namespace OPS.Model
 {
@@ -9,9 +11,17 @@ namespace OPS.Model
 
         public override string TableName { get { return "master_options"; } }
 
+        public MasterOptionCategoryDB _masterOptionCategoryDB;
+
+        public MasterOptionDB(MasterOptionCategoryDB masterOptionCategoryDB)
+        {
+            _masterOptionCategoryDB = masterOptionCategoryDB;
+        }
+
         protected override MasterOptionModel DataRow2Model(DataRow DataRow)
         {
             var model = new MasterOptionModel();
+            model.SetDB(this);
             model.id.Value = (int)DataRow["id"];
             model.name.Value = (string)DataRow["name"];
             model.category_id.Value = (int)DataRow["category_id"];
@@ -26,13 +36,29 @@ namespace OPS.Model
             dataRow["category_id"] = model.category_id.Value;
             return dataRow;
         }
+
+        public class Factory : PlaceholderFactory<MasterOptionDB>
+        {
+        }
     }
 
     public class MasterOptionModel
     {
+        MasterOptionDB _masterOptionDB;
+
+        public void SetDB(MasterOptionDB masterOptionDB)
+        {
+            _masterOptionDB = masterOptionDB;
+        }
+
         public IntReactiveProperty id = new IntReactiveProperty();
         public StringReactiveProperty name = new StringReactiveProperty();
         public IntReactiveProperty category_id = new IntReactiveProperty();
+
+        public MasterOptionCategoryModel MasterOptionCategoryModel
+        {
+            get { return _masterOptionDB._masterOptionCategoryDB.Where("id", category_id.Value.ToString()).First().Value; }
+        }
     }
 
 }

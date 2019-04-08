@@ -10,14 +10,14 @@ namespace OPS.Model
         public override string DbName { get { return "master.sqlite3"; } }
 
         public override string TableName { get { return "master_option_params"; } }
-
+/*
         public MasterOptionDB _masterOptionDB;
 
         public MasterOptionParamDB(MasterOptionDB masterOptionDB)
         {
             _masterOptionDB = masterOptionDB;
         }
-
+*/
         protected override MasterOptionParamModel DataRow2Model(DataRow DataRow)
         {
             var model = new MasterOptionParamModel();
@@ -39,9 +39,11 @@ namespace OPS.Model
             return dataRow;
         }
 
+/*
         public class Factory : PlaceholderFactory<MasterOptionParamDB>
         {
         }
+        */
     }
 
     public class MasterOptionParamModel
@@ -53,15 +55,17 @@ namespace OPS.Model
         public IntReactiveProperty base_id = new IntReactiveProperty();
         public IntReactiveProperty value = new IntReactiveProperty();
 
-        public void SetDB(MasterOptionParamDB _masterOptionPramDB)
+        public void SetDB(MasterOptionParamDB _masterOptionParamDB)
         {
-            _masterOptionParamDB = _masterOptionPramDB;
+            //_masterOptionParamDB = _masterOptionParamDB;
         }
 
+/*
         public MasterOptionModel MasterOptionModel
         {
             get { return _masterOptionParamDB._masterOptionDB.Where("id", option_id.Value.ToString()).First().Value; }
         }
+    */
     }
 
 }

@@ -13,7 +13,7 @@ namespace OPS.Presenter
         OptionSelectParamButtonPresenter paramButton;
 
         [Inject]
-        MasterOptionParamDB masterOptionParamDB;
+        MasterOptionDB masterOptionDB;
 
         int _categoryId = 1;
 
@@ -30,7 +30,7 @@ namespace OPS.Presenter
 
         void Setup()
         {
-            var masterOptionParamDic = masterOptionParamDB.Where("base_id", _categoryId.ToString());
+            var masterOptionParamDic = masterOptionDB.Where("category_id", _categoryId.ToString());
             foreach (var param in masterOptionParamDic)
             {
                 var cpyParamButton = Instantiate(paramButton);
