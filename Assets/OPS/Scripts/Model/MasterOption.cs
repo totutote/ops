@@ -14,6 +14,7 @@ namespace OPS.Model
             var model = new MasterOptionModel();
             model.id.Value = (int)DataRow["id"];
             model.name.Value = (string)DataRow["name"];
+            model.category_id.Value = (int)DataRow["category_id"];
             return model;
         }
 
@@ -22,6 +23,7 @@ namespace OPS.Model
             var dataRow = new DataRow();
             dataRow["id"] = model.id.Value;
             dataRow["name"] = model.name.Value;
+            dataRow["category_id"] = model.category_id.Value;
             return dataRow;
         }
     }
@@ -30,6 +32,7 @@ namespace OPS.Model
     {
         public IntReactiveProperty id = new IntReactiveProperty();
         public StringReactiveProperty name = new StringReactiveProperty();
+        public IntReactiveProperty category_id = new IntReactiveProperty();
     }
 
 }
