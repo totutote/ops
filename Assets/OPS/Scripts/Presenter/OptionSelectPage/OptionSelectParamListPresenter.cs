@@ -17,12 +17,6 @@ namespace OPS.Presenter
 
         int _categoryId = 1;
 
-        public int CategoryId
-        {
-            get {return _categoryId;}
-            set {_categoryId = value;}
-        }
-
         void Start()
         {
             Setup();
@@ -39,9 +33,19 @@ namespace OPS.Presenter
             }
         }
 
-        void Setup(int userMixId)
+        public void Replace(int categoryId)
         {
+            ListClear();
+            _categoryId = categoryId;
+            Setup();
+        }
 
+        void ListClear()
+        {
+            foreach (Transform child in transform)
+            {
+                GameObject.Destroy(child.gameObject);
+            }
         }
     }
 
