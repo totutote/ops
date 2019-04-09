@@ -11,12 +11,8 @@ namespace OPS.Model
 
         public override string TableName { get { return "master_options"; } }
 
+        [Inject]
         public MasterOptionCategoryDB _masterOptionCategoryDB;
-
-        public MasterOptionDB(MasterOptionCategoryDB masterOptionCategoryDB)
-        {
-            _masterOptionCategoryDB = masterOptionCategoryDB;
-        }
 
         protected override MasterOptionModel DataRow2Model(DataRow DataRow)
         {

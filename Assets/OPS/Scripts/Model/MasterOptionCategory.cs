@@ -11,14 +11,9 @@ namespace OPS.Model
 
         public override string TableName { get { return "master_option_categories"; } }
 
+        [Inject]
         public MasterOptionDB _masterOptionDB;
 
-/*
-        public MasterOptionCategoryDB(MasterOptionDB masterOptionDB)
-        {
-            _masterOptionDB = masterOptionDB;
-        }
-*/
         protected override MasterOptionCategoryModel DataRow2Model(DataRow DataRow)
         {
             var model = new MasterOptionCategoryModel();
@@ -35,11 +30,11 @@ namespace OPS.Model
             dataRow["name"] = model.name.Value;
             return dataRow;
         }
-/*
+
         public class Factory : PlaceholderFactory<MasterOptionCategoryDB>
         {
         }
-*/
+
     }
 
     public class MasterOptionCategoryModel
