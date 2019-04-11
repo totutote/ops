@@ -6,7 +6,6 @@ namespace OPS.Presenter
 {
     public class OptionSelectParamButtonPresenter : MonoBehaviour
     {
-        [SerializeField]
         OptionSelectPagePresenter _optionSelectPagePresenter;
 
         [SerializeField]

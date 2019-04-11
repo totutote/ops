@@ -15,8 +15,6 @@ namespace OPS.Presenter
         [SerializeField]
         MaterialSelectOptionListPresenter _optionListPresenter;
 
-		int MaterialOptionId {get;set;}
-
 		public void OnClick()
 		{
             _optionSelectPage.OnActive(_optionListPresenter);
