@@ -11,14 +11,14 @@ namespace OPS.Presenter
         MaterialSelectOptionAreaPresenter _row;
 
         [Inject]
-        UserMixCandidateMaterialDB userMixCandidateMaterialDB;
+        UserMixCandidateMaterialDB _userMixCandidateMaterialDB;
 
         [SerializeField]
         GameObject _addRowGameobject;
 
         void Start()
         {
-            var newUserMixCandidate = userMixCandidateMaterialDB.New();
+            var newUserMixCandidate = _userMixCandidateMaterialDB.New();
         }
 
         public void AddNewOption(MasterOptionModel masterOptionModel)
@@ -26,6 +26,11 @@ namespace OPS.Presenter
             var rowCpy = GameObject.Instantiate(_row);
             rowCpy.SetOption(masterOptionModel);
             rowCpy.transform.SetParent(_addRowGameobject.transform, false);
+        }
+
+        
+        public class Factory : PlaceholderFactory<MaterialSelectOptionListPresenter>
+        {
         }
 
     }

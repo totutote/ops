@@ -10,6 +10,9 @@ namespace OPS.Presenter
     public class OptionSelectParamListPresenter : MonoBehaviour
     {
         [SerializeField]
+        OptionSelectPagePresenter _pagePresenter;
+
+        [SerializeField]
         OptionSelectParamButtonPresenter paramButton;
 
         [Inject]
@@ -29,6 +32,7 @@ namespace OPS.Presenter
             {
                 var cpyParamButton = Instantiate(paramButton);
                 cpyParamButton.transform.SetParent(transform, false);
+                cpyParamButton.SetPagePresenter(_pagePresenter);
                 cpyParamButton.SetModel(param.Value);
             }
         }

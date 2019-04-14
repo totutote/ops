@@ -6,12 +6,17 @@ namespace OPS.Presenter
 {
     public class OptionSelectParamButtonPresenter : MonoBehaviour
     {
-        OptionSelectPagePresenter _optionSelectPagePresenter;
+        OptionSelectPagePresenter _pagePresenter;
 
         [SerializeField]
         TextMeshProUGUI _optionText;
 
         MasterOptionModel _model;
+
+        public void SetPagePresenter(OptionSelectPagePresenter pagePresenter)
+        {
+            _pagePresenter = pagePresenter;
+        }
 
         public void SetModel(MasterOptionModel model)
         {
@@ -21,7 +26,7 @@ namespace OPS.Presenter
 
         public void OnSelectOption()
         {
-            _optionSelectPagePresenter.OnSelectOption(_model);            
+            _pagePresenter.OnSelectOption(_model);            
         }
     }
 }

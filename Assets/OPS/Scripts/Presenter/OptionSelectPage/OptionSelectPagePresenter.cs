@@ -1,26 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using OPS.Model;
+using Zenject;
 
 namespace OPS.Presenter
 {
 
-	public class OptionSelectPagePresenter : MonoBehaviour
+    public class OptionSelectPagePresenter : MonoBehaviour
 	{
-        MaterialSelectOptionListPresenter _materialSelectOptionListPresenter;
+        public delegate void DelegateSelectOption(MasterOptionModel masterOptionModel);
 
-        public void OnActive(MaterialSelectOptionListPresenter materialSelectOptionListPresenter)
+        event DelegateSelectOption _onSelectOption;
+
+        public void OnActive(DelegateSelectOption delegateSelectOption)
         {
-            _materialSelectOptionListPresenter = materialSelectOptionListPresenter;
+            _onSelectOption = delegateSelectOption;
         }
 
         public void OnSelectOption(MasterOptionModel masterOptionModel)
         {
-            _materialSelectOptionListPresenter.AddNewOption(masterOptionModel);
+            if (_onSelectOption == null) return;
+            _onSelectOption(masterOptionModel);
+            _onSelectOption = null;
         }
+
+
+        public class Factory : PlaceholderFactory<OptionSelectPagePresenter>
+        {
+        }
+
+
 	}
 
 }
