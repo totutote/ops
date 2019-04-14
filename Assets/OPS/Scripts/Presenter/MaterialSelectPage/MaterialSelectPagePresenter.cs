@@ -22,6 +22,8 @@ namespace OPS.Presenter
             Debug.Log(newUserMix);
             newUserMix.name.Value = "合成名";
             var _userMixModel = UserMixDB.Save(newUserMix).Values.First();
+            _userMixModel.name.Value +=  _userMixModel.id.Value;
+            UserMixDB.Save(_userMixModel);
             nameInput.text = _userMixModel.name.Value;
         }
 

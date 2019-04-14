@@ -56,7 +56,7 @@ namespace OPS.Model
             string valuesString = "";
             foreach (var record in insertData)
             {
-				if (record.Key == "id") continue;
+                if (record.Key == "id") continue;
                 culumnsString += ", " + record.Key;
                 if (record.Value.GetType() == typeof(int))
                 {
@@ -68,7 +68,7 @@ namespace OPS.Model
                 }
             }
             db.ExecuteQuery("insert into " + tableName + "(" + culumnsString.Remove(0, 1) + ") values(" + valuesString.Remove(0, 1) + ")");
-			return db.ExecuteQuery("select * from " + tableName + " order by id DESC LIMIT 1;");
+            return db.ExecuteQuery("select * from " + tableName + " order by id DESC LIMIT 1;");
         }
 
         public DataTable Update(DataRow updateData)
@@ -76,9 +76,10 @@ namespace OPS.Model
             string setString = "";
             foreach (var record in updateData)
             {
-                setString += ", " + record.Key + " = " + record.Value;
+                if (record.Value.GetType() == typeof(int)) setString += ", " + record.Key + " = " + record.Value;
+                if (record.Value.GetType() == typeof(string)) setString += ", " + record.Key + " = \"" + record.Value + "\"";
             }
-            return db.ExecuteQuery("update " + tableName + " set " + setString.Remove(0, 1) + " where id = " + (string)updateData["id"]);
+            return db.ExecuteQuery("update " + tableName + " set " + setString.Remove(0, 1) + " where id = " + updateData["id"]);
         }
 
         public void Delete(Dictionary<string, object> deleteData)
