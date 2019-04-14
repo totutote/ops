@@ -14,18 +14,22 @@ namespace OPS.Presenter
         [Inject]
         UserMixDB UserMixDB;
 
+        UserMixModel _userMixModel;
+
         public void Setup()
         {
             var newUserMix = UserMixDB.New();
             Debug.Log(newUserMix);
             newUserMix.name.Value = "合成名";
-            var saveUserMix = UserMixDB.Save(newUserMix);
-            nameInput.text = saveUserMix.Values.First().name.Value;
+            var _userMixModel = UserMixDB.Save(newUserMix).Values.First();
+            nameInput.text = _userMixModel.name.Value;
         }
 
-        void Setup(int userMixId)
+        public void Setup(UserMixModel userMixModel)
         {
-
+            _userMixModel = userMixModel;
+            Debug.Log(_userMixModel);
+            nameInput.text = _userMixModel.name.Value;
         }
 
         public class Factory : PlaceholderFactory<MaterialSelectPagePresenter>

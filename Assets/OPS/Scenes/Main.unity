@@ -305,6 +305,8 @@ MonoBehaviour:
     type: 3}
   _completeSelectPage: {fileID: 1458608248383357760, guid: ef7b44f43953e4346a3aee461bcbb8c9,
     type: 3}
+  _completeSelectListButton: {fileID: 4443582593680195012, guid: 4a63ad6b427a1469381fb7c36aa52cee,
+    type: 3}
   _materialSelectPage: {fileID: 3030546159502202768, guid: 6003e89cd1ce9479ba585fbb76b49e80,
     type: 3}
   _optionSelectPage: {fileID: 7775390899324319316, guid: 4c91c0064c37643fa8c24c91e3300fb7,
