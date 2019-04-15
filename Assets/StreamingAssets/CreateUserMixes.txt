@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS user_mixes;
 CREATE TABLE `user_mixes` (
 	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`name`	TEXT DEFAULT "‡¬ƒOƒ‹[ƒv"
+	`name`	TEXT DEFAULT "åˆæˆå"
 );
 .separator ,
