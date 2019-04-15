@@ -80,6 +80,7 @@ public class SqliteDatabase
 	private bool IsConnectionOpen { get; set; }
 	
 	private string pathDB;
+	private string readDbName;
 	
 	
     #region Public Methods
@@ -92,17 +93,17 @@ public class SqliteDatabase
 	/// </param>
 	public SqliteDatabase (string dbName)
 	{
-		
-		pathDB = System.IO.Path.Combine (Application.persistentDataPath, dbName);
+		readDbName = dbName;
+		pathDB = System.IO.Path.Combine (Application.persistentDataPath, readDbName);
 		//original path
-		string sourcePath = System.IO.Path.Combine (Application.streamingAssetsPath, dbName);
+		string sourcePath = System.IO.Path.Combine (Application.streamingAssetsPath, readDbName);
 		
 		Debug.Log("Source: " + System.IO.File.GetLastWriteTimeUtc(sourcePath));
 		Debug.Log("Copy: " + System.IO.File.GetLastWriteTimeUtc(pathDB));
 
 		//if DB does not exist in persistent data folder (folder "Documents" on iOS) or source DB is newer then copy it
 		if (!System.IO.File.Exists (pathDB) || (System.IO.File.GetLastWriteTimeUtc(sourcePath) > System.IO.File.GetLastWriteTimeUtc(pathDB))) {
-			UpdateDatabaseSchema(dbName);
+			UpdateDatabaseSchema();
 		}
 	}
 
@@ -112,12 +113,12 @@ public class SqliteDatabase
 	/// <param name='dbName'> 
 	/// Data Base name. (the file needs exist in the streamingAssets folder)
 	/// </param>
-	public void UpdateDatabaseSchema (string dbName)
+	public void UpdateDatabaseSchema()
 	{
 		
-		pathDB = System.IO.Path.Combine (Application.persistentDataPath, dbName);
+		pathDB = System.IO.Path.Combine (Application.persistentDataPath, readDbName);
 		//original path
-		string sourcePath = System.IO.Path.Combine (Application.streamingAssetsPath, dbName);
+		string sourcePath = System.IO.Path.Combine (Application.streamingAssetsPath, readDbName);
 		
 		Debug.Log("Source: " + System.IO.File.GetLastWriteTimeUtc(sourcePath));
 		Debug.Log("Copy: " + System.IO.File.GetLastWriteTimeUtc(pathDB));
@@ -149,7 +150,7 @@ public class SqliteDatabase
 												
 				} else {
 					CanExQuery = false;
-					Debug.Log ("ERROR: the file DB named " + dbName + " doesn't exist in the StreamingAssets Folder, please copy it there.");
+					Debug.Log ("ERROR: the file DB named " + readDbName + " doesn't exist in the StreamingAssets Folder, please copy it there.");
 				}	
 				
 			}			
