@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS user_materials;
 CREATE TABLE user_materials (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    group_id INTEGER,
-    option_type INTEGER, -- ���q�Ȃ�
-    master_option_id INTEGER
+    user_mix_id INTEGER, -- このmix_idに対する合成後素材もしくは完成品
+    master_option_id INTEGER,
+    option_type INTEGER -- 因子など
 );
 .separator ,

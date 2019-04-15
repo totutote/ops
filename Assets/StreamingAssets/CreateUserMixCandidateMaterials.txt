@@ -1,7 +1,10 @@
 DROP TABLE IF EXISTS user_mix_candidate_materials;
 CREATE TABLE `user_mix_candidate_materials` (
 	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`user_mix_id`	INTEGER,
-	`user_materials_group_id`	INTEGER
+	`user_mix_id`	INTEGER, -- このmix_idに対する合成前素材
+	`material_group_id`	INTEGER, -- 0は本体、それ以外は素材
+	`master_option_id`	INTEGER,
+	`sort_index`	INTEGER,
+	`option_type`	INTEGER -- 因子など
 );
 .separator ,
