@@ -102,6 +102,28 @@ public class SqliteDatabase
 
 		//if DB does not exist in persistent data folder (folder "Documents" on iOS) or source DB is newer then copy it
 		if (!System.IO.File.Exists (pathDB) || (System.IO.File.GetLastWriteTimeUtc(sourcePath) > System.IO.File.GetLastWriteTimeUtc(pathDB))) {
+			UpdateDatabaseSchema(dbName);
+		}
+	}
+
+	/// <summary>
+	/// Force update database schema
+	/// </summary>
+	/// <param name='dbName'> 
+	/// Data Base name. (the file needs exist in the streamingAssets folder)
+	/// </param>
+	public void UpdateDatabaseSchema (string dbName)
+	{
+		
+		pathDB = System.IO.Path.Combine (Application.persistentDataPath, dbName);
+		//original path
+		string sourcePath = System.IO.Path.Combine (Application.streamingAssetsPath, dbName);
+		
+		Debug.Log("Source: " + System.IO.File.GetLastWriteTimeUtc(sourcePath));
+		Debug.Log("Copy: " + System.IO.File.GetLastWriteTimeUtc(pathDB));
+
+		//if DB does not exist in persistent data folder (folder "Documents" on iOS) or source DB is newer then copy it
+		if (!System.IO.File.Exists (pathDB)) {
 			
 			if (sourcePath.Contains ("://")) {
 				// Android	
