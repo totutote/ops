@@ -7,4 +7,3 @@ CREATE TABLE `user_mix_candidate_materials` (
 	`sort_index`	INTEGER,
 	`option_type`	INTEGER -- 因子など
 );
-.separator ,
