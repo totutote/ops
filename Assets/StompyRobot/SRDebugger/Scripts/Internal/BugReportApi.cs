@@ -117,7 +117,7 @@ namespace SRDebugger.Internal
             yield return _webRequest.SendWebRequest();
 #endif
 
-            if (_webRequest.isError)
+            if (_webRequest.isNetworkError)
             {
                 ErrorMessage = "Request Error: " + _webRequest.error;
                 SetCompletionState(false);
