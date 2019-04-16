@@ -13,8 +13,9 @@ namespace OPS.Model
         {
             var model = new UserMixCandidateMaterialModel();
             model.id.Value = (int)DataRow["id"];
-            model.user_mix_id.Value = (int)DataRow["group_id"];
-            model.user_materials_group_id.Value = (int)DataRow["option_type"];
+            model.user_mix_id.Value = (int)DataRow["user_mix_id"];
+            model.sort_index.Value = (int)DataRow["sort_index"];
+            model.ref_user_mix_id.Value = (int)DataRow["ref_user_mix_id"];
             return model;
         }
 
@@ -22,8 +23,9 @@ namespace OPS.Model
         {
             var dataRow = new DataRow();
             dataRow["id"] = model.id;
-            dataRow["group_id"] = model.user_mix_id.Value;
-            dataRow["option_type"] = model.user_materials_group_id.Value;
+            dataRow["user_mix_id"] = model.user_mix_id.Value;
+            dataRow["sort_index"] = model.sort_index.Value;
+            dataRow["ref_user_mix_id"] = model.ref_user_mix_id.Value;
             return dataRow;
         }
     }
@@ -32,7 +34,8 @@ namespace OPS.Model
     {
         public IntReactiveProperty id = new IntReactiveProperty();
         public IntReactiveProperty user_mix_id = new IntReactiveProperty();
-        public IntReactiveProperty user_materials_group_id = new IntReactiveProperty();
+        public IntReactiveProperty sort_index = new IntReactiveProperty();
+        public IntReactiveProperty ref_user_mix_id = new IntReactiveProperty();
     }
 
 }

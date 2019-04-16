@@ -4,12 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using OPS.Model;
+using Zenject;
 
 namespace OPS.Presenter
 {
 
 	public class MaterialSelectOptionAreaPresenter : MonoBehaviour
 	{
+		[Inject]
+		UserMixCandidateMaterialDB _userMixCandidateMaterialDB;
+
 		public Text culumnText;
 
 		int MaterialOptionId {get;set;}
@@ -23,6 +27,7 @@ namespace OPS.Presenter
 
 		public void SetOption(MasterOptionModel masterOptionModel)
 		{
+			var userMixCandidateMaterialModel = _userMixCandidateMaterialDB.New();
 			_masterOptionModel = masterOptionModel;
 			culumnText.text = _masterOptionModel.name.Value;
 		}
@@ -30,6 +35,10 @@ namespace OPS.Presenter
 		public void OnSelectOption()
 		{
 			
+		}
+
+        public class Factory : PlaceholderFactory<MaterialSelectOptionAreaPresenter>
+		{
 		}
 	}
 
