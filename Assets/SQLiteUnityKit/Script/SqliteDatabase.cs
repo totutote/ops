@@ -110,13 +110,20 @@ public class SqliteDatabase
 	/// <summary>
 	/// Force update database schema
 	/// </summary>
+	public void ForceUpdateDatabaseSchema()
+	{
+		System.IO.File.Delete(pathDB);	
+		UpdateDatabaseSchema();
+	}
+
+	/// <summary>
+	/// Update database schema
+	/// </summary>
 	/// <param name='dbName'> 
 	/// Data Base name. (the file needs exist in the streamingAssets folder)
 	/// </param>
 	public void UpdateDatabaseSchema()
 	{
-		
-		pathDB = System.IO.Path.Combine (Application.persistentDataPath, readDbName);
 		//original path
 		string sourcePath = System.IO.Path.Combine (Application.streamingAssetsPath, readDbName);
 		
@@ -147,6 +154,7 @@ public class SqliteDatabase
 						
 					//copy file - alle systems except Android
 					System.IO.File.Copy (sourcePath, pathDB, true);
+					Debug.Log("write");
 												
 				} else {
 					CanExQuery = false;
