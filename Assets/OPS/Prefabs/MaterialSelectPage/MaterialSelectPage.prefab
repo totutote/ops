@@ -1994,8 +1994,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7423921987602001824}
   m_HandleRect: {fileID: 7423921987602001823}
   m_Direction: 0
-  m_Value: 0
-  m_Size: 1
+  m_Value: 0.000002179827
+  m_Size: 0.9825
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2199,6 +2199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29136ff9d71d6402499d753b7ecffa2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _materialSelectPagePresenter: {fileID: 3030546159502202477}
   _addOptionListObject: {fileID: 7423921986641729498}
 --- !u!1 &7423921988318216199
 GameObject:

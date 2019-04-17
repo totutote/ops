@@ -22,7 +22,7 @@ namespace OPS.Model
         protected override DataRow Model2DataRow(UserMixCandidateMaterialModel model)
         {
             var dataRow = new DataRow();
-            dataRow["id"] = model.id;
+            dataRow["id"] = model.id.Value;
             dataRow["user_mix_id"] = model.user_mix_id.Value;
             dataRow["sort_index"] = model.sort_index.Value;
             dataRow["ref_user_mix_id"] = model.ref_user_mix_id.Value;

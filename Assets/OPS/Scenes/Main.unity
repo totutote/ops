@@ -303,6 +303,8 @@ MonoBehaviour:
   _mainCanvas: {fileID: 1691060964}
   _selectOptionList: {fileID: 1154610187711212297, guid: 9f8b45a632f3f496f90471191b7abd6c,
     type: 3}
+  _optionArea: {fileID: 2243412315609997864, guid: 44d8b1ad1436f40fdbc4a8075921b0c2,
+    type: 3}
   _completeSelectPage: {fileID: 1458608248383357760, guid: ef7b44f43953e4346a3aee461bcbb8c9,
     type: 3}
   _completeSelectListButton: {fileID: 4443582593680195012, guid: 4a63ad6b427a1469381fb7c36aa52cee,

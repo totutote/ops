@@ -14,7 +14,9 @@ public class ModelServiceInstaller : MonoInstaller<ModelServiceInstaller>
         Container.Bind<UserMaterialDB>().AsSingle();
         Container.Bind<UserMixDB>().AsSingle();
         Container.Bind<UserMixCandidateMaterialDB>().AsSingle();
+        Container.Bind<UserMixCandidateMaterialOptionDB>().AsSingle();
         Container.BindFactory<MasterOptionDB, MasterOptionDB.Factory>();
         Container.BindFactory<MasterOptionCategoryDB, MasterOptionCategoryDB.Factory>();
+        Container.BindFactory<UserMixCandidateMaterialOptionDB, UserMixCandidateMaterialOptionDB.Factory>();
     }
 }

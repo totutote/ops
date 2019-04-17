@@ -16,13 +16,18 @@ namespace OPS.Presenter
 
         UserMixModel _userMixModel;
 
+        public UserMixModel UserMixModel
+        {
+            get { return _userMixModel; }
+        }
+
         public void Setup()
         {
             var newUserMix = UserMixDB.New();
             Debug.Log(newUserMix);
             newUserMix.name.Value = "合成名";
-            var _userMixModel = UserMixDB.Save(newUserMix).Values.First();
-            _userMixModel.name.Value +=  _userMixModel.id.Value;
+            _userMixModel = UserMixDB.Save(newUserMix).Values.First();
+            _userMixModel.name.Value += _userMixModel.id.Value;
             UserMixDB.Save(_userMixModel);
             nameInput.text = _userMixModel.name.Value;
         }
@@ -30,7 +35,6 @@ namespace OPS.Presenter
         public void Setup(UserMixModel userMixModel)
         {
             _userMixModel = userMixModel;
-            Debug.Log(_userMixModel);
             nameInput.text = _userMixModel.name.Value;
         }
 
