@@ -7,7 +7,7 @@ namespace OPS.Model
     {
         public override string DbName { get { return "user.sqlite3"; } }
 
-        public override string TableName { get { return "user_materials"; } }
+        public override string TableName { get { return "user_mix_candidate_materials"; } }
 
         protected override UserMixCandidateMaterialModel DataRow2Model(DataRow DataRow)
         {

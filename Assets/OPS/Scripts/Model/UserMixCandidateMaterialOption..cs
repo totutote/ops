@@ -9,7 +9,7 @@ namespace OPS.Model
     {
         public override string DbName { get { return "user.sqlite3"; } }
 
-        public override string TableName { get { return "user_material_options"; } }
+        public override string TableName { get { return "user_mix_candidate_material_options"; } }
 
         [Inject]
         public MasterOptionDB _masterOptionDB;
