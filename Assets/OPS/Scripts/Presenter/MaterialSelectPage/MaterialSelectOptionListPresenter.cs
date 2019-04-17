@@ -19,21 +19,31 @@ namespace OPS.Presenter
 
         UserMixCandidateMaterialModel _userMixCandidateMaterialModel;
 
-        void Start()
+        public void Recovery(UserMixCandidateMaterialModel userMixCandidateMaterialModel)
         {
+            _userMixCandidateMaterialModel = userMixCandidateMaterialModel;
+            var userMixCandidateMaterialOptionModels = _userMixCandidateMaterialModel.UserMixCandidateMaterialOptionModel;
+            foreach(var userMixCandidateMaterialOptionModel in userMixCandidateMaterialOptionModels)
+            {
+                var rowCpy = _materialSelectOptionAreaFactory.Create();
+                rowCpy.Recovery(userMixCandidateMaterialOptionModel.Value);
+                rowCpy.transform.SetParent(_addRowGameobject.transform, false);
+                rowCpy.transform.SetSiblingIndex(userMixCandidateMaterialOptionModel.Value.sort_index.Value + 1);
+            }
         }
 
         public void AddSetup(UserMixModel userMixModel)
         {
             var newUserMixCandidateMaterialModel = _userMixCandidateMaterialDB.New();
             newUserMixCandidateMaterialModel.user_mix_id.Value = userMixModel.id.Value;
+            newUserMixCandidateMaterialModel.sort_index.Value = _userMixCandidateMaterialDB.Where("user_mix_id", userMixModel.id.Value.ToString()).Count;
             _userMixCandidateMaterialModel = _userMixCandidateMaterialDB.Save(newUserMixCandidateMaterialModel).First().Value;
         }
 
         public void AddNewOption(MasterOptionModel masterOptionModel)
         {
             var rowCpy = _materialSelectOptionAreaFactory.Create();
-            rowCpy.SetOption(masterOptionModel);
+            rowCpy.SetOption(masterOptionModel, _userMixCandidateMaterialModel);
             rowCpy.transform.SetParent(_addRowGameobject.transform, false);
         }
         

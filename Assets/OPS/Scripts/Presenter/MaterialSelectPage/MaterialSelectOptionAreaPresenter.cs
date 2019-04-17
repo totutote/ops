@@ -26,10 +26,18 @@ namespace OPS.Presenter
 			culumnText.text = text;
 		}
 
-		public void SetOption(MasterOptionModel masterOptionModel)
+		public void Recovery(UserMixCandidateMaterialOptionModel userMixCandidateMaterialOptionModel)
+		{
+			_userMixCandidateMaterialOptionModel = userMixCandidateMaterialOptionModel;
+			culumnText.text = _userMixCandidateMaterialOptionModel.MasterOptionModel.name.Value;
+		}
+
+		public void SetOption(MasterOptionModel masterOptionModel, UserMixCandidateMaterialModel userMixCandidateMaterialModel)
 		{
 			var newUserMixCandidateMaterialOptionModel = _userMixCandidateMaterialOptionDB.New();
 			newUserMixCandidateMaterialOptionModel.master_option_id.Value = masterOptionModel.id.Value;
+			newUserMixCandidateMaterialOptionModel.material_sort_index.Value = userMixCandidateMaterialModel.sort_index.Value;
+			newUserMixCandidateMaterialOptionModel.sort_index.Value = _userMixCandidateMaterialOptionDB.Where("material_sort_index", userMixCandidateMaterialModel.sort_index.Value.ToString()).Count;
 			var _userMixCandidateMaterialOptionModel = _userMixCandidateMaterialOptionDB.Save(newUserMixCandidateMaterialOptionModel).First().Value;
 			culumnText.text = _userMixCandidateMaterialOptionModel.MasterOptionModel.name.Value;
 		}

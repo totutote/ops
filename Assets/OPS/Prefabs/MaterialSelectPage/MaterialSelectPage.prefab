@@ -931,6 +931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameInput: {fileID: 3030546157958556969}
+  _materialSelectMaterialListPresenter: {fileID: 526517171592487301}
 --- !u!1 &3030546159553375085
 GameObject:
   m_ObjectHideFlags: 0
@@ -1994,8 +1995,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7423921987602001824}
   m_HandleRect: {fileID: 7423921987602001823}
   m_Direction: 0
-  m_Value: 0.000002179827
-  m_Size: 0.9825
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

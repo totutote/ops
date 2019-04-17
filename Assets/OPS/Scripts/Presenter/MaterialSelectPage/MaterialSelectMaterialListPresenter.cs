@@ -16,6 +16,18 @@ namespace OPS.Presenter
         [SerializeField]
         GameObject _addOptionListObject;
 
+        public void Recovery()
+        {
+            var userMixCandidateMaterialModels = _materialSelectPagePresenter.UserMixModel.UserMixCandidateMaterialModel;
+            foreach (var userMixCandidateMaterialModel in userMixCandidateMaterialModels)
+            {
+                var cpyOptionList = _optionListPresenterFactory.Create();
+                cpyOptionList.Recovery(userMixCandidateMaterialModel.Value);
+                cpyOptionList.transform.SetParent(_addOptionListObject.transform, false);
+                cpyOptionList.transform.SetAsFirstSibling();
+            }
+        }
+
         public void OnAddList()
         {
             var cpyOptionList = _optionListPresenterFactory.Create();

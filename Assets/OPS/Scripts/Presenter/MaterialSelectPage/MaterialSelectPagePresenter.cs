@@ -14,6 +14,9 @@ namespace OPS.Presenter
         [Inject]
         UserMixDB UserMixDB;
 
+        [SerializeField]
+        MaterialSelectMaterialListPresenter _materialSelectMaterialListPresenter;
+
         UserMixModel _userMixModel;
 
         public UserMixModel UserMixModel
@@ -36,6 +39,7 @@ namespace OPS.Presenter
         {
             _userMixModel = userMixModel;
             nameInput.text = _userMixModel.name.Value;
+            _materialSelectMaterialListPresenter.Recovery();
         }
 
         public class Factory : PlaceholderFactory<MaterialSelectPagePresenter>
