@@ -14,6 +14,12 @@ namespace OPS.Presenter
         [Inject]
         UserMixDB UserMixDB;
 
+        [Inject]
+        MixPagePresenter.Factory _mixPageFactory;
+
+        [Inject]
+        PageManager _pageManager;
+
         [SerializeField]
         MaterialSelectMaterialListPresenter _materialSelectMaterialListPresenter;
 
@@ -40,6 +46,13 @@ namespace OPS.Presenter
             _userMixModel = userMixModel;
             nameInput.text = _userMixModel.name.Value;
             _materialSelectMaterialListPresenter.Recovery();
+        }
+
+        public void OnClickMixButton()
+        {
+            var cpyMixPage = _mixPageFactory.Create();
+            cpyMixPage.Setup(_userMixModel);
+            _pageManager.ChangePage(cpyMixPage);
         }
 
         public class Factory : PlaceholderFactory<MaterialSelectPagePresenter>
