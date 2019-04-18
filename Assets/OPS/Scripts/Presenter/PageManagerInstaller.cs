@@ -23,11 +23,11 @@ public class PageManagerInstaller : MonoInstaller<PageManagerInstaller>
     [SerializeField]
     GameObject _materialSelectPage;
 
-
-
-
     [SerializeField]
     GameObject _optionSelectPage;
+
+    [SerializeField]
+    GameObject _mixPage;
 
     public override void InstallBindings()
     {
@@ -38,5 +38,6 @@ public class PageManagerInstaller : MonoInstaller<PageManagerInstaller>
         Container.BindFactory<CompleteSelectListButtonPresenter, CompleteSelectListButtonPresenter.Factory>().FromComponentInNewPrefab(_completeSelectListButton);
         Container.BindFactory<MaterialSelectPagePresenter, MaterialSelectPagePresenter.Factory>().FromComponentInNewPrefab(_materialSelectPage);
         Container.BindFactory<OptionSelectPagePresenter, OptionSelectPagePresenter.Factory>().FromComponentInNewPrefab(_optionSelectPage);
+        Container.BindFactory<MixPagePresenter, MixPagePresenter.Factory>().FromComponentInNewPrefab(_mixPage);
     }
 }
