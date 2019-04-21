@@ -2,6 +2,6 @@ DROP TABLE IF EXISTS user_mix_candidate_materials;
 CREATE TABLE `user_mix_candidate_materials` (
 	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
 	`user_mix_id`	INTEGER, -- このmix_idに対する合成前素材
-	`sort_index`	INTEGER, -- 0は本体、それ以外は素材(user_mix_candidate_material_optionsのグループ化のためにも使う)
+	`sort_index`	INTEGER, -- 0は本体、それ以外は素材
 	`ref_user_mix_id`	INTEGER -- 他完成品で代用する場合の参照 nullは参照なし
 );

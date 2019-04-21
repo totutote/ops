@@ -35,9 +35,9 @@ namespace OPS.Presenter
 		public void SetOption(MasterOptionModel masterOptionModel, UserMixCandidateMaterialModel userMixCandidateMaterialModel)
 		{
 			var newUserMixCandidateMaterialOptionModel = _userMixCandidateMaterialOptionDB.New();
+			newUserMixCandidateMaterialOptionModel.user_mix_candidate_material_id.Value = userMixCandidateMaterialModel.id.Value;
 			newUserMixCandidateMaterialOptionModel.master_option_id.Value = masterOptionModel.id.Value;
-			newUserMixCandidateMaterialOptionModel.material_sort_index.Value = userMixCandidateMaterialModel.sort_index.Value;
-			newUserMixCandidateMaterialOptionModel.sort_index.Value = _userMixCandidateMaterialOptionDB.Where("material_sort_index", userMixCandidateMaterialModel.sort_index.Value.ToString()).Count;
+			newUserMixCandidateMaterialOptionModel.sort_index.Value = _userMixCandidateMaterialOptionDB.Where("user_mix_candidate_material_id", userMixCandidateMaterialModel.id.Value.ToString()).Count;
 			var _userMixCandidateMaterialOptionModel = _userMixCandidateMaterialOptionDB.Save(newUserMixCandidateMaterialOptionModel).First().Value;
 			culumnText.text = _userMixCandidateMaterialOptionModel.MasterOptionModel.name.Value;
 		}

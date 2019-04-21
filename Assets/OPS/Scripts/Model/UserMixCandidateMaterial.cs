@@ -56,7 +56,7 @@ namespace OPS.Model
 
         public Dictionary<int, UserMixCandidateMaterialOptionModel> UserMixCandidateMaterialOptionModel
         {
-            get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionModel.Where("material_sort_index", sort_index.Value.ToString()); }
+            get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionModel.Where("user_mix_candidate_material_id", id.Value.ToString()); }
         }
 
         public Dictionary<MasterOptionModel, int> MasterOptionModelCount

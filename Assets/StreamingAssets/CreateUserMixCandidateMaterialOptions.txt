@@ -1,8 +1,7 @@
 DROP TABLE IF EXISTS user_mix_candidate_material_options;
 CREATE TABLE `user_mix_candidate_material_options` (
 	`id`	INTEGER PRIMARY KEY AUTOINCREMENT,
-	`user_mix_id`	INTEGER, -- このmix_idに対する合成前素材
-	`material_sort_index`	INTEGER, -- user_mix_candidate_materialsへの参照
+	`user_mix_candidate_material_id`	INTEGER, -- user_mix_candidate_materialsへの参照
 	`master_option_id`	INTEGER,
 	`sort_index`	INTEGER,
 	`option_type`	INTEGER -- 因子など
