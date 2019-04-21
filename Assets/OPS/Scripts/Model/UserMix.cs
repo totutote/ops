@@ -12,7 +12,10 @@ namespace OPS.Model
         public override string TableName { get { return "user_mixes"; } }
 
         [Inject]
-        public UserMixCandidateMaterialDB _userMixCandidateMaterialDB;
+        public UserMixCandidateMaterialDB _userMixCandidateMaterialDB = null;
+
+        [Inject]
+        public MasterMixChainDB _masterMixChainDB = null;
 
         protected override UserMixModel DataRow2Model(DataRow DataRow)
         {
@@ -52,6 +55,76 @@ namespace OPS.Model
         {
             get { return _userMixDB._userMixCandidateMaterialDB.Where("user_mix_id", id.Value.ToString()); }
         }
+
+        public Dictionary<MasterOptionModel, float> MixOptionRate
+        {
+            get
+            {
+                Dictionary<MasterOptionModel, float> mixOptionRate = new Dictionary<MasterOptionModel, float>();
+                foreach(var finalMasterMixChainModel in FinalMasterMixChainModels)
+                {
+                    if (!mixOptionRate.ContainsKey(finalMasterMixChainModel.Key.CreateMasterOptionModel))
+                    {
+                        mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = finalMasterMixChainModel.Value.rate.Value;
+                    }
+                    else if(mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] < finalMasterMixChainModel.Value.rate.Value)
+                    {
+                        mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = finalMasterMixChainModel.Value.rate.Value;
+                    }
+                }
+                return mixOptionRate;
+            }
+        }
+
+        private Dictionary<MasterMixChainModel, MasterMixChainModel> FinalMasterMixChainModels
+        {
+            get
+            {
+                Dictionary<MasterOptionModel, int> masterOptionModelsCount = MasterOptionModelsCount;
+                Dictionary<MasterMixChainModel, MasterMixChainModel> finalMasterMixChains = new Dictionary<MasterMixChainModel, MasterMixChainModel>();
+                foreach (var masterOptionModelCount in masterOptionModelsCount)
+                {
+                    foreach(var createMasterMixChain in masterOptionModelCount.Key.CreateMasterMixChains)
+                    {
+                        Dictionary<MasterOptionModel, int> cpyMasterOptionModelsCount = masterOptionModelsCount;
+                        MasterMixChainModel finalMasterMixChainModel = createMasterMixChain.Value;
+                        cpyMasterOptionModelsCount[finalMasterMixChainModel.MaterialMasterOptionModel] -= 1;
+                        if (cpyMasterOptionModelsCount[finalMasterMixChainModel.MaterialMasterOptionModel] == 0)
+                        {
+                            cpyMasterOptionModelsCount.Remove(finalMasterMixChainModel.MaterialMasterOptionModel);
+                        }
+                        while(cpyMasterOptionModelsCount.ContainsKey(finalMasterMixChainModel.OverMasterMixChainModel.MaterialMasterOptionModel))
+                        {
+                            finalMasterMixChainModel = finalMasterMixChainModel.OverMasterMixChainModel;
+                            cpyMasterOptionModelsCount[finalMasterMixChainModel.MaterialMasterOptionModel] -= 1;
+                            if (cpyMasterOptionModelsCount[finalMasterMixChainModel.MaterialMasterOptionModel] == 0)
+                            {
+                                cpyMasterOptionModelsCount.Remove(finalMasterMixChainModel.MaterialMasterOptionModel);
+                            }
+                        }
+                        finalMasterMixChains[createMasterMixChain.Value] = finalMasterMixChainModel;
+                    }
+                }
+                return finalMasterMixChains;
+            }
+        }
+
+        public Dictionary<MasterOptionModel, int> MasterOptionModelsCount
+        {
+            get
+            {
+                Dictionary<MasterOptionModel, int> masterOptionModelCount = new Dictionary<MasterOptionModel, int>();
+                foreach (var userMixCandidateMaterialModel in UserMixCandidateMaterialModel)
+                {
+                    foreach (var materialMasterOptionCount in userMixCandidateMaterialModel.Value.MasterOptionModelCount)
+                    {
+                        masterOptionModelCount[materialMasterOptionCount.Key] += materialMasterOptionCount.Value;
+                    }
+                }
+                return masterOptionModelCount;
+            }
+        }
+
     }
 
 }

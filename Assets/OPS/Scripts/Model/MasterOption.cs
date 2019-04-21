@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using Zenject;
 
@@ -12,7 +13,10 @@ namespace OPS.Model
         public override string TableName { get { return "master_options"; } }
 
         [Inject]
-        public MasterOptionCategoryDB _masterOptionCategoryDB;
+        public MasterOptionCategoryDB _masterOptionCategoryDB = null;
+
+        [Inject]
+        public MasterMixChainDB _masterMixChainDB = null;
 
         protected override MasterOptionModel DataRow2Model(DataRow DataRow)
         {
@@ -54,6 +58,11 @@ namespace OPS.Model
         public MasterOptionCategoryModel MasterOptionCategoryModel
         {
             get { return _masterOptionDB._masterOptionCategoryDB.Where("id", category_id.Value.ToString()).First().Value; }
+        }
+
+        public Dictionary<int, MasterMixChainModel> CreateMasterMixChains
+        {
+            get { return _masterOptionDB._masterMixChainDB.Where("create_option_id", id.Value.ToString()); }
         }
     }
 

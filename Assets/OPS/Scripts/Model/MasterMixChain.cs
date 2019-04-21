@@ -69,7 +69,7 @@ namespace OPS.Model
 
         public MasterMixChainModel OverMasterMixChainModel
         {
-            get { return _masterMixChainDB.Where("id", over_mix_id.Value.ToString()).First().Value; }
+            get { return _masterMixChainDB.Where("over_mix_id", id.Value.ToString()).First().Value; }
         }
     }
 

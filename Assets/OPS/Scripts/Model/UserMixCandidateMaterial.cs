@@ -58,6 +58,20 @@ namespace OPS.Model
         {
             get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionModel.Where("material_sort_index", sort_index.Value.ToString()); }
         }
+
+        public Dictionary<MasterOptionModel, int> MasterOptionModelCount
+        {
+            get
+            {
+                Dictionary<MasterOptionModel, int> masterOptionCount = new Dictionary<MasterOptionModel, int>();
+                foreach(var userMixCandidateMaterialOption in UserMixCandidateMaterialOptionModel)
+                {
+                    masterOptionCount[userMixCandidateMaterialOption.Value.MasterOptionModel] += 1;
+                }
+                return masterOptionCount;
+            }
+        }
+
     }
 
 }
