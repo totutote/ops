@@ -64,6 +64,21 @@ namespace OPS.Model
         {
             get { return _masterOptionDB._masterMixChainDB.Where("create_option_id", id.Value.ToString()); }
         }
+
+        public Dictionary<int, MasterMixChainModel> NotNullCreateOptionChains
+        {
+            get
+            {
+                Dictionary<int, MasterMixChainModel> notNullCreateOptions = new Dictionary<int, MasterMixChainModel>();
+                var hitMaterialOptions = _masterOptionDB._masterMixChainDB.Where("material_option_id", id.Value.ToString());
+                foreach (var hitMaterialOption in hitMaterialOptions)
+                {
+                    if (hitMaterialOption.Value.create_option_id.Value == null) continue;
+                    notNullCreateOptions[hitMaterialOption.Key] = hitMaterialOption.Value;
+                }
+                return notNullCreateOptions;
+            }
+        }
     }
 
 }

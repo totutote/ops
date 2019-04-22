@@ -84,7 +84,7 @@ namespace OPS.Model
                 Dictionary<MasterMixChainModel, MasterMixChainModel> finalMasterMixChains = new Dictionary<MasterMixChainModel, MasterMixChainModel>();
                 foreach (var masterOptionModelCount in masterOptionModelsCount)
                 {
-                    foreach (var createMasterMixChain in masterOptionModelCount.Key.CreateMasterMixChains)
+                    foreach (var createMasterMixChain in masterOptionModelCount.Key.NotNullCreateOptionChains)
                     {
                         Dictionary<MasterOptionModel, int> cpyMasterOptionModelsCount = new Dictionary<MasterOptionModel, int>(masterOptionModelsCount);
                         MasterMixChainModel finalMasterMixChainModel = createMasterMixChain.Value;
