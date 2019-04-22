@@ -45,6 +45,14 @@ namespace OPS.Model
             return cachedRecords;
         }
 
+        void Delete(int id)
+        {
+            if (!cacheRecords.ContainsKey(id))
+            {
+                cacheRecords.Remove(id);
+            }
+        }
+
         protected abstract T DataRow2Model(DataRow dataTable);
 
         protected abstract DataRow Model2DataRow(T model);
@@ -74,6 +82,13 @@ namespace OPS.Model
             DataRow saveDataRow = Model2DataRow(saveModel);
             DataTable savedDataTable = db.Save(saveDataRow);
             return ConvertDataTable(savedDataTable);
+        }
+
+        public void Delete(T deleteModel)
+        {
+            DataRow deleteDataRow = Model2DataRow(deleteModel);
+            db.Delete(deleteDataRow);
+            Delete((int)deleteDataRow["id"]);
         }
     }
 

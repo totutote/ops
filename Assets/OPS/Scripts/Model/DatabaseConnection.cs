@@ -82,7 +82,7 @@ namespace OPS.Model
             return db.ExecuteQuery("update " + tableName + " set " + setString.Remove(0, 1) + " where id = " + updateData["id"]);
         }
 
-        public void Delete(Dictionary<string, object> deleteData)
+        public void Delete(DataRow deleteData)
         {
             db.ExecuteQuery("delete from " + tableName + " where id = " + deleteData["id"]);
         }

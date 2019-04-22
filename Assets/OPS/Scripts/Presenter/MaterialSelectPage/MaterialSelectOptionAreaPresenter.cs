@@ -36,6 +36,24 @@ namespace OPS.Presenter
         public void OnSelectOption()
         {
         }
+        
+        public void OnClickRemoveButton()
+        {
+            _userMixCandidateMaterialOptionDB.Delete(_userMixCandidateMaterialOptionModel);
+            Destroy(gameObject);
+            RestoreSortIndex();
+        }
+
+        private void RestoreSortIndex()
+        {
+            var materialOptions = _userMixCandidateMaterialOptionDB.Where("user_mix_candidate_material_id", _userMixCandidateMaterialOptionModel.user_mix_candidate_material_id.Value.ToString());
+            int sortIndex = 0;
+            foreach (var materialOption in materialOptions)
+            {
+                materialOption.Value.sort_index.Value = sortIndex;
+                sortIndex++;
+            }
+        }
 
         public class Factory : PlaceholderFactory<MaterialSelectOptionAreaPresenter>
         {
