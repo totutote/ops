@@ -12,6 +12,9 @@ namespace OPS.Presenter
         UserMixCandidateMaterialDB _userMixCandidateMaterialDB = null;
 
         [Inject]
+        UserMixCandidateMaterialOptionDB _userMixCandidateMaterialOptionDB = null;
+
+        [Inject]
         MaterialSelectOptionAreaPresenter.Factory _materialSelectOptionAreaFactory = null;
 
         [SerializeField]
@@ -46,6 +49,7 @@ namespace OPS.Presenter
             if (sameCategoryIncludeModel != null)
             {
                 sameCategoryIncludeModel.master_option_id.Value = masterOptionModel.id.Value;
+                _userMixCandidateMaterialOptionDB.Save(sameCategoryIncludeModel);
                 return;
             }
             var rowCpy = _materialSelectOptionAreaFactory.Create();
