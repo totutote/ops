@@ -29,6 +29,9 @@ public class PageManagerInstaller : MonoInstaller<PageManagerInstaller>
     [SerializeField]
     GameObject _mixPage;
 
+    [SerializeField]
+    GameObject _mixPageOptionSelectArea;
+
     public override void InstallBindings()
     {
         Container.Bind<PageManager>().FromComponentOn(_mainCanvas).AsSingle();
@@ -39,5 +42,6 @@ public class PageManagerInstaller : MonoInstaller<PageManagerInstaller>
         Container.BindFactory<MaterialSelectPagePresenter, MaterialSelectPagePresenter.Factory>().FromComponentInNewPrefab(_materialSelectPage);
         Container.BindFactory<OptionSelectPagePresenter, OptionSelectPagePresenter.Factory>().FromComponentInNewPrefab(_optionSelectPage);
         Container.BindFactory<MixPagePresenter, MixPagePresenter.Factory>().FromComponentInNewPrefab(_mixPage);
+        Container.BindFactory<MixPageOptionSelectAreaPresenter, MixPageOptionSelectAreaPresenter.Factory>().FromComponentInNewPrefab(_mixPageOptionSelectArea);
     }
 }

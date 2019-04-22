@@ -11,7 +11,13 @@ namespace OPS.Presenter
         MaterialSelectPagePresenter.Factory _materialSelectPageFactory = null;
 
         [Inject]
+        MixPageOptionSelectAreaPresenter.Factory _mixPageOptionSelectAreaFactory;
+
+        [Inject]
         PageManager _pageManager = null;
+
+        [SerializeField]
+        GameObject _addOptionSelectAreaObject;
 
         UserMixModel _userMixModel;
 
@@ -21,8 +27,9 @@ namespace OPS.Presenter
             var mixOptionRates = _userMixModel.MixOptionRate;
             foreach(var mixOptionRate in mixOptionRates)
             {
-                Debug.Log(mixOptionRate.Key.name.Value);
-                Debug.Log(mixOptionRate.Value);
+                var cpyMixPageOptionSelectArea = _mixPageOptionSelectAreaFactory.Create();
+                cpyMixPageOptionSelectArea.Setup(mixOptionRate.Key, mixOptionRate.Value);
+                cpyMixPageOptionSelectArea.transform.SetParent(_addOptionSelectAreaObject.transform, false);
             }
         }
 

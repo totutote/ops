@@ -63,6 +63,7 @@ namespace OPS.Model
                 Dictionary<MasterOptionModel, double> mixOptionRate = new Dictionary<MasterOptionModel, double>();
                 foreach (var finalMasterMixChainModel in FinalMasterMixChainModels)
                 {
+                    if (finalMasterMixChainModel.Value.IncludeBonusRate <= 0) continue;
                     if (!mixOptionRate.ContainsKey(finalMasterMixChainModel.Key.CreateMasterOptionModel))
                     {
                         mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = finalMasterMixChainModel.Value.IncludeBonusRate;
