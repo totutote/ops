@@ -9,10 +9,10 @@ namespace OPS.Presenter
     public class MaterialSelectOptionListPresenter : MonoBehaviour
     {
         [Inject]
-        UserMixCandidateMaterialDB _userMixCandidateMaterialDB;
+        UserMixCandidateMaterialDB _userMixCandidateMaterialDB = null;
 
         [Inject]
-        MaterialSelectOptionAreaPresenter.Factory _materialSelectOptionAreaFactory;
+        MaterialSelectOptionAreaPresenter.Factory _materialSelectOptionAreaFactory = null;
 
         [SerializeField]
         GameObject _addRowGameobject;
@@ -42,6 +42,12 @@ namespace OPS.Presenter
 
         public void AddNewOption(MasterOptionModel masterOptionModel)
         {
+            var sameCategoryIncludeModel = _userMixCandidateMaterialModel.SameCategoryIncludeModel(masterOptionModel);
+            if (sameCategoryIncludeModel != null)
+            {
+                sameCategoryIncludeModel.master_option_id.Value = masterOptionModel.id.Value;
+                return;
+            }
             var rowCpy = _materialSelectOptionAreaFactory.Create();
             rowCpy.SetOption(masterOptionModel, _userMixCandidateMaterialModel);
             rowCpy.transform.SetParent(_addRowGameobject.transform, false);

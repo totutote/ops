@@ -8,10 +8,10 @@ namespace OPS.Presenter
     public class CompleteSelectCreateButtonPresenter : MonoBehaviour
     {
         [Inject]
-        PageManager _pageManager;
+        PageManager _pageManager = null;
 
         [Inject]
-        MaterialSelectPagePresenter.Factory _materialSelectPageFactory;
+        MaterialSelectPagePresenter.Factory _materialSelectPageFactory = null;
 
         public void OnClick()
         {

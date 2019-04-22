@@ -72,6 +72,18 @@ namespace OPS.Model
             }
         }
 
+        public UserMixCandidateMaterialOptionModel SameCategoryIncludeModel(MasterOptionModel masterOptionModel)
+        {
+            foreach(var userMixCandidateMaterialOptionModel in UserMixCandidateMaterialOptionModel)
+            {
+                if (masterOptionModel.category_id.Value == userMixCandidateMaterialOptionModel.Value.MasterOptionModel.category_id.Value)
+                {
+                    return userMixCandidateMaterialOptionModel.Value;
+                }
+            }
+            return null;
+        }
+
     }
 
 }
