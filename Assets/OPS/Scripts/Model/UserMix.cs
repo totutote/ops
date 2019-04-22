@@ -65,11 +65,11 @@ namespace OPS.Model
                 {
                     if (!mixOptionRate.ContainsKey(finalMasterMixChainModel.Key.CreateMasterOptionModel))
                     {
-                        mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = finalMasterMixChainModel.Value.rate.Value;
+                        mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = finalMasterMixChainModel.Value.IncludeBonusRate;
                     }
-                    else if(mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] < finalMasterMixChainModel.Value.rate.Value)
+                    else if(mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] < finalMasterMixChainModel.Value.IncludeBonusRate)
                     {
-                        mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = finalMasterMixChainModel.Value.rate.Value;
+                        mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = finalMasterMixChainModel.Value.IncludeBonusRate;
                     }
                 }
                 return mixOptionRate;

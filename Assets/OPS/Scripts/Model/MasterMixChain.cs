@@ -14,6 +14,9 @@ namespace OPS.Model
         [Inject]
         public MasterOptionDB _masterOptionDB;
 
+        [Inject]
+        public MasterMixBonusDB _masterMixBonusDB;
+
         protected override MasterMixChainModel DataRow2Model(DataRow DataRow)
         {
             var model = new MasterMixChainModel();
@@ -70,6 +73,24 @@ namespace OPS.Model
         public MasterMixChainModel OverMasterMixChainModel
         {
             get { return _masterMixChainDB.Where("over_mix_id", id.Value.ToString()).First().Value; }
+        }
+
+        public float IncludeBonusRate
+        {
+            get
+            {
+                var bonuses = _masterMixChainDB._masterMixBonusDB.Where("master_mix_chain_id", id.Value.ToString());
+                if (bonuses == null)
+                {
+                    return rate.Value;
+                }
+                float mostRate = 0f;
+                foreach (var bonus in bonuses)
+                {
+                    if(mostRate < bonus.Value.rate.Value) mostRate = bonus.Value.rate.Value;
+                }
+                return mostRate;
+            }
         }
     }
 
