@@ -12,7 +12,7 @@ namespace OPS.Model
         public override string TableName { get { return "user_mix_candidate_materials"; } }
 
         [Inject]
-        public UserMixCandidateMaterialOptionDB _userMixCandidateMaterialOptionModel;
+        public UserMixCandidateMaterialOptionDB _userMixCandidateMaterialOptionModel = null;
 
         protected override UserMixCandidateMaterialModel DataRow2Model(DataRow DataRow)
         {
@@ -64,9 +64,16 @@ namespace OPS.Model
             get
             {
                 Dictionary<MasterOptionModel, int> masterOptionCount = new Dictionary<MasterOptionModel, int>();
-                foreach(var userMixCandidateMaterialOption in UserMixCandidateMaterialOptionModel)
+                foreach (var userMixCandidateMaterialOption in UserMixCandidateMaterialOptionModel)
                 {
-                    masterOptionCount[userMixCandidateMaterialOption.Value.MasterOptionModel] += 1;
+                    if (masterOptionCount.ContainsKey(userMixCandidateMaterialOption.Value.MasterOptionModel))
+                    {
+                        masterOptionCount[userMixCandidateMaterialOption.Value.MasterOptionModel] += 1;
+                    }
+                    else
+                    {
+                        masterOptionCount[userMixCandidateMaterialOption.Value.MasterOptionModel] = 1;
+                    }
                 }
                 return masterOptionCount;
             }
@@ -74,7 +81,7 @@ namespace OPS.Model
 
         public UserMixCandidateMaterialOptionModel SameCategoryIncludeModel(MasterOptionModel masterOptionModel)
         {
-            foreach(var userMixCandidateMaterialOptionModel in UserMixCandidateMaterialOptionModel)
+            foreach (var userMixCandidateMaterialOptionModel in UserMixCandidateMaterialOptionModel)
             {
                 if (masterOptionModel.category_id.Value == userMixCandidateMaterialOptionModel.Value.MasterOptionModel.category_id.Value)
                 {
