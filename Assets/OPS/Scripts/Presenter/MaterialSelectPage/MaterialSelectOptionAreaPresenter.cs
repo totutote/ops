@@ -51,6 +51,7 @@ namespace OPS.Presenter
             foreach (var materialOption in materialOptions)
             {
                 materialOption.Value.sort_index.Value = sortIndex;
+                _userMixCandidateMaterialOptionDB.Save(materialOption.Value);
                 sortIndex++;
             }
         }
