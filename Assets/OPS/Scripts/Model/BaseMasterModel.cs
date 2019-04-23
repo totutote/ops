@@ -62,15 +62,17 @@ namespace OPS.Model
             return ConvertDataTable(db.All());
         }
 
-        public Dictionary<int, T> Id(int id)
+        public Dictionary<int, T> Id(int? id)
         {
-            if(cacheRecords.ContainsKey(id))
+            if (id == null) return new Dictionary<int, T>();
+            int noNullId = (int)id;
+            if(cacheRecords.ContainsKey(noNullId))
             {
                 var retDic = new Dictionary<int, T>();
-                retDic[id] = cacheRecords[id];
+                retDic[noNullId] = cacheRecords[noNullId];
                 return retDic;
             }
-            return ConvertDataTable(db.Id(id));
+            return ConvertDataTable(db.Id(noNullId));
         }
 
         public Dictionary<int, T> Where(string culumn, string value)
