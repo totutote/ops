@@ -89,18 +89,19 @@ namespace OPS.Model
                     {
                         Dictionary<MasterOptionModel, int> cpyMasterOptionModelsCount = new Dictionary<MasterOptionModel, int>(masterOptionModelsCount);
                         MasterMixChainModel finalMasterMixChainModel = createMasterMixChain.Value;
-                        cpyMasterOptionModelsCount[finalMasterMixChainModel.MaterialMasterOptionModel] -= 1;
-                        if (cpyMasterOptionModelsCount[finalMasterMixChainModel.MaterialMasterOptionModel] == 0)
+                        MasterOptionModel finalKeyMaterialOptionModel = finalMasterMixChainModel.MaterialMasterOptionModel;
+                        cpyMasterOptionModelsCount[finalKeyMaterialOptionModel] -= 1;
+                        if (cpyMasterOptionModelsCount[finalKeyMaterialOptionModel] == 0)
                         {
-                            cpyMasterOptionModelsCount.Remove(finalMasterMixChainModel.MaterialMasterOptionModel);
+                            cpyMasterOptionModelsCount.Remove(finalKeyMaterialOptionModel);
                         }
                         while (finalMasterMixChainModel.OverMasterMixChainModel != null && cpyMasterOptionModelsCount.ContainsKey(finalMasterMixChainModel.OverMasterMixChainModel.MaterialMasterOptionModel))
                         {
                             finalMasterMixChainModel = finalMasterMixChainModel.OverMasterMixChainModel;
-                            cpyMasterOptionModelsCount[finalMasterMixChainModel.MaterialMasterOptionModel] -= 1;
-                            if (cpyMasterOptionModelsCount[finalMasterMixChainModel.MaterialMasterOptionModel] == 0)
+                            cpyMasterOptionModelsCount[finalKeyMaterialOptionModel] -= 1;
+                            if (cpyMasterOptionModelsCount[finalKeyMaterialOptionModel] == 0)
                             {
-                                cpyMasterOptionModelsCount.Remove(finalMasterMixChainModel.MaterialMasterOptionModel);
+                                cpyMasterOptionModelsCount.Remove(finalKeyMaterialOptionModel);
                             }
                         }
                         finalMasterMixChains[createMasterMixChain.Value] = finalMasterMixChainModel;
