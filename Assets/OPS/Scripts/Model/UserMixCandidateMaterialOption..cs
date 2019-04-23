@@ -59,7 +59,7 @@ namespace OPS.Model
 
         public MasterOptionModel MasterOptionModel
         {
-            get { return _userMixCandidateMaterialOptionDB._masterOptionDB.Where("id", master_option_id.Value.ToString()).First().Value; }
+            get { return _userMixCandidateMaterialOptionDB._masterOptionDB.Id(master_option_id.Value).First().Value; }
         }
     }
 

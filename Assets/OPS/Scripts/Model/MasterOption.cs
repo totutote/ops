@@ -57,7 +57,7 @@ namespace OPS.Model
 
         public MasterOptionCategoryModel MasterOptionCategoryModel
         {
-            get { return _masterOptionDB._masterOptionCategoryDB.Where("id", category_id.Value.ToString()).First().Value; }
+            get { return _masterOptionDB._masterOptionCategoryDB.Id(category_id.Value).First().Value; }
         }
 
         public Dictionary<int, MasterMixChainModel> CreateMasterMixChains

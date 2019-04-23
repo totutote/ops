@@ -51,7 +51,7 @@ namespace OPS.Model
 
         public MasterOptionModel MasterOptionModel
         {
-            get { return _masterOptionCategoryDB._masterOptionDB.Where("id", id.Value.ToString()).First().Value; }
+            get { return _masterOptionCategoryDB._masterOptionDB.Id(id.Value).First().Value; }
         }
     }
 

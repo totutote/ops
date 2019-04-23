@@ -64,6 +64,12 @@ namespace OPS.Model
 
         public Dictionary<int, T> Id(int id)
         {
+            if(cacheRecords.ContainsKey(id))
+            {
+                var retDic = new Dictionary<int, T>();
+                retDic[id] = cacheRecords[id];
+                return retDic;
+            }
             return ConvertDataTable(db.Id(id));
         }
 
