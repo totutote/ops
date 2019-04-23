@@ -7,10 +7,10 @@ namespace OPS
     public class ApplicationManager : MonoBehaviour
     {
         [Inject]
-        PageManager _pageManager;
+        PageManager _pageManager = null;
 
         [Inject]
-        CompleteSelectPagePresenter.Factory _startPageFactory;
+        CompleteSelectPagePresenter.Factory _startPageFactory = null;
 
         void Start()
         {

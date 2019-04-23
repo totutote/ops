@@ -12,7 +12,7 @@ namespace OPS.Presenter
         public GameObject Culumn;
 
         [Inject]
-        UserMaterialDB userMaterialDB;
+        UserMaterialDB userMaterialDB = null;
 
         void Start()
         {

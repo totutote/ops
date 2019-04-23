@@ -9,10 +9,10 @@ namespace OPS.Presenter
     {
 
         [Inject]
-        PageManager _pageManager;
+        PageManager _pageManager = null;
 
         [Inject]
-        CompleteSelectPagePresenter.Factory _completeSelectPageFactory;
+        CompleteSelectPagePresenter.Factory _completeSelectPageFactory = null;
 
         public void OnClick()
         {

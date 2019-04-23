@@ -10,10 +10,10 @@ namespace OPS.Presenter
     public class OptionSelectCategoryListPresenter : MonoBehaviour
     {
         [SerializeField]
-        OptionSelectOptionGroupButtonPresenter baseOptionButton;
+        OptionSelectOptionGroupButtonPresenter baseOptionButton = default;
 
         [Inject]
-        MasterOptionCategoryDB masterOptionCategoryDB;
+        MasterOptionCategoryDB masterOptionCategoryDB = null;
 
         void Start()
         {

@@ -12,16 +12,16 @@ namespace OPS.Presenter
         public TMP_InputField nameInput;
 
         [Inject]
-        UserMixDB UserMixDB;
+        UserMixDB UserMixDB = null;
 
         [Inject]
-        MixPagePresenter.Factory _mixPageFactory;
+        MixPagePresenter.Factory _mixPageFactory = null;
 
         [Inject]
-        PageManager _pageManager;
+        PageManager _pageManager = null;
 
         [SerializeField]
-        MaterialSelectMaterialListPresenter _materialSelectMaterialListPresenter;
+        MaterialSelectMaterialListPresenter _materialSelectMaterialListPresenter = default;
 
         UserMixModel _userMixModel;
 

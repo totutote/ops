@@ -6,31 +6,31 @@ using OPS.Presenter;
 public class PageManagerInstaller : MonoInstaller<PageManagerInstaller>
 {
     [SerializeField]
-    GameObject _mainCanvas;
+    GameObject _mainCanvas = default;
 
     [SerializeField]
-    GameObject _selectOptionList;
+    GameObject _selectOptionList = default;
 
     [SerializeField]
-    GameObject _optionArea;
+    GameObject _optionArea = default;
 
     [SerializeField]
-    GameObject _completeSelectPage;
+    GameObject _completeSelectPage = default;
 
     [SerializeField]
-    GameObject _completeSelectListButton;
+    GameObject _completeSelectListButton = default;
 
     [SerializeField]
-    GameObject _materialSelectPage;
+    GameObject _materialSelectPage = default;
 
     [SerializeField]
-    GameObject _optionSelectPage;
+    GameObject _optionSelectPage = default;
 
     [SerializeField]
-    GameObject _mixPage;
+    GameObject _mixPage = default;
 
     [SerializeField]
-    GameObject _mixPageOptionSelectArea;
+    GameObject _mixPageOptionSelectArea = default;
 
     public override void InstallBindings()
     {

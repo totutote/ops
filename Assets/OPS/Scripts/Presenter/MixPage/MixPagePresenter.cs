@@ -11,13 +11,13 @@ namespace OPS.Presenter
         MaterialSelectPagePresenter.Factory _materialSelectPageFactory = null;
 
         [Inject]
-        MixPageOptionSelectAreaPresenter.Factory _mixPageOptionSelectAreaFactory;
+        MixPageOptionSelectAreaPresenter.Factory _mixPageOptionSelectAreaFactory = null;
 
         [Inject]
         PageManager _pageManager = null;
 
         [SerializeField]
-        GameObject _addOptionSelectAreaObject;
+        GameObject _addOptionSelectAreaObject = default;
 
         UserMixModel _userMixModel;
 

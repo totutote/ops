@@ -9,10 +9,10 @@ namespace OPS.Presenter
     public class MixPageOptionSelectAreaPresenter : MonoBehaviour
     {
         [SerializeField]
-        TextMeshProUGUI _optionNameText;
+        TextMeshProUGUI _optionNameText = default;
 
         [SerializeField]
-        TextMeshProUGUI _rateText;
+        TextMeshProUGUI _rateText = default;
 
         MasterOptionModel _masterOptionModel;
 

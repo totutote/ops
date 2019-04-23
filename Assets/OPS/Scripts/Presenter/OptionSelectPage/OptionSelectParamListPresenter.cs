@@ -10,13 +10,13 @@ namespace OPS.Presenter
     public class OptionSelectParamListPresenter : MonoBehaviour
     {
         [SerializeField]
-        OptionSelectPagePresenter _pagePresenter;
+        OptionSelectPagePresenter _pagePresenter = default;
 
         [SerializeField]
-        OptionSelectParamButtonPresenter paramButton;
+        OptionSelectParamButtonPresenter paramButton = default;
 
         [Inject]
-        MasterOptionDB masterOptionDB;
+        MasterOptionDB masterOptionDB = null;
 
         int _categoryId = 1;
 

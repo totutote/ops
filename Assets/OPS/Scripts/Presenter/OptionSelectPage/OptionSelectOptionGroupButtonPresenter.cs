@@ -7,10 +7,10 @@ namespace OPS.Presenter
     public class OptionSelectOptionGroupButtonPresenter : MonoBehaviour
     {
         [SerializeField]
-        TextMeshProUGUI _optionGroupText;
+        TextMeshProUGUI _optionGroupText = default;
 
         [SerializeField]
-        OptionSelectParamListPresenter _paramListPresenter;
+        OptionSelectParamListPresenter _paramListPresenter = default;
 
         MasterOptionCategoryModel _model;
 

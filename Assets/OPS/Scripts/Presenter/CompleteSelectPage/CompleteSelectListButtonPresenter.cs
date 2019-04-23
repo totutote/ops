@@ -10,13 +10,13 @@ namespace OPS.Presenter
     public class CompleteSelectListButtonPresenter : MonoBehaviour
     {
         [Inject]
-        PageManager _pageManager;
+        PageManager _pageManager = null;
 
         [Inject]
-        MaterialSelectPagePresenter.Factory _materialSelectPageFactory;
+        MaterialSelectPagePresenter.Factory _materialSelectPageFactory = null;
 
         [SerializeField]
-        TextMeshProUGUI _nameText;
+        TextMeshProUGUI _nameText = default;
 
         UserMixModel _userMixModel;
 

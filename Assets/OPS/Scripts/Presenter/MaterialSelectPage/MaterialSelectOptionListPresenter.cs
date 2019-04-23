@@ -18,7 +18,7 @@ namespace OPS.Presenter
         MaterialSelectOptionAreaPresenter.Factory _materialSelectOptionAreaFactory = null;
 
         [SerializeField]
-        GameObject _addRowGameobject;
+        GameObject _addRowGameobject = default;
 
         UserMixCandidateMaterialModel _userMixCandidateMaterialModel;
 

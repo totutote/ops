@@ -12,13 +12,13 @@ namespace OPS.Presenter
 	public class MaterialSelectAddOptionPresenter : MonoBehaviour
 	{
 		[Inject]
-        PageManager _pageManager;
+        PageManager _pageManager = null;
 
         [Inject]
-        OptionSelectPagePresenter.Factory _optionSelectPageFactory;
+        OptionSelectPagePresenter.Factory _optionSelectPageFactory = null;
 
         [SerializeField]
-        MaterialSelectOptionListPresenter _optionListPresenter;
+        MaterialSelectOptionListPresenter _optionListPresenter = default;
 
 		OptionSelectPagePresenter _cpyOptionSelectPage;
 

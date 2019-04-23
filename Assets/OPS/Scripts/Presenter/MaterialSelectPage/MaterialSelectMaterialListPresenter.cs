@@ -8,13 +8,13 @@ namespace OPS.Presenter
     public class MaterialSelectMaterialListPresenter : MonoBehaviour
     {
         [Inject]
-        MaterialSelectOptionListPresenter.Factory _optionListPresenterFactory;
+        MaterialSelectOptionListPresenter.Factory _optionListPresenterFactory = null;
 
         [SerializeField]
-        MaterialSelectPagePresenter _materialSelectPagePresenter;
+        MaterialSelectPagePresenter _materialSelectPagePresenter = null;
 
         [SerializeField]
-        GameObject _addOptionListObject;
+        GameObject _addOptionListObject = default;
 
         public void Recovery()
         {

@@ -7,13 +7,13 @@ namespace OPS.Presenter
     public class CompleteSelectPagePresenter : MonoBehaviour
     {
         [Inject]
-        UserMixDB _userMixDB;
+        UserMixDB _userMixDB = null;
 
         [Inject]
-        CompleteSelectListButtonPresenter.Factory _completeSelectListButtonFactory;
+        CompleteSelectListButtonPresenter.Factory _completeSelectListButtonFactory = null;
 
         [SerializeField]
-        GameObject _addListObject;
+        GameObject _addListObject = default;
 
         void Start()
         {

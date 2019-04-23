@@ -9,7 +9,7 @@ namespace OPS.Presenter
         OptionSelectPagePresenter _pagePresenter;
 
         [SerializeField]
-        TextMeshProUGUI _optionText;
+        TextMeshProUGUI _optionText = default;
 
         MasterOptionModel _model;
 
