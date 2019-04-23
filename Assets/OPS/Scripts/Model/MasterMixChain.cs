@@ -74,9 +74,7 @@ namespace OPS.Model
         {
             get
             {
-                var findModel = _masterMixChainDB.Where("over_mix_id", id.Value.ToString());
-                if (findModel.Count == 0) return null;
-                return _masterMixChainDB.Where("over_mix_id", id.Value.ToString()).First().Value;
+                return _masterMixChainDB.Where("over_mix_id", id.Value.ToString()).FirstOrDefault().Value;
             }
         }
 
