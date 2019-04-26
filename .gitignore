@@ -38,3 +38,5 @@ Logs/
 # Builds
 *.apk
 *.unitypackage
+
+vendor
