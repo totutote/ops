@@ -6,6 +6,9 @@ using UnityEngine;
 using ObservableUnity = UniRx.Observable;
 #endif
 
+
+#pragma warning disable 0618
+
 namespace UniRx
 {
     using System.Threading;
@@ -429,3 +432,5 @@ namespace UniRx
         }
     }
 }
+
+#pragma warning restore

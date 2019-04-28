@@ -135,7 +135,9 @@ public class SqliteDatabase
 			
 			if (sourcePath.Contains ("://")) {
 				// Android	
+#pragma warning disable 0618
 				WWW www = new WWW (sourcePath);
+#pragma warning restore
 				// Wait for download to complete - not pretty at all but easy hack for now 
 				// and it would not take long since the data is on the local device.
 				while (!www.isDone) {;}

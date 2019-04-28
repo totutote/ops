@@ -106,6 +106,8 @@ namespace UniRx
                 editorQueueWorker.ExecuteAll(x => Debug.LogException(x));
             }
 
+#pragma warning disable 0618
+
             void ConsumeEnumerator(IEnumerator routine)
             {
                 if (routine.MoveNext())
@@ -164,6 +166,8 @@ namespace UniRx
                 }
                 ConsumeEnumerator(continuation);
             }
+
+#pragma warning restore
 
             IEnumerator UnwrapWaitAsyncOperation(AsyncOperation asyncOperation, IEnumerator continuation)
             {
