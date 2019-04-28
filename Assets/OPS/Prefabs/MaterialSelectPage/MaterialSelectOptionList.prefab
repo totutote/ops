@@ -163,8 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6968d28d4513c14788004432a67868b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _optionSelectPage: {fileID: 7775390899324319321, guid: 4c91c0064c37643fa8c24c91e3300fb7,
-    type: 3}
   _optionListPresenter: {fileID: 6489187978153280443}
 --- !u!1 &1154610187544028959
 GameObject:
@@ -560,7 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3402fb9b589547b5b53c9364a4b90f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _row: {fileID: 26352098423247632, guid: 44d8b1ad1436f40fdbc4a8075921b0c2, type: 3}
+  _materialNameText: {fileID: 1154610187544028957}
   _addRowGameobject: {fileID: 1154610187711212297}
 --- !u!1 &1154610188084226183
 GameObject:

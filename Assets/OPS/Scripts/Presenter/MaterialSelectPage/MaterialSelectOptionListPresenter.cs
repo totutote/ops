@@ -18,6 +18,9 @@ namespace OPS.Presenter
         MaterialSelectOptionAreaPresenter.Factory _materialSelectOptionAreaFactory = null;
 
         [SerializeField]
+        TextMeshProUGUI _materialNameText;
+
+        [SerializeField]
         GameObject _addRowGameobject = default;
 
         UserMixCandidateMaterialModel _userMixCandidateMaterialModel;
@@ -33,6 +36,7 @@ namespace OPS.Presenter
                 rowCpy.transform.SetParent(_addRowGameobject.transform, false);
                 rowCpy.transform.SetSiblingIndex(userMixCandidateMaterialOptionModel.Value.sort_index.Value + 1);
             }
+            SetMaterialNameText(_userMixCandidateMaterialModel.sort_index.Value);
         }
 
         public void AddSetup(UserMixModel userMixModel)
@@ -41,6 +45,13 @@ namespace OPS.Presenter
             newUserMixCandidateMaterialModel.user_mix_id.Value = userMixModel.id.Value;
             newUserMixCandidateMaterialModel.sort_index.Value = _userMixCandidateMaterialDB.Where("user_mix_id", userMixModel.id.Value.ToString()).Count;
             _userMixCandidateMaterialModel = _userMixCandidateMaterialDB.Save(newUserMixCandidateMaterialModel).First().Value;
+            SetMaterialNameText(_userMixCandidateMaterialModel.sort_index.Value);
+        }
+
+        void SetMaterialNameText(int sortIndex)
+        {
+            string nameText = sortIndex == 0 ? "本体" : "素材" + sortIndex;
+            _materialNameText.text = nameText;
         }
 
         public void AddNewOption(MasterOptionModel masterOptionModel)
