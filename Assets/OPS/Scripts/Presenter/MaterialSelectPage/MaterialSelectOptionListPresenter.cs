@@ -18,7 +18,7 @@ namespace OPS.Presenter
         MaterialSelectOptionAreaPresenter.Factory _materialSelectOptionAreaFactory = null;
 
         [SerializeField]
-        TextMeshProUGUI _materialNameText;
+        TextMeshProUGUI _materialNameText = default;
 
         [SerializeField]
         GameObject _addRowGameobject = default;
