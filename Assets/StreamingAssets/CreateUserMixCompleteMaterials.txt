@@ -1,0 +1,8 @@
+DROP TABLE IF EXISTS user_mix_complete_materials;
+CREATE TABLE user_mix_complete_materials (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_mix_id INTEGER, -- このmix_idに対する合成後素材もしくは完成品
+    select_agenda INTEGER, -- 合成候補として選択
+    master_option_id INTEGER,
+    rate FLOAT -- 因子など
+);

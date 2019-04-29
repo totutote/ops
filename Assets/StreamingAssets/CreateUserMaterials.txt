@@ -1,7 +1,0 @@
-DROP TABLE IF EXISTS user_materials;
-CREATE TABLE user_materials (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_mix_id INTEGER, -- このmix_idに対する合成後素材もしくは完成品
-    sort_index INTEGER, -- 0は本体
-    ref_user_mix_id INTEGER -- 因子など
-);

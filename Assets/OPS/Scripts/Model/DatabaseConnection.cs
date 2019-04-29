@@ -62,6 +62,10 @@ namespace OPS.Model
                 {
                     valuesString += ", " + record.Value;
                 }
+                if (record.Value.GetType() == typeof(double))
+                {
+                    valuesString += ", " + record.Value;
+                }
                 else if (record.Value.GetType() == typeof(string))
                 {
                     valuesString += ", " + "'" + record.Value + "'";

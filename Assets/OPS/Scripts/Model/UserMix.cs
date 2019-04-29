@@ -17,6 +17,9 @@ namespace OPS.Model
         [Inject]
         public MasterMixChainDB _masterMixChainDB = null;
 
+        [Inject]
+        public UserMixCompleteMaterialDB _userMixCompleteMaterialDB = null;
+
         protected override UserMixModel DataRow2Model(DataRow DataRow)
         {
             var model = new UserMixModel();
@@ -54,6 +57,19 @@ namespace OPS.Model
         public Dictionary<int, UserMixCandidateMaterialModel> UserMixCandidateMaterialModel
         {
             get { return _userMixDB._userMixCandidateMaterialDB.Where("user_mix_id", id.Value.ToString()); }
+        }
+
+        public Dictionary<int, UserMixCompleteMaterialModel> UserMixCompleteMaterialModels
+        {
+            get { return _userMixDB._userMixCompleteMaterialDB.Where("user_mix_id", id.Value.ToString()); }
+        }
+
+        public void DestroyCompleteModel()
+        {
+            foreach (var completeMaterialModel in _userMixDB._userMixCompleteMaterialDB.Where("user_mix_id", id.Value.ToString()))
+            {
+                _userMixDB._userMixCompleteMaterialDB.Delete(completeMaterialModel.Value);
+            }
         }
 
         public Dictionary<MasterOptionModel, double> MixOptionRate
