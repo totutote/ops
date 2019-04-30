@@ -12,10 +12,10 @@ namespace OPS.Model
         public override string TableName { get { return "master_mix_bonuses"; } }
 
         [Inject]
-        public MasterOptionDB _masterOptionDB;
+        public MasterOptionDB _masterOptionDB = null;
 
         [Inject]
-        public MasterMixChainDB _masterMixChainDB;
+        public MasterMixChainDB _masterMixChainDB = null;
 
 
         protected override MasterMixBonusModel DataRow2Model(DataRow DataRow)
