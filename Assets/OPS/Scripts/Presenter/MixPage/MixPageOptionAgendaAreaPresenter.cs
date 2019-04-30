@@ -20,7 +20,7 @@ namespace OPS.Presenter
             _userMixCompleteMaterialModel = userMixCompleteMaterialModel;
 
             _optionNameText.text = _userMixCompleteMaterialModel.MasterOptionModel.name.Value;
-            _rateText.text = _userMixCompleteMaterialModel.IncludeExtraRate().ToString();
+            _rateText.text = _userMixCompleteMaterialModel.IncludeExtraRate().ToString() + "%";
         }
 
         public class Factory : PlaceholderFactory<MixPageOptionAgendaAreaPresenter>
