@@ -16,6 +16,7 @@ namespace OPS.Presenter
 
         public void SetModel(MasterOptionCategoryModel model)
         {
+            gameObject.SetActive(true);
             _model = model;
             _optionGroupText.text = model.name.Value;
         }
