@@ -4,6 +4,7 @@ using Zenject;
 using TMPro;
 using System.Linq;
 using UnityEngine.UI;
+using UniRx;
 
 namespace OPS.Presenter
 {
@@ -39,7 +40,7 @@ namespace OPS.Presenter
 
             _optionNameText.text = _userMixCompleteMaterialModel.MasterOptionModel.name.Value;
             _rateText.text = _userMixCompleteMaterialModel.rate.ToString() + "%";
-            _toggle.isOn = _userMixCompleteMaterialModel.select_agenda.Value == 0 ? false : true;
+            _userMixCompleteMaterialModel.select_agenda.Subscribe(onoff => {_toggle.isOn = onoff == 0 ? false : true;}).AddTo(gameObject);
         }
 
         public void SelectOption()
