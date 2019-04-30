@@ -12,7 +12,7 @@ namespace OPS.Model
         public override string TableName { get { return "user_mix_candidate_materials"; } }
 
         [Inject]
-        public UserMixCandidateMaterialOptionDB _userMixCandidateMaterialOptionModel = null;
+        public UserMixCandidateMaterialOptionDB _userMixCandidateMaterialOptionDB = null;
 
         protected override UserMixCandidateMaterialModel DataRow2Model(DataRow DataRow)
         {
@@ -56,7 +56,12 @@ namespace OPS.Model
 
         public Dictionary<int, UserMixCandidateMaterialOptionModel> UserMixCandidateMaterialOptionModel
         {
-            get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionModel.Where("user_mix_candidate_material_id", id.Value.ToString()); }
+            get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionDB.Where("user_mix_candidate_material_id", id.Value.ToString()); }
+        }
+
+        public int OptionCount()
+        {
+            return UserMixCandidateMaterialOptionModel.Count;
         }
 
         public Dictionary<MasterOptionModel, int> MasterOptionModelCount

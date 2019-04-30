@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using Zenject;
 
@@ -62,6 +63,11 @@ namespace OPS.Model
         public Dictionary<int, UserMixCompleteMaterialModel> UserMixCompleteMaterialModels
         {
             get { return _userMixDB._userMixCompleteMaterialDB.Where("user_mix_id", id.Value.ToString()); }
+        }
+
+        public UserMixCandidateMaterialModel BodyUserMixCandidateMaterialModel
+        {
+            get { return _userMixDB._userMixCandidateMaterialDB.Where("sort_index", "0").First().Value; }
         }
 
         public void DestroyCompleteModel()

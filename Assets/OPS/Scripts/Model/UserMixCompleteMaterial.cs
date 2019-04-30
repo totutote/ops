@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using Zenject;
@@ -12,7 +14,10 @@ namespace OPS.Model
         public override string TableName { get { return "user_mix_complete_materials"; } }
 
         [Inject]
-        public MasterOptionDB _masterOptionDB;
+        public MasterOptionDB _masterOptionDB = null;
+
+        [Inject]
+        public UserMixDB _userMixDB = null;
 
         protected override UserMixCompleteMaterialModel DataRow2Model(DataRow DataRow)
         {
@@ -40,6 +45,19 @@ namespace OPS.Model
 
     public class UserMixCompleteMaterialModel
     {
+        public Dictionary<int, double> ExtraRateTable = new Dictionary<int, double>()
+        {
+            {0, 1}, // 合成後スロット数0は本来存在しない。エラー回避のため。
+            {1, 1},
+            {2, 0.9},
+            {3, 0.85},
+            {4, 0.7},
+            {5, 0.6},
+            {6, 0.55},
+            {7, 0.4},
+            {8, 0.3}
+        };
+
         UserMixCompleteMaterialDB _userMixCompleteMaterialDB;
 
         public void SetDB(UserMixCompleteMaterialDB userMixCompleteMaterialDB)
@@ -56,6 +74,36 @@ namespace OPS.Model
         public MasterOptionModel MasterOptionModel
         {
             get { return _userMixCompleteMaterialDB._masterOptionDB.Id(master_option_id.Value).First().Value; }
+        }
+
+        public UserMixModel UserMixModel
+        {
+            get { return _userMixCompleteMaterialDB._userMixDB.Id(user_mix_id.Value).First().Value; }
+        }
+
+        public Dictionary<int, UserMixCompleteMaterialModel> SelectUserMixCompleteMaterialModels
+        {
+            get
+            {
+                Dictionary<int, UserMixCompleteMaterialModel> selectModels = new Dictionary<int, UserMixCompleteMaterialModel>();
+                foreach (var userMixCompleteMaterialModel in UserMixModel.UserMixCompleteMaterialModels)
+                {
+                    if (userMixCompleteMaterialModel.Value.select_agenda.Value == 0) continue;
+                    selectModels[userMixCompleteMaterialModel.Key] = userMixCompleteMaterialModel.Value;
+                }
+                return selectModels;
+            }
+        }
+
+        public double IncludeExtraRate()
+        {
+            var bodyOptionCount = UserMixModel.BodyUserMixCandidateMaterialModel.OptionCount();
+            var completeOptionCount = SelectUserMixCompleteMaterialModels.Count();
+            if (bodyOptionCount >= completeOptionCount)
+            {
+                return rate.Value;
+            }
+            return Math.Round(rate.Value * ExtraRateTable[completeOptionCount], MidpointRounding.AwayFromZero);
         }
 
         public void SelectAgenda()
