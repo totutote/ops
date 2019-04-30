@@ -9,7 +9,8 @@ namespace OPS.Presenter
 
     public class MaterialSelectPagePresenter : MonoBehaviour
     {
-        public TMP_InputField nameInput;
+        [SerializeField]
+        TMP_InputField _nameInput;
 
         [Inject]
         UserMixDB UserMixDB = null;
@@ -38,13 +39,13 @@ namespace OPS.Presenter
             _userMixModel = UserMixDB.Save(newUserMix).Values.First();
             _userMixModel.name.Value += _userMixModel.id.Value;
             UserMixDB.Save(_userMixModel);
-            nameInput.text = _userMixModel.name.Value;
+            _nameInput.text = _userMixModel.name.Value;
         }
 
         public void Setup(UserMixModel userMixModel)
         {
             _userMixModel = userMixModel;
-            nameInput.text = _userMixModel.name.Value;
+            _nameInput.text = _userMixModel.name.Value;
             _materialSelectMaterialListPresenter.Recovery();
         }
 
@@ -53,6 +54,12 @@ namespace OPS.Presenter
             var cpyMixPage = _mixPageFactory.Create();
             cpyMixPage.Setup(_userMixModel);
             _pageManager.ChangePage(cpyMixPage);
+        }
+
+        public void OnValueChangeName()
+        {
+            _userMixModel.name.Value = _nameInput.text;
+            UserMixDB.Save(_userMixModel);
         }
 
         public class Factory : PlaceholderFactory<MaterialSelectPagePresenter>
