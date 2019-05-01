@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using Zenject;
@@ -72,28 +73,24 @@ namespace OPS.Model
 
         public MasterMixChainModel OverMasterMixChainModel
         {
-            get
-            {
-                return _masterMixChainDB.Where("over_mix_id", id.Value.ToString()).FirstOrDefault().Value;
-            }
+            get { return _masterMixChainDB.Where("over_mix_id", id.Value.ToString()).FirstOrDefault().Value; }
         }
 
-        public double IncludeBonusRate
+        public double IncludeBonusRate(Dictionary<MasterOptionModel, int> masterOptionCount)
         {
-            get
+            var bonuses = _masterMixChainDB._masterMixBonusDB.Where("master_mix_chain_id", id.Value.ToString());
+            if (bonuses.Count == 0)
             {
-                var bonuses = _masterMixChainDB._masterMixBonusDB.Where("master_mix_chain_id", id.Value.ToString());
-                if (bonuses.Count == 0)
-                {
-                    return rate.Value;
-                }
-                double mostRate = 0f;
-                foreach (var bonus in bonuses)
-                {
-                    if (mostRate < bonus.Value.rate.Value) mostRate = bonus.Value.rate.Value;
-                }
-                return mostRate;
+                return rate.Value;
             }
+            double mostRate = 0f;
+            foreach (var bonus in bonuses)
+            {
+                if (!masterOptionCount.ContainsKey(bonus.Value.MasterOptionModel)) continue;
+                if (mostRate < bonus.Value.rate.Value) mostRate = bonus.Value.rate.Value;
+            }
+            var includeBonusRate = rate.Value + mostRate;
+            return includeBonusRate > 100f ? 100f : includeBonusRate;
         }
     }
 
