@@ -120,6 +120,7 @@ namespace OPS.Model
                         while (finalMasterMixChainModel.OverMasterMixChainModel != null && cpyMasterOptionModelsCount.ContainsKey(finalMasterMixChainModel.OverMasterMixChainModel.MaterialMasterOptionModel))
                         {
                             finalMasterMixChainModel = finalMasterMixChainModel.OverMasterMixChainModel;
+                            finalKeyMaterialOptionModel = finalMasterMixChainModel.MaterialMasterOptionModel;
                             cpyMasterOptionModelsCount[finalKeyMaterialOptionModel] -= 1;
                             if (cpyMasterOptionModelsCount[finalKeyMaterialOptionModel] == 0)
                             {
