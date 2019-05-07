@@ -60,12 +60,12 @@ namespace OPS.Model
 
         public MasterMixChainModel MasterMixChain
         {
-            get { return _masterMixBonusDB._masterMixChainDB.Where("id", master_mix_chain_id.Value.ToString()).First().Value; }
+            get { return _masterMixBonusDB._masterMixChainDB.Id(master_mix_chain_id.Value).First().Value; }
         }
 
         public MasterOptionModel MasterOptionModel
         {
-            get { return _masterMixBonusDB._masterOptionDB.Where("id", master_option_id.Value.ToString()).First().Value; }
+            get { return _masterMixBonusDB._masterOptionDB.Id(master_option_id.Value).First().Value; }
         }
     }
 
