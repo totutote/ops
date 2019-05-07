@@ -81,24 +81,10 @@ namespace OPS.Model
             get { return _userMixCompleteMaterialDB._userMixDB.Id(user_mix_id.Value).First().Value; }
         }
 
-        public Dictionary<int, UserMixCompleteMaterialModel> SelectUserMixCompleteMaterialModels
-        {
-            get
-            {
-                Dictionary<int, UserMixCompleteMaterialModel> selectModels = new Dictionary<int, UserMixCompleteMaterialModel>();
-                foreach (var userMixCompleteMaterialModel in UserMixModel.UserMixCompleteMaterialModels)
-                {
-                    if (userMixCompleteMaterialModel.Value.select_agenda.Value == 0) continue;
-                    selectModels[userMixCompleteMaterialModel.Key] = userMixCompleteMaterialModel.Value;
-                }
-                return selectModels;
-            }
-        }
-
         public double IncludeExtraRate()
         {
             var bodyOptionCount = UserMixModel.BodyUserMixCandidateMaterialModel.OptionCount();
-            var completeOptionCount = SelectUserMixCompleteMaterialModels.Count();
+            var completeOptionCount = UserMixModel.UserMixCompleteMaterialSelectAgendaModels.Count();
             if (bodyOptionCount >= completeOptionCount)
             {
                 return rate.Value;

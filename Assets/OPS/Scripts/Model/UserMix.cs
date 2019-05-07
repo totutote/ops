@@ -65,6 +65,11 @@ namespace OPS.Model
             get { return _userMixDB._userMixCompleteMaterialDB.Where("user_mix_id", id.Value.ToString()); }
         }
 
+        public Dictionary<int, UserMixCompleteMaterialModel> UserMixCompleteMaterialSelectAgendaModels
+        {
+            get { return _userMixDB._userMixCompleteMaterialDB.Where(new Dictionary<string, string>() { { "user_mix_id", id.Value.ToString() }, { "select_agenda", "1" } }); }
+        }
+
         public UserMixCandidateMaterialModel BodyUserMixCandidateMaterialModel
         {
             get { return _userMixDB._userMixCandidateMaterialDB.Where("sort_index", "0").First().Value; }

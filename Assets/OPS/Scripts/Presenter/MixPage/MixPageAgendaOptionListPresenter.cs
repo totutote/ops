@@ -24,9 +24,8 @@ namespace OPS.Presenter
             {
                 GameObject.Destroy(child.gameObject);
             }
-            foreach (var userMixCompleteMaterialModel in _userMixModel.UserMixCompleteMaterialModels)
+            foreach (var userMixCompleteMaterialModel in _userMixModel.UserMixCompleteMaterialSelectAgendaModels)
             {
-                if (userMixCompleteMaterialModel.Value.select_agenda.Value == 0) continue;
                 var _cpyMixPageOptionAgendaArea = _mixPageOptionAgendaAreaFactory.Create();
                 _cpyMixPageOptionAgendaArea.Setup(userMixCompleteMaterialModel.Value);
                 _cpyMixPageOptionAgendaArea.transform.SetParent(AddAgendaOptionListObject.transform, false);
