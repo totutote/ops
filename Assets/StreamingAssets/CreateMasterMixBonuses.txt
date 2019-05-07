@@ -3,5 +3,5 @@ CREATE TABLE master_mix_bonuses (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     master_mix_chain_id INTEGER,
     master_option_id INTEGER,
-    rate INTEGER
+    rate FLOAT
 );

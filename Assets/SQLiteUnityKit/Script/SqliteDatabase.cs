@@ -23,6 +23,7 @@ public class SqliteException : Exception
 
 public class SqliteDatabase
 {
+	private const string DllName = "sqlite3";
 	private bool CanExQuery = true;
 	const int SQLITE_OK = 0;
 	const int SQLITE_ROW = 100;
@@ -33,46 +34,46 @@ public class SqliteDatabase
 	const int SQLITE_BLOB = 4;
 	const int SQLITE_NULL = 5;
         
-	[DllImport("sqlite3", EntryPoint = "sqlite3_open")]
+	[DllImport(DllName, EntryPoint = "sqlite3_open")]
 	private static extern int sqlite3_open (string filename, out IntPtr db);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_close")]
+	[DllImport(DllName, EntryPoint = "sqlite3_close")]
 	private static extern int sqlite3_close (IntPtr db);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_prepare_v2")]
+	[DllImport(DllName, EntryPoint = "sqlite3_prepare_v2")]
 	private static extern int sqlite3_prepare_v2 (IntPtr db, string zSql, int nByte, out IntPtr ppStmpt, IntPtr pzTail);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_step")]
+	[DllImport(DllName, EntryPoint = "sqlite3_step")]
 	private static extern int sqlite3_step (IntPtr stmHandle);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_finalize")]
+	[DllImport(DllName, EntryPoint = "sqlite3_finalize")]
 	private static extern int sqlite3_finalize (IntPtr stmHandle);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_errmsg")]
+	[DllImport(DllName, EntryPoint = "sqlite3_errmsg")]
 	private static extern IntPtr sqlite3_errmsg (IntPtr db);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_column_count")]
+	[DllImport(DllName, EntryPoint = "sqlite3_column_count")]
 	private static extern int sqlite3_column_count (IntPtr stmHandle);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_column_name")]
+	[DllImport(DllName, EntryPoint = "sqlite3_column_name")]
 	private static extern IntPtr sqlite3_column_name (IntPtr stmHandle, int iCol);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_column_type")]
+	[DllImport(DllName, EntryPoint = "sqlite3_column_type")]
 	private static extern int sqlite3_column_type (IntPtr stmHandle, int iCol);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_column_int")]
+	[DllImport(DllName, EntryPoint = "sqlite3_column_int")]
 	private static extern int sqlite3_column_int (IntPtr stmHandle, int iCol);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_column_text")]
+	[DllImport(DllName, EntryPoint = "sqlite3_column_text")]
 	private static extern IntPtr sqlite3_column_text (IntPtr stmHandle, int iCol);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_column_double")]
+	[DllImport(DllName, EntryPoint = "sqlite3_column_double")]
 	private static extern double sqlite3_column_double (IntPtr stmHandle, int iCol);
  
-	[DllImport("sqlite3", EntryPoint = "sqlite3_column_blob")]
+	[DllImport(DllName, EntryPoint = "sqlite3_column_blob")]
 	private static extern IntPtr sqlite3_column_blob (IntPtr stmHandle, int iCol);
 
-	[DllImport("sqlite3", EntryPoint = "sqlite3_column_bytes")]
+	[DllImport(DllName, EntryPoint = "sqlite3_column_bytes")]
 	private static extern int sqlite3_column_bytes (IntPtr stmHandle, int iCol);
 	
 	private IntPtr _connection;
@@ -135,7 +136,9 @@ public class SqliteDatabase
 			
 			if (sourcePath.Contains ("://")) {
 				// Android	
+#pragma warning disable 0618
 				WWW www = new WWW (sourcePath);
+#pragma warning restore
 				// Wait for download to complete - not pretty at all but easy hack for now 
 				// and it would not take long since the data is on the local device.
 				while (!www.isDone) {;}

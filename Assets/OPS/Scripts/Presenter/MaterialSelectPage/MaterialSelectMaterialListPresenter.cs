@@ -24,7 +24,7 @@ namespace OPS.Presenter
                 var cpyOptionList = _optionListPresenterFactory.Create();
                 cpyOptionList.Recovery(userMixCandidateMaterialModel.Value);
                 cpyOptionList.transform.SetParent(_addOptionListObject.transform, false);
-                cpyOptionList.transform.SetAsFirstSibling();
+                cpyOptionList.transform.SetAsLastSibling();
             }
         }
 

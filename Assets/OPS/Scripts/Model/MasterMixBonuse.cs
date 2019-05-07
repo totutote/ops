@@ -12,10 +12,10 @@ namespace OPS.Model
         public override string TableName { get { return "master_mix_bonuses"; } }
 
         [Inject]
-        public MasterOptionDB _masterOptionDB;
+        public MasterOptionDB _masterOptionDB = null;
 
         [Inject]
-        public MasterMixChainDB _masterMixChainDB;
+        public MasterMixChainDB _masterMixChainDB = null;
 
 
         protected override MasterMixBonusModel DataRow2Model(DataRow DataRow)
@@ -25,7 +25,7 @@ namespace OPS.Model
             model.id.Value = (int)DataRow["id"];
             model.master_mix_chain_id.Value = (int)DataRow["master_mix_chain_id"];
             model.master_option_id.Value = (int)DataRow["master_option_id"];
-            model.rate.Value = (float)DataRow["rate"];
+            model.rate.Value = (double)DataRow["rate"];
             return model;
         }
 
@@ -56,11 +56,16 @@ namespace OPS.Model
         public IntReactiveProperty id = new IntReactiveProperty();
         public IntReactiveProperty master_mix_chain_id = new IntReactiveProperty();
         public IntReactiveProperty master_option_id = new IntReactiveProperty();
-        public FloatReactiveProperty rate = new FloatReactiveProperty();
+        public DoubleReactiveProperty rate = new DoubleReactiveProperty();
 
-        public MasterMixChainModel MaterialMasterOptionModel
+        public MasterMixChainModel MasterMixChain
         {
             get { return _masterMixBonusDB._masterMixChainDB.Where("id", master_mix_chain_id.Value.ToString()).First().Value; }
+        }
+
+        public MasterOptionModel MasterOptionModel
+        {
+            get { return _masterMixBonusDB._masterOptionDB.Where("id", master_option_id.Value.ToString()).First().Value; }
         }
     }
 

@@ -7,6 +7,9 @@ namespace OPS.Presenter
 
     public class OptionSelectPagePresenter : MonoBehaviour
 	{
+        [Inject]
+        PageManager _pageManager = null;
+
         public delegate void DelegateSelectOption(MasterOptionModel masterOptionModel);
 
         event DelegateSelectOption _onSelectOption;
@@ -23,6 +26,10 @@ namespace OPS.Presenter
             _onSelectOption = null;
         }
 
+        public void OnClose()
+        {
+			_pageManager.DestroyPage<OptionSelectPagePresenter>();
+        }
 
         public class Factory : PlaceholderFactory<OptionSelectPagePresenter>
         {

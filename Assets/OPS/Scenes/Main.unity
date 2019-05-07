@@ -206,6 +206,8 @@ MonoBehaviour:
   _mixPage: {fileID: 59444156958196820, guid: 404e5d2db058bc3489e560ab8b7291ff, type: 3}
   _mixPageOptionSelectArea: {fileID: 5312733871974887066, guid: 800c3b39cfd388047ae23f14852b1d28,
     type: 3}
+  _mixPageOptionAgendaArea: {fileID: 8120543632030424996, guid: 2e0d8202973bc45fc9a8032cbcb5b869,
+    type: 3}
 --- !u!1 &937902423
 GameObject:
   m_ObjectHideFlags: 0

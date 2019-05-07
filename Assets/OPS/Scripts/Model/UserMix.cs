@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UniRx;
 using Zenject;
 
@@ -16,6 +17,9 @@ namespace OPS.Model
 
         [Inject]
         public MasterMixChainDB _masterMixChainDB = null;
+
+        [Inject]
+        public UserMixCompleteMaterialDB _userMixCompleteMaterialDB = null;
 
         protected override UserMixModel DataRow2Model(DataRow DataRow)
         {
@@ -56,21 +60,41 @@ namespace OPS.Model
             get { return _userMixDB._userMixCandidateMaterialDB.Where("user_mix_id", id.Value.ToString()); }
         }
 
+        public Dictionary<int, UserMixCompleteMaterialModel> UserMixCompleteMaterialModels
+        {
+            get { return _userMixDB._userMixCompleteMaterialDB.Where("user_mix_id", id.Value.ToString()); }
+        }
+
+        public UserMixCandidateMaterialModel BodyUserMixCandidateMaterialModel
+        {
+            get { return _userMixDB._userMixCandidateMaterialDB.Where("sort_index", "0").First().Value; }
+        }
+
+        public void DestroyCompleteModel()
+        {
+            foreach (var completeMaterialModel in _userMixDB._userMixCompleteMaterialDB.Where("user_mix_id", id.Value.ToString()))
+            {
+                _userMixDB._userMixCompleteMaterialDB.Delete(completeMaterialModel.Value);
+            }
+        }
+
         public Dictionary<MasterOptionModel, double> MixOptionRate
         {
             get
             {
                 Dictionary<MasterOptionModel, double> mixOptionRate = new Dictionary<MasterOptionModel, double>();
+                Dictionary<MasterOptionModel, int> masterOptionModelsCount = MasterOptionModelsCount;
                 foreach (var finalMasterMixChainModel in FinalMasterMixChainModels)
                 {
-                    if (finalMasterMixChainModel.Value.IncludeBonusRate <= 0) continue;
+                    var includeBonusRate = finalMasterMixChainModel.Value.IncludeBonusRate(masterOptionModelsCount);
+                    if (includeBonusRate <= 0) continue;
                     if (!mixOptionRate.ContainsKey(finalMasterMixChainModel.Key.CreateMasterOptionModel))
                     {
-                        mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = finalMasterMixChainModel.Value.IncludeBonusRate;
+                        mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = includeBonusRate;
                     }
-                    else if (mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] < finalMasterMixChainModel.Value.IncludeBonusRate)
+                    else if (mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] < includeBonusRate)
                     {
-                        mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = finalMasterMixChainModel.Value.IncludeBonusRate;
+                        mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = includeBonusRate;
                     }
                 }
                 return mixOptionRate;
@@ -98,6 +122,7 @@ namespace OPS.Model
                         while (finalMasterMixChainModel.OverMasterMixChainModel != null && cpyMasterOptionModelsCount.ContainsKey(finalMasterMixChainModel.OverMasterMixChainModel.MaterialMasterOptionModel))
                         {
                             finalMasterMixChainModel = finalMasterMixChainModel.OverMasterMixChainModel;
+                            finalKeyMaterialOptionModel = finalMasterMixChainModel.MaterialMasterOptionModel;
                             cpyMasterOptionModelsCount[finalKeyMaterialOptionModel] -= 1;
                             if (cpyMasterOptionModelsCount[finalKeyMaterialOptionModel] == 0)
                             {
