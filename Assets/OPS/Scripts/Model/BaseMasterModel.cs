@@ -80,6 +80,11 @@ namespace OPS.Model
             return ConvertDataTable(db.Where(culumn, value));
         }
 
+        public Dictionary<int, T> Where(Dictionary<string, string> wheres)
+        {
+            return ConvertDataTable(db.Where(wheres));
+        }
+
         public T New()
         {
             return new T();

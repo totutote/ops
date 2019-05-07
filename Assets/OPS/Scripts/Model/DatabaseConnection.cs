@@ -38,6 +38,16 @@ namespace OPS.Model
             return db.ExecuteQuery("select * from " + tableName + " where " + culumn + " = " + value);
         }
 
+        public DataTable Where(Dictionary<string, string> wheres)
+        {
+            string setString = "";
+            foreach (var where in wheres)
+            {
+                setString += ", " + where.Key + " = " + where.Value;
+            }
+            return db.ExecuteQuery("select * from " + tableName + " where " + setString.Remove(0, 2));
+        }
+
         public DataTable Save(DataRow saveData)
         {
             if ((int)saveData["id"] == 0)
