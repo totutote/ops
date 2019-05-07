@@ -43,9 +43,9 @@ namespace OPS.Model
             string setString = "";
             foreach (var where in wheres)
             {
-                setString += ", " + where.Key + " = " + where.Value;
+                setString += " and " + where.Key + " = " + where.Value;
             }
-            return db.ExecuteQuery("select * from " + tableName + " where " + setString.Remove(0, 2));
+            return db.ExecuteQuery("select * from " + tableName + " where " + setString.Remove(0, 4));
         }
 
         public DataTable Save(DataRow saveData)
