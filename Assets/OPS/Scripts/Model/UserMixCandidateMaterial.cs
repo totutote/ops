@@ -64,26 +64,6 @@ namespace OPS.Model
             return UserMixCandidateMaterialOptionModel.Count;
         }
 
-        public Dictionary<MasterOptionModel, int> MasterOptionModelCount
-        {
-            get
-            {
-                Dictionary<MasterOptionModel, int> masterOptionCount = new Dictionary<MasterOptionModel, int>();
-                foreach (var userMixCandidateMaterialOption in UserMixCandidateMaterialOptionModel)
-                {
-                    if (masterOptionCount.ContainsKey(userMixCandidateMaterialOption.Value.MasterOptionModel))
-                    {
-                        masterOptionCount[userMixCandidateMaterialOption.Value.MasterOptionModel] += 1;
-                    }
-                    else
-                    {
-                        masterOptionCount[userMixCandidateMaterialOption.Value.MasterOptionModel] = 1;
-                    }
-                }
-                return masterOptionCount;
-            }
-        }
-
         public UserMixCandidateMaterialOptionModel SameCategoryIncludeModel(MasterOptionModel masterOptionModel)
         {
             foreach (var userMixCandidateMaterialOptionModel in UserMixCandidateMaterialOptionModel)

@@ -17,6 +17,9 @@ namespace OPS.Model
         public UserMixCandidateMaterialDB _userMixCandidateMaterialDB = null;
 
         [Inject]
+        public UserMixCandidateMaterialOptionDB _userMixCandidateMaterialOptionDB = null;
+
+        [Inject]
         public MasterMixChainDB _masterMixChainDB = null;
 
         [Inject]
@@ -152,7 +155,7 @@ namespace OPS.Model
                 {
                     materialIdList.Add(userMixCandidateMaterialModel.Value.id.Value);
                 }
-                foreach (var materialMasterOptionCount in SelectUserMixCandidateMaterialOptionModel(materialIdList))
+                foreach (var materialMasterOptionCount in _userMixDB._userMixCandidateMaterialOptionDB.MaterialIdListSelect(materialIdList))
                 {
                     var keyMasterOptionModel = materialMasterOptionCount.Value.MasterOptionModel;
                     if (masterOptionModelCount.ContainsKey(keyMasterOptionModel))
@@ -164,21 +167,9 @@ namespace OPS.Model
                         masterOptionModelCount[keyMasterOptionModel] = 1;
                     }
                 }
-
                 return masterOptionModelCount;
             }
         }
-
-        public Dictionary<int, UserMixCandidateMaterialOptionModel> SelectUserMixCandidateMaterialOptionModel(List<int> materialList)
-        {
-            NameValueCollection whereValues = new NameValueCollection();
-            foreach (var id in materialList)
-            {
-                whereValues.Add("user_mix_candidate_material_id", id.ToString());
-            }
-            return _userMixDB._userMixCandidateMaterialDB._userMixCandidateMaterialOptionDB.Where(whereValues);
-        }
-
 
     }
 

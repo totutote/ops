@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using UniRx;
 using Zenject;
@@ -35,6 +37,16 @@ namespace OPS.Model
             dataRow["sort_index"] = model.sort_index.Value;
             dataRow["option_type"] = model.option_type.Value;
             return dataRow;
+        }
+
+        public Dictionary<int, UserMixCandidateMaterialOptionModel> MaterialIdListSelect(List<int> materialIdList)
+        {
+            NameValueCollection whereValues = new NameValueCollection();
+            foreach (var id in materialIdList)
+            {
+                whereValues.Add("user_mix_candidate_material_id", id.ToString());
+            }
+            return this.Where(whereValues);
         }
 
         public class Factory : PlaceholderFactory<UserMixCandidateMaterialOptionDB>
