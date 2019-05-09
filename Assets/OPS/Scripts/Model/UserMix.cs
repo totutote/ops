@@ -138,6 +138,7 @@ namespace OPS.Model
                             {
                                 cpyMasterOptionModelsCount.Remove(finalKeyMaterialOptionModel);
                             }
+                            finalOverMasterMixChainModel = finalMasterMixChainModel.OverMasterMixChainModel;
                         }
                         finalMasterMixChains[createMasterMixChain.Value] = finalMasterMixChainModel;
                     }
