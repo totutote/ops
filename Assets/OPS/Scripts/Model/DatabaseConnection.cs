@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 
 namespace OPS.Model
@@ -38,12 +39,19 @@ namespace OPS.Model
             return db.ExecuteQuery("select * from " + tableName + " where " + culumn + " = " + value);
         }
 
-        public DataTable Where(Dictionary<string, string> wheres)
+        public DataTable Where(NameValueCollection wheres)
         {
             string setString = "";
-            foreach (var where in wheres)
+            for (var i = 0; i < wheres.Count; i++)
             {
-                setString += " and " + where.Key + " = " + where.Value;
+                if(wheres.Get(i).Contains(","))
+                {
+                    setString += " and " + wheres.GetKey(i) + " IN(" + wheres.Get(i) + ")";
+                }
+                else
+                {
+                    setString += " and " + wheres.GetKey(i) + " = " + wheres.Get(i);
+                }                
             }
             return db.ExecuteQuery("select * from " + tableName + " where " + setString.Remove(0, 4));
         }

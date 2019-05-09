@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UniRx;
 
 namespace OPS.Model
@@ -80,7 +81,7 @@ namespace OPS.Model
             return ConvertDataTable(db.Where(culumn, value));
         }
 
-        public Dictionary<int, T> Where(Dictionary<string, string> wheres)
+        public Dictionary<int, T> Where(NameValueCollection wheres)
         {
             return ConvertDataTable(db.Where(wheres));
         }

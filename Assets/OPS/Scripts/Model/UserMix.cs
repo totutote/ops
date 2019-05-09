@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using UniRx;
 using Zenject;
@@ -67,7 +68,7 @@ namespace OPS.Model
 
         public Dictionary<int, UserMixCompleteMaterialModel> UserMixCompleteMaterialSelectAgendaModels
         {
-            get { return _userMixDB._userMixCompleteMaterialDB.Where(new Dictionary<string, string>() { { "user_mix_id", id.Value.ToString() }, { "select_agenda", "1" } }); }
+            get { return _userMixDB._userMixCompleteMaterialDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "select_agenda", "1" } }); }
         }
 
         public UserMixCandidateMaterialModel BodyUserMixCandidateMaterialModel
@@ -146,23 +147,38 @@ namespace OPS.Model
             get
             {
                 Dictionary<MasterOptionModel, int> masterOptionModelCount = new Dictionary<MasterOptionModel, int>();
+                List<int> materialIdList = new List<int>();
                 foreach (var userMixCandidateMaterialModel in UserMixCandidateMaterialModel)
                 {
-                    foreach (var materialMasterOptionCount in userMixCandidateMaterialModel.Value.MasterOptionModelCount)
+                    materialIdList.Add(userMixCandidateMaterialModel.Value.id.Value);
+                }
+                foreach (var materialMasterOptionCount in SelectUserMixCandidateMaterialOptionModel(materialIdList))
+                {
+                    var keyMasterOptionModel = materialMasterOptionCount.Value.MasterOptionModel;
+                    if (masterOptionModelCount.ContainsKey(keyMasterOptionModel))
                     {
-                        if (masterOptionModelCount.ContainsKey(materialMasterOptionCount.Key))
-                        {
-                            masterOptionModelCount[materialMasterOptionCount.Key] += materialMasterOptionCount.Value;
-                        }
-                        else
-                        {
-                            masterOptionModelCount[materialMasterOptionCount.Key] = materialMasterOptionCount.Value;
-                        }
+                        masterOptionModelCount[keyMasterOptionModel] += 1;
+                    }
+                    else
+                    {
+                        masterOptionModelCount[keyMasterOptionModel] = 1;
                     }
                 }
+
                 return masterOptionModelCount;
             }
         }
+
+        public Dictionary<int, UserMixCandidateMaterialOptionModel> SelectUserMixCandidateMaterialOptionModel(List<int> materialList)
+        {
+            NameValueCollection whereValues = new NameValueCollection();
+            foreach (var id in materialList)
+            {
+                whereValues.Add("user_mix_candidate_material_id", id.ToString());
+            }
+            return _userMixDB._userMixCandidateMaterialDB._userMixCandidateMaterialOptionDB.Where(whereValues);
+        }
+
 
     }
 
