@@ -128,9 +128,10 @@ namespace OPS.Model
                         {
                             cpyMasterOptionModelsCount.Remove(finalKeyMaterialOptionModel);
                         }
-                        while (finalMasterMixChainModel.OverMasterMixChainModel != null && cpyMasterOptionModelsCount.ContainsKey(finalMasterMixChainModel.OverMasterMixChainModel.MaterialMasterOptionModel))
+                        var finalOverMasterMixChainModel = finalMasterMixChainModel.OverMasterMixChainModel;
+                        while (finalOverMasterMixChainModel != null && cpyMasterOptionModelsCount.ContainsKey(finalOverMasterMixChainModel.MaterialMasterOptionModel))
                         {
-                            finalMasterMixChainModel = finalMasterMixChainModel.OverMasterMixChainModel;
+                            finalMasterMixChainModel = finalOverMasterMixChainModel;
                             finalKeyMaterialOptionModel = finalMasterMixChainModel.MaterialMasterOptionModel;
                             cpyMasterOptionModelsCount[finalKeyMaterialOptionModel] -= 1;
                             if (cpyMasterOptionModelsCount[finalKeyMaterialOptionModel] == 0)
