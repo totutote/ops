@@ -83,13 +83,18 @@ namespace OPS.Model
 
         public double IncludeExtraRate()
         {
-            var bodyOptionCount = UserMixModel.BodyUserMixCandidateMaterialModel.OptionCount();
-            var completeOptionCount = UserMixModel.UserMixCompleteMaterialSelectAgendaModels.Count();
-            if (bodyOptionCount >= completeOptionCount)
+            if (!IsExtraSlot())
             {
                 return rate.Value;
             }
-            return Math.Round(rate.Value * ExtraRateTable[completeOptionCount], MidpointRounding.AwayFromZero);
+            return Math.Round(rate.Value * ExtraRateTable[UserMixModel.UserMixCompleteMaterialSelectAgendaModels.Count()], MidpointRounding.AwayFromZero);
+        }
+
+        public bool IsExtraSlot()
+        {
+            var bodyOptionCount = UserMixModel.BodyUserMixCandidateMaterialModel.OptionCount();
+            var completeOptionCount = UserMixModel.UserMixCompleteMaterialSelectAgendaModels.Count();
+            return bodyOptionCount < completeOptionCount;
         }
 
         public bool SelectAgenda()
