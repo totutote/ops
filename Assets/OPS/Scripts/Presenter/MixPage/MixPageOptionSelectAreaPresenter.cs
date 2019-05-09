@@ -47,13 +47,16 @@ namespace OPS.Presenter
         {
             if (_toggle.isOn)
             {
-                _userMixCompleteMaterialModel.SelectAgenda();
+                if (!_userMixCompleteMaterialModel.SelectAgenda())
+                {
+                    _toggle.isOn = false;
+                }
             }
             else
             {
                 _userMixCompleteMaterialModel.select_agenda.Value = 0;
+                _userMixCompleteMaterialDB.Save(_userMixCompleteMaterialModel);
             }
-            _userMixCompleteMaterialDB.Save(_userMixCompleteMaterialModel);
             if (_onSelectOption != null)
             {
                 _onSelectOption();

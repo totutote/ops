@@ -10,7 +10,7 @@ namespace OPS.Presenter
     public class MaterialSelectPagePresenter : MonoBehaviour
     {
         [SerializeField]
-        TMP_InputField _nameInput;
+        TMP_InputField _nameInput = default;
 
         [Inject]
         UserMixDB UserMixDB = null;

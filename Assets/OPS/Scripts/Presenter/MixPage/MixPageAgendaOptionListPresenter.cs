@@ -9,9 +9,6 @@ namespace OPS.Presenter
         [Inject]
         MixPageOptionAgendaAreaPresenter.Factory _mixPageOptionAgendaAreaFactory = default;
 
-        [Inject]
-        UserMixCompleteMaterialDB _userMixCompleteMaterialDB = default;
-
         [SerializeField]
         GameObject AddAgendaOptionListObject = default;
 

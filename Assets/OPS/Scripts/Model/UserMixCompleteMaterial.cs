@@ -92,17 +92,24 @@ namespace OPS.Model
             return Math.Round(rate.Value * ExtraRateTable[completeOptionCount], MidpointRounding.AwayFromZero);
         }
 
-        public void SelectAgenda()
+        public bool SelectAgenda()
         {
-            var userMixAgendas = _userMixCompleteMaterialDB.Where("user_mix_id", user_mix_id.Value.ToString());
+            var userMixAgendas = UserMixModel.UserMixCompleteMaterialSelectAgendaModels;
             foreach (var userMixAgenda in userMixAgendas)
             {
-                if (MasterOptionModel.category_id.Value == userMixAgenda.Value.MasterOptionModel.category_id.Value)
+                if (userMixAgenda.Value != this && MasterOptionModel.category_id.Value == userMixAgenda.Value.MasterOptionModel.category_id.Value)
                 {
                     userMixAgenda.Value.select_agenda.Value = 0;
+                    select_agenda.Value = 1;
+                    _userMixCompleteMaterialDB.Save(userMixAgenda.Value);
+                    _userMixCompleteMaterialDB.Save(this);
+                    return true;
                 }
             }
+            if (userMixAgendas.Count() > UserMixModel.BodyUserMixCandidateMaterialModel.OptionCount()) return false;
             select_agenda.Value = 1;
+            _userMixCompleteMaterialDB.Save(this);
+            return true;
         }
     }
 
