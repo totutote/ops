@@ -258,7 +258,9 @@ public class SqliteDatabase
     /// </exception>
     public DataTable ExecuteQuery(string query)
     {
+#if UNITY_EDITOR
         Debug.Log("ExecuteQuery:" + query);
+#endif
 
         if (!CanExQuery)
         {
