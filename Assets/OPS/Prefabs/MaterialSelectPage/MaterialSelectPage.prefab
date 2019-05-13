@@ -2476,7 +2476,6 @@ GameObject:
   - component: {fileID: 1668890046204094080}
   - component: {fileID: 3146056432001185707}
   - component: {fileID: 6269226436898255484}
-  - component: {fileID: 3783483298822587411}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -2581,8 +2580,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3783483298822587411}
-        m_MethodName: OnClick
+      - m_Target: {fileID: 3030546159502202477}
+        m_MethodName: OnClickBackButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2594,15 +2593,3 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &3783483298822587411
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8275308986716106565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 221669d3c1594413199c9605369a237c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

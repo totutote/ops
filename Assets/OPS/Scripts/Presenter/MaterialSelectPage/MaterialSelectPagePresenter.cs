@@ -21,6 +21,9 @@ namespace OPS.Presenter
         [Inject]
         PageManager _pageManager = null;
 
+        [Inject]
+        CompleteSelectPagePresenter.Factory _completeSelectPageFactory = null;
+
         [SerializeField]
         MaterialSelectMaterialListPresenter _materialSelectMaterialListPresenter = default;
 
@@ -60,6 +63,17 @@ namespace OPS.Presenter
         {
             _userMixModel.name.Value = _nameInput.text;
             UserMixDB.Save(_userMixModel);
+        }
+
+        public void OnClickBackButton()
+        {
+            var cpyCompleteSelectPage = _completeSelectPageFactory.Create();
+            _pageManager.ChangePage(cpyCompleteSelectPage);
+            if (_userMixModel.UserMixCandidateMaterialModel.Count == 0)
+            {
+                _userMixModel.DestroyCompleteModel();
+                UserMixDB.Delete(_userMixModel);
+            }
         }
 
         public class Factory : PlaceholderFactory<MaterialSelectPagePresenter>
