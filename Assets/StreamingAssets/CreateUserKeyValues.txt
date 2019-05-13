@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS user_key_values;
+CREATE TABLE user_key_values (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    key TEXT,
+    value TEXT,
+);
