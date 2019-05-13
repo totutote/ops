@@ -12,6 +12,9 @@ namespace OPS.Presenter
         [Inject]
         MasterAdditionalItemDB _masterAdditionalItemDB = null;
 
+        [Inject]
+        UserMixKeyValueDB _userMixKeyValueDB = null;
+
         [SerializeField]
         TMP_Dropdown _dropDown = default;
 
@@ -29,16 +32,20 @@ namespace OPS.Presenter
                 listOptions.Add(additionalItem.Value.name.Value);
             }
             _dropDown.AddOptions(listOptions);
-            UserMixKeyValueModel _userAdditionalItem =  _userMixModel.UserMixAdditionalItem;
-            if (_userAdditionalItem == null)
+            UserMixKeyValueModel userAdditionalItem =  _userMixModel.UserMixAdditionalItem;
+            if (userAdditionalItem == null)
             {
                 _dropDown.value = 0;
             } else
             {
-                _dropDown.value = int.Parse(_userAdditionalItem.value.Value);
+                _dropDown.value = int.Parse(userAdditionalItem.value.Value);
             }
             _dropDown.RefreshShownValue();
         }
 
+        public void OnValueChanged(TMP_Dropdown result)
+        {
+            _userMixModel.SaveOrCreateAdditionalItem(result.value);
+        }
     }
 }

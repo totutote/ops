@@ -17,6 +17,7 @@ namespace OPS.Model
             var model = new UserMixKeyValueModel();
             model.SetDB(this);
             model.id.Value = (int)DataRow["id"];
+            model.user_mix_id.Value = (int)DataRow["user_mix_id"];
             model.key.Value = (string)DataRow["key"];
             model.value.Value = (string)DataRow["value"];
             return model;
@@ -26,6 +27,7 @@ namespace OPS.Model
         {
             var dataRow = new DataRow();
             dataRow["id"] = model.id.Value;
+            dataRow["user_mix_id"] = model.user_mix_id.Value;
             dataRow["key"] = model.key.Value;
             dataRow["value"] = model.value.Value;
             return dataRow;
@@ -46,6 +48,7 @@ namespace OPS.Model
         }
 
         public IntReactiveProperty id = new IntReactiveProperty();
+        public IntReactiveProperty user_mix_id = new IntReactiveProperty();
         public StringReactiveProperty key = new StringReactiveProperty();
         public StringReactiveProperty value = new StringReactiveProperty();
 

@@ -84,7 +84,33 @@ namespace OPS.Model
 
         public UserMixKeyValueModel UserMixAdditionalItem
         {
-            get {return _userMixDB._userMixKeyValueDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "key", "master_additional_item_id" } }).FirstOrDefault().Value;}
+            get { return _userMixDB._userMixKeyValueDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "key", "\"master_additional_item_id\"" } }).FirstOrDefault().Value; }
+        }
+
+        public void SaveOrCreateAdditionalItem(int additionalItemId)
+        {
+            var additionalItem = UserMixAdditionalItem;
+            if (additionalItem == null)
+            {
+                if (additionalItemId == 0) return;
+                var newModel = _userMixDB._userMixKeyValueDB.New();
+                newModel.user_mix_id.Value = id.Value;
+                newModel.key.Value = "master_additional_item_id";
+                newModel.value.Value = additionalItemId.ToString();
+                _userMixDB._userMixKeyValueDB.Save(newModel);
+            }
+            else
+            {
+                if (additionalItemId == 0)
+                {
+                    _userMixDB._userMixKeyValueDB.Delete(additionalItem);
+                }
+                else
+                {
+                    additionalItem.value.Value = additionalItemId.ToString();
+                    _userMixDB._userMixKeyValueDB.Save(additionalItem);
+                }
+            }
         }
 
         public void DestroyCompleteModel()
