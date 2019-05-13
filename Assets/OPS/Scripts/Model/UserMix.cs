@@ -25,6 +25,9 @@ namespace OPS.Model
         [Inject]
         public UserMixCompleteMaterialDB _userMixCompleteMaterialDB = null;
 
+        [Inject]
+        public UserMixKeyValueDB _userMixKeyValueDB = null;
+
         protected override UserMixModel DataRow2Model(DataRow DataRow)
         {
             var model = new UserMixModel();
@@ -77,6 +80,11 @@ namespace OPS.Model
         public UserMixCandidateMaterialModel BodyUserMixCandidateMaterialModel
         {
             get { return _userMixDB._userMixCandidateMaterialDB.Where("sort_index", "0").First().Value; }
+        }
+
+        public UserMixKeyValueModel UserMixAdditionalItem
+        {
+            get {return _userMixDB._userMixKeyValueDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "key", "master_additional_item_id" } }).FirstOrDefault().Value;}
         }
 
         public void DestroyCompleteModel()

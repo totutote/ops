@@ -27,6 +27,9 @@ namespace OPS.Presenter
         [SerializeField]
         MaterialSelectMaterialListPresenter _materialSelectMaterialListPresenter = default;
 
+        [SerializeField]
+        MaterialSelectAdditionalItemPresenter _materialSelectAdditionalItemPresenter = default;
+
         UserMixModel _userMixModel;
 
         public UserMixModel UserMixModel
@@ -43,6 +46,7 @@ namespace OPS.Presenter
             _userMixModel.name.Value += _userMixModel.id.Value;
             UserMixDB.Save(_userMixModel);
             _nameInput.text = _userMixModel.name.Value;
+            _materialSelectAdditionalItemPresenter.Setup(_userMixModel);
         }
 
         public void Setup(UserMixModel userMixModel)
@@ -50,6 +54,7 @@ namespace OPS.Presenter
             _userMixModel = userMixModel;
             _nameInput.text = _userMixModel.name.Value;
             _materialSelectMaterialListPresenter.Recovery();
+            _materialSelectAdditionalItemPresenter.Setup(_userMixModel);
         }
 
         public void OnClickMixButton()

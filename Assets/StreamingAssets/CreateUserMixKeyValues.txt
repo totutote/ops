@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS user_mix_key_values;
+CREATE TABLE user_mix_key_values (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_mix_id INTEGER,
+    key TEXT,
+    value TEXT
+);
