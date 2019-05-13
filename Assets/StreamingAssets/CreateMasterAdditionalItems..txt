@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS master_additional_items;
+CREATE TABLE master_additional_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT DEFAULT NULL,
+    master_option_id
+);
