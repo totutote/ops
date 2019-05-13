@@ -23,6 +23,9 @@ namespace OPS.Model
         public MasterMixChainDB _masterMixChainDB = null;
 
         [Inject]
+        public MasterAdditionalItemDB _masterAdditionalItemDB = null;
+
+        [Inject]
         public UserMixCompleteMaterialDB _userMixCompleteMaterialDB = null;
 
         [Inject]
@@ -87,6 +90,16 @@ namespace OPS.Model
             get { return _userMixDB._userMixKeyValueDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "key", "\"master_additional_item_id\"" } }).FirstOrDefault().Value; }
         }
 
+        public MasterOptionModel AdditionalItemMasterOptionModel
+        {
+            get
+            {
+                var userAdditionalItem = UserMixAdditionalItem;
+                if (userAdditionalItem == null) return default(MasterOptionModel);
+                return _userMixDB._masterAdditionalItemDB.Id(int.Parse(userAdditionalItem.value.Value)).First().Value.MasterOptionModel;
+            }
+        }
+
         public void SaveOrCreateAdditionalItem(int additionalItemId)
         {
             var additionalItem = UserMixAdditionalItem;
@@ -126,6 +139,8 @@ namespace OPS.Model
             get
             {
                 Dictionary<MasterOptionModel, double> mixOptionRate = new Dictionary<MasterOptionModel, double>();
+                var additionalItem = AdditionalItemMasterOptionModel;
+                if (additionalItem != null) mixOptionRate[additionalItem] = 100f;
                 Dictionary<MasterOptionModel, int> masterOptionModelsCount = MasterOptionModelsCount;
                 foreach (var finalMasterMixChainModel in FinalMasterMixChainModels)
                 {
