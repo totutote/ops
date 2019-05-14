@@ -14,6 +14,9 @@ namespace OPS
 
         void Start()
         {
+            var db = new SqliteDatabase("master.sqlite3");
+            db.ForceUpdateDatabaseSchema();
+
             var cpyStartPage = _startPageFactory.Create();
             _pageManager.ChangePage(cpyStartPage);
         }
