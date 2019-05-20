@@ -90,6 +90,11 @@ namespace OPS.Model
             get { return _userMixDB._userMixKeyValueDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "key", "\"master_additional_item_id\"" } }).FirstOrDefault().Value; }
         }
 
+        public UserMixKeyValueModel UserMixSameNameBonusItem
+        {
+            get { return _userMixDB._userMixKeyValueDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "key", "\"same_name_bonus\"" } }).FirstOrDefault().Value; }
+        }
+
         public MasterOptionModel AdditionalItemMasterOptionModel
         {
             get
@@ -126,6 +131,32 @@ namespace OPS.Model
             }
         }
 
+        public void SaveOrCreateSameNabeBonus(int sameNameBonus)
+        {
+            var sameNameBonusModel = UserMixSameNameBonusItem;
+            if (sameNameBonusModel == null)
+            {
+                if (sameNameBonus == 0) return;
+                var newModel = _userMixDB._userMixKeyValueDB.New();
+                newModel.user_mix_id.Value = id.Value;
+                newModel.key.Value = "same_name_bonus";
+                newModel.value.Value = sameNameBonus.ToString();
+                _userMixDB._userMixKeyValueDB.Save(newModel);
+            }
+            else
+            {
+                if (sameNameBonus == 0)
+                {
+                    _userMixDB._userMixKeyValueDB.Delete(sameNameBonusModel);
+                }
+                else
+                {
+                    sameNameBonusModel.value.Value = sameNameBonus.ToString();
+                    _userMixDB._userMixKeyValueDB.Save(sameNameBonusModel);
+                }
+            }
+        }
+
         public void DestroyCompleteModel()
         {
             foreach (var completeMaterialModel in _userMixDB._userMixCompleteMaterialDB.Where("user_mix_id", id.Value.ToString()))
@@ -141,10 +172,11 @@ namespace OPS.Model
                 Dictionary<MasterOptionModel, double> mixOptionRate = new Dictionary<MasterOptionModel, double>();
                 var additionalItem = AdditionalItemMasterOptionModel;
                 if (additionalItem != null) mixOptionRate[additionalItem] = 100f;
+                var sameNameBonus = UserMixSameNameBonusItem;
                 Dictionary<MasterOptionModel, int> masterOptionModelsCount = MasterOptionModelsCount;
                 foreach (var finalMasterMixChainModel in FinalMasterMixChainModels)
                 {
-                    var includeBonusRate = finalMasterMixChainModel.Value.IncludeBonusRate(masterOptionModelsCount);
+                    var includeBonusRate = finalMasterMixChainModel.Value.IncludeBonusRate(masterOptionModelsCount, sameNameBonus);
                     if (includeBonusRate <= 0) continue;
                     if (!mixOptionRate.ContainsKey(finalMasterMixChainModel.Key.CreateMasterOptionModel))
                     {

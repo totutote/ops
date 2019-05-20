@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UniRx;
@@ -76,7 +77,7 @@ namespace OPS.Model
             get { return _masterMixChainDB.Where("over_mix_id", id.Value.ToString()).FirstOrDefault().Value; }
         }
 
-        public double IncludeBonusRate(Dictionary<MasterOptionModel, int> masterOptionCount)
+        public double IncludeBonusRate(Dictionary<MasterOptionModel, int> masterOptionCount, UserMixKeyValueModel sameNabeBonus)
         {
             var bonuses = _masterMixChainDB._masterMixBonusDB.Where("master_mix_chain_id", id.Value.ToString());
             if (bonuses.Count == 0)
@@ -90,6 +91,10 @@ namespace OPS.Model
                 if (mostRate < bonus.Value.rate.Value) mostRate = bonus.Value.rate.Value;
             }
             var includeBonusRate = rate.Value + mostRate;
+            if (sameNabeBonus != null && int.Parse(sameNabeBonus.value.Value) == 1)
+            {
+                includeBonusRate = Math.Round(includeBonusRate * 1.15f, MidpointRounding.AwayFromZero);
+            }
             return includeBonusRate > 100f ? 100f : includeBonusRate;
         }
     }
