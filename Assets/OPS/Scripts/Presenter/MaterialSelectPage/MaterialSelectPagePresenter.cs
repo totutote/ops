@@ -33,6 +33,9 @@ namespace OPS.Presenter
         [SerializeField]
         MaterialSelectSameNameBonusPresenter _materialSelectSameNameBonusPresenter = default;
 
+        [SerializeField]
+        MaterialSelectPeriodRateBonusPresenter _materialSelectPeriodRateBonusPresenter = default;
+
         UserMixModel _userMixModel;
 
         public UserMixModel UserMixModel
@@ -51,6 +54,7 @@ namespace OPS.Presenter
             _nameInput.text = _userMixModel.name.Value;
             _materialSelectAdditionalItemPresenter.Setup(_userMixModel);
             _materialSelectSameNameBonusPresenter.Setup(_userMixModel);
+            _materialSelectPeriodRateBonusPresenter.Setup(_userMixModel);
         }
 
         public void Setup(UserMixModel userMixModel)
@@ -60,6 +64,7 @@ namespace OPS.Presenter
             _materialSelectMaterialListPresenter.Recovery();
             _materialSelectAdditionalItemPresenter.Setup(_userMixModel);
             _materialSelectSameNameBonusPresenter.Setup(_userMixModel);
+            _materialSelectPeriodRateBonusPresenter.Setup(_userMixModel);
         }
 
         public void OnClickMixButton()

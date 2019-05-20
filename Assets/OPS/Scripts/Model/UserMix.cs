@@ -118,7 +118,7 @@ namespace OPS.Model
 
         public UserMixKeyValueModel UserMixPeriodRateBonusKeyValue
         {
-            get { return _userMixDB._userMixKeyValueDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "key", "\"period_rate_bonus\"" } }).FirstOrDefault().Value; }
+            get { return _userMixDB._userMixKeyValueDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "key", "\"pariod_rate_bonus\"" } }).FirstOrDefault().Value; }
         }
 
         public MasterOptionModel AdditionalItemMasterOptionModel

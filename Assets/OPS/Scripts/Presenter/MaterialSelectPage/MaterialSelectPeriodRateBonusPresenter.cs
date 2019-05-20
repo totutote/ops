@@ -24,7 +24,7 @@ namespace OPS.Presenter
             listOptions.Add("報酬期間等の確率合計");
             foreach (var rateKey in Enumerable.Range(1, 20))
             {
-                listOptions.Add((rateKey * 5).ToString());
+                listOptions.Add((rateKey * 5).ToString() + "%");
             }
             _dropDown.AddOptions(listOptions);
             UserMixKeyValueModel userPeriodRateBonus = _userMixModel.UserMixPeriodRateBonusKeyValue;
