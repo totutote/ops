@@ -103,7 +103,7 @@ namespace OPS.Model
 
         public UserMixCandidateMaterialModel BodyUserMixCandidateMaterialModel
         {
-            get { return _userMixDB._userMixCandidateMaterialDB.Where("sort_index", "0").First().Value; }
+            get { return _userMixDB._userMixCandidateMaterialDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "sort_index", "0" } }).First().Value; }
         }
 
         public UserMixKeyValueModel UserMixAdditionalItem
