@@ -29,8 +29,12 @@ namespace OPS.Presenter
 
         UserMixCompleteMaterialModel _userMixCompleteMaterialModel;
 
+        UserMixModel _userMixModel;
+
         public void Setup(UserMixModel userMixModel, MasterOptionModel masterOptionModel, double rate)
         {
+            _userMixModel = userMixModel;
+
             var userMixCompleteMaterial = _userMixCompleteMaterialDB.New();
             userMixCompleteMaterial.master_option_id.Value = masterOptionModel.id.Value;
             userMixCompleteMaterial.rate.Value = rate;
@@ -56,6 +60,7 @@ namespace OPS.Presenter
             {
                 _userMixCompleteMaterialModel.select_agenda.Value = 0;
                 _userMixCompleteMaterialDB.Save(_userMixCompleteMaterialModel);
+                _userMixModel.SortSelectAgenda();
             }
             if (_onSelectOption != null)
             {

@@ -78,7 +78,27 @@ namespace OPS.Model
 
         public Dictionary<int, UserMixCompleteMaterialModel> UserMixCompleteMaterialSelectAgendaModels
         {
-            get { return _userMixDB._userMixCompleteMaterialDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "select_agenda", "1" } }); }
+            get
+            {
+                var searchCollection = new NameValueCollection { { "user_mix_id", id.Value.ToString() } };
+                var addAbaleOptionCount = _userMixDB._userMixCompleteMaterialDB.New().ExtraRateTable.Count;
+                foreach (var index in Enumerable.Range(1, addAbaleOptionCount))
+                {
+                    searchCollection.Add("select_agenda", index.ToString());
+                }
+                return _userMixDB._userMixCompleteMaterialDB.Where(searchCollection);
+            }
+        }
+
+        public void SortSelectAgenda()
+        {
+           var userMixCompleteMaterialSelectAgendaModels = UserMixCompleteMaterialSelectAgendaModels;
+           int i = 1;
+           foreach (var userMixCompleteMaterialSelectAgendaModel in userMixCompleteMaterialSelectAgendaModels)
+           {
+               userMixCompleteMaterialSelectAgendaModel.Value.select_agenda.Value = i++;
+               _userMixDB._userMixCompleteMaterialDB.Save(userMixCompleteMaterialSelectAgendaModel.Value);
+           }
         }
 
         public UserMixCandidateMaterialModel BodyUserMixCandidateMaterialModel

@@ -104,15 +104,15 @@ namespace OPS.Model
             {
                 if (userMixAgenda.Value != this && MasterOptionModel.category_id.Value == userMixAgenda.Value.MasterOptionModel.category_id.Value)
                 {
+                    select_agenda.Value = userMixAgenda.Value.select_agenda.Value;
                     userMixAgenda.Value.select_agenda.Value = 0;
-                    select_agenda.Value = 1;
                     _userMixCompleteMaterialDB.Save(userMixAgenda.Value);
                     _userMixCompleteMaterialDB.Save(this);
                     return true;
                 }
             }
             if (userMixAgendas.Count() > UserMixModel.BodyUserMixCandidateMaterialModel.OptionCount()) return false;
-            select_agenda.Value = 1;
+            select_agenda.Value = userMixAgendas.Count() + 1;
             _userMixCompleteMaterialDB.Save(this);
             return true;
         }
