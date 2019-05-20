@@ -185,7 +185,7 @@ namespace OPS.Model
                         mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = includeBonusRate;
                     }
                 }
-                return mixOptionRate.OrderBy(x => x.Key.id.Value).ToDictionary(x => x.Key, x => x.Value);
+                return mixOptionRate.OrderBy(x => x.Key.category_id.Value).OrderBy(x => x.Key.id.Value).ToDictionary(x => x.Key, x => x.Value);
             }
         }
 
