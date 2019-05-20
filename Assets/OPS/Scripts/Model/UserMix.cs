@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -176,8 +177,12 @@ namespace OPS.Model
                 Dictionary<MasterOptionModel, int> masterOptionModelsCount = MasterOptionModelsCount;
                 foreach (var finalMasterMixChainModel in FinalMasterMixChainModels)
                 {
-                    var includeBonusRate = finalMasterMixChainModel.Value.IncludeBonusRate(masterOptionModelsCount, sameNameBonus);
+                    var includeBonusRate = finalMasterMixChainModel.Value.IncludeBonusRate(masterOptionModelsCount);
                     if (includeBonusRate <= 0) continue;
+                    if (sameNameBonus != null && int.Parse(sameNameBonus.value.Value) == 1)
+                    {
+                        includeBonusRate = Math.Round(includeBonusRate * 1.15f, MidpointRounding.AwayFromZero);
+                    }
                     if (!mixOptionRate.ContainsKey(finalMasterMixChainModel.Key.CreateMasterOptionModel))
                     {
                         mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = includeBonusRate;
