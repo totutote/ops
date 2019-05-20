@@ -23,11 +23,12 @@ namespace OPS.Presenter
             listOptions.Add("同名ボーナスなし");
             listOptions.Add("同名ボーナスあり");
             _dropDown.AddOptions(listOptions);
-            UserMixKeyValueModel userAdditionalItem =  _userMixModel.UserMixSameNameBonusItem;
+            UserMixKeyValueModel userAdditionalItem = _userMixModel.UserMixSameNameBonusItem;
             if (userAdditionalItem == null)
             {
                 _dropDown.value = 0;
-            } else
+            }
+            else
             {
                 _dropDown.value = int.Parse(userAdditionalItem.value.Value);
             }

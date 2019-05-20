@@ -29,11 +29,12 @@ namespace OPS.Presenter
                 listOptions.Add(additionalItem.Value.name.Value);
             }
             _dropDown.AddOptions(listOptions);
-            UserMixKeyValueModel userAdditionalItem =  _userMixModel.UserMixAdditionalItem;
+            UserMixKeyValueModel userAdditionalItem = _userMixModel.UserMixAdditionalItem;
             if (userAdditionalItem == null)
             {
                 _dropDown.value = 0;
-            } else
+            }
+            else
             {
                 _dropDown.value = int.Parse(userAdditionalItem.value.Value);
             }
