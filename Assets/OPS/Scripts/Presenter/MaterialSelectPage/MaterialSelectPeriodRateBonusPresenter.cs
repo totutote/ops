@@ -4,10 +4,11 @@ using OPS.Model;
 using Zenject;
 using System.Collections.Generic;
 using TMPro;
+using System.Linq;
 
 namespace OPS.Presenter
 {
-    public class MaterialSelectSameNameBonusPresenter : MonoBehaviour
+    public class MaterialSelectPeriodRateBonusPresenter : MonoBehaviour
     {
         [SerializeField]
         TMP_Dropdown _dropDown = default;
@@ -20,24 +21,27 @@ namespace OPS.Presenter
 
             _dropDown.ClearOptions();
             List<string> listOptions = new List<string>();
-            listOptions.Add("同名ボーナスなし");
-            listOptions.Add("同名ボーナスあり");
+            listOptions.Add("報酬期間等の確率合計");
+            foreach (var rateKey in Enumerable.Range(1, 20))
+            {
+                listOptions.Add((rateKey * 5).ToString());
+            }
             _dropDown.AddOptions(listOptions);
-            UserMixKeyValueModel userAdditionalItem = _userMixModel.UserMixSameNameBonusItem;
-            if (userAdditionalItem == null)
+            UserMixKeyValueModel userPeriodRateBonus = _userMixModel.UserMixPeriodRateBonusKeyValue;
+            if (userPeriodRateBonus == null)
             {
                 _dropDown.value = 0;
             }
             else
             {
-                _dropDown.value = int.Parse(userAdditionalItem.value.Value);
+                _dropDown.value = int.Parse(userPeriodRateBonus.value.Value);
             }
             _dropDown.RefreshShownValue();
         }
 
         public void OnValueChanged(TMP_Dropdown result)
         {
-            _userMixModel.SaveOrCreateSameNameBonus(result.value);
+            _userMixModel.SaveOrCreatePeriodRateBonus(result.value);
         }
     }
 }

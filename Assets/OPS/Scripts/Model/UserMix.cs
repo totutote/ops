@@ -96,6 +96,11 @@ namespace OPS.Model
             get { return _userMixDB._userMixKeyValueDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "key", "\"same_name_bonus\"" } }).FirstOrDefault().Value; }
         }
 
+        public UserMixKeyValueModel UserMixPeriodRateBonusKeyValue
+        {
+            get { return _userMixDB._userMixKeyValueDB.Where(new NameValueCollection { { "user_mix_id", id.Value.ToString() }, { "key", "\"period_rate_bonus\"" } }).FirstOrDefault().Value; }
+        }
+
         public MasterOptionModel AdditionalItemMasterOptionModel
         {
             get
@@ -108,54 +113,17 @@ namespace OPS.Model
 
         public void SaveOrCreateAdditionalItem(int additionalItemId)
         {
-            var additionalItem = UserMixAdditionalItem;
-            if (additionalItem == null)
-            {
-                if (additionalItemId == 0) return;
-                var newModel = _userMixDB._userMixKeyValueDB.New();
-                newModel.user_mix_id.Value = id.Value;
-                newModel.key.Value = "master_additional_item_id";
-                newModel.value.Value = additionalItemId.ToString();
-                _userMixDB._userMixKeyValueDB.Save(newModel);
-            }
-            else
-            {
-                if (additionalItemId == 0)
-                {
-                    _userMixDB._userMixKeyValueDB.Delete(additionalItem);
-                }
-                else
-                {
-                    additionalItem.value.Value = additionalItemId.ToString();
-                    _userMixDB._userMixKeyValueDB.Save(additionalItem);
-                }
-            }
+            _userMixDB._userMixKeyValueDB.SaveOrCreateInteger(id.Value, "master_additional_item_id", additionalItemId);
         }
 
-        public void SaveOrCreateSameNabeBonus(int sameNameBonus)
+        public void SaveOrCreateSameNameBonus(int sameNameBonus)
         {
-            var sameNameBonusModel = UserMixSameNameBonusItem;
-            if (sameNameBonusModel == null)
-            {
-                if (sameNameBonus == 0) return;
-                var newModel = _userMixDB._userMixKeyValueDB.New();
-                newModel.user_mix_id.Value = id.Value;
-                newModel.key.Value = "same_name_bonus";
-                newModel.value.Value = sameNameBonus.ToString();
-                _userMixDB._userMixKeyValueDB.Save(newModel);
-            }
-            else
-            {
-                if (sameNameBonus == 0)
-                {
-                    _userMixDB._userMixKeyValueDB.Delete(sameNameBonusModel);
-                }
-                else
-                {
-                    sameNameBonusModel.value.Value = sameNameBonus.ToString();
-                    _userMixDB._userMixKeyValueDB.Save(sameNameBonusModel);
-                }
-            }
+            _userMixDB._userMixKeyValueDB.SaveOrCreateInteger(id.Value, "same_name_bonus", sameNameBonus);
+        }
+
+        public void SaveOrCreatePeriodRateBonus(int pariodRateBonus)
+        {
+            _userMixDB._userMixKeyValueDB.SaveOrCreateInteger(id.Value, "pariod_rate_bonus", pariodRateBonus);
         }
 
         public void DestroyCompleteModel()
@@ -174,6 +142,7 @@ namespace OPS.Model
                 var additionalItem = AdditionalItemMasterOptionModel;
                 if (additionalItem != null) mixOptionRate[additionalItem] = 100f;
                 var sameNameBonus = UserMixSameNameBonusItem;
+                var periodRateBonus = UserMixPeriodRateBonusKeyValue;
                 Dictionary<MasterOptionModel, int> masterOptionModelsCount = MasterOptionModelsCount;
                 foreach (var finalMasterMixChainModel in FinalMasterMixChainModels)
                 {
@@ -182,6 +151,10 @@ namespace OPS.Model
                     if (sameNameBonus != null && int.Parse(sameNameBonus.value.Value) == 1)
                     {
                         includeBonusRate = Math.Round(includeBonusRate * 1.15f, MidpointRounding.AwayFromZero);
+                    }
+                    if (periodRateBonus != null)
+                    {
+                        includeBonusRate += int.Parse(periodRateBonus.value.Value) * 5;
                     }
                     if (!mixOptionRate.ContainsKey(finalMasterMixChainModel.Key.CreateMasterOptionModel))
                     {
