@@ -12,9 +12,6 @@ namespace OPS.Presenter
         [Inject]
         MasterAdditionalItemDB _masterAdditionalItemDB = null;
 
-        [Inject]
-        UserMixKeyValueDB _userMixKeyValueDB = null;
-
         [SerializeField]
         TMP_Dropdown _dropDown = default;
 
