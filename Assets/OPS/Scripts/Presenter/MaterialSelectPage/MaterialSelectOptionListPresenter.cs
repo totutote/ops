@@ -80,6 +80,7 @@ namespace OPS.Presenter
             {
                 factorModel.master_option_id.Value = masterOptionModel.id.Value;
                 _userMixCandidateMaterialOptionDB.Save(factorModel);
+                _materialSelectAddFactorPresenter.Setup(factorModel);
                 return;
             }
             var newFactorModel = _userMixCandidateMaterialOptionDB.New();

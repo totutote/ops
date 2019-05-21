@@ -58,12 +58,12 @@ namespace OPS.Model
 
         public Dictionary<int, UserMixCandidateMaterialOptionModel> UserMixCandidateMaterialOptionTypeNormalModel
         {
-            get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionDB.Where(new NameValueCollection { { "user_mix_candidate_material_id", id.Value.ToString() }, { "option_type", UserMixCandidateMaterialOptionDB.OptionType.Normal.ToString() } }); }
+            get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionDB.Where(new NameValueCollection { { "user_mix_candidate_material_id", id.Value.ToString() }, { "option_type", ((int)UserMixCandidateMaterialOptionDB.OptionType.Normal).ToString() } }); }
         }
 
         public UserMixCandidateMaterialOptionModel UserMixCandidateMaterialOptionTypeFartorModel
         {
-            get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionDB.Where(new NameValueCollection { { "user_mix_candidate_material_id", id.Value.ToString() }, { "option_type", UserMixCandidateMaterialOptionDB.OptionType.Factor.ToString() } }).First().Value; }
+            get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionDB.Where(new NameValueCollection { { "user_mix_candidate_material_id", id.Value.ToString() }, { "option_type", ((int)UserMixCandidateMaterialOptionDB.OptionType.Factor).ToString() } }).FirstOrDefault().Value; }
         }
 
         public int OptionCount()
