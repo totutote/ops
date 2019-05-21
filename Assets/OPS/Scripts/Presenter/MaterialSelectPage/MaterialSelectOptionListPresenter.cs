@@ -24,12 +24,15 @@ namespace OPS.Presenter
         [SerializeField]
         GameObject _addRowGameobject = default;
 
+        [SerializeField]
+        MaterialSelectAddFactorPresenter _materialSelectAddFactorPresenter = default;
+
         UserMixCandidateMaterialModel _userMixCandidateMaterialModel;
 
         public void Recovery(UserMixCandidateMaterialModel userMixCandidateMaterialModel)
         {
             _userMixCandidateMaterialModel = userMixCandidateMaterialModel;
-            var userMixCandidateMaterialOptionModels = _userMixCandidateMaterialModel.UserMixCandidateMaterialOptionModel;
+            var userMixCandidateMaterialOptionModels = _userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeNormalModel;
             foreach (var userMixCandidateMaterialOptionModel in userMixCandidateMaterialOptionModels)
             {
                 var rowCpy = _materialSelectOptionAreaFactory.Create();
@@ -38,7 +41,7 @@ namespace OPS.Presenter
                 rowCpy.transform.SetSiblingIndex(userMixCandidateMaterialOptionModel.Value.sort_index.Value + 1);
             }
             _userMixCandidateMaterialModel.sort_index.Subscribe(sort_index => { SetMaterialNameText(sort_index); }).AddTo(gameObject);
-
+            _materialSelectAddFactorPresenter.Setup(_userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeFartorModel);
         }
 
         public void AddSetup(UserMixModel userMixModel)
@@ -70,9 +73,26 @@ namespace OPS.Presenter
             rowCpy.transform.SetParent(_addRowGameobject.transform, false);
         }
 
+        public void AddNewFactor(MasterOptionModel masterOptionModel)
+        {
+            var factorModel = _userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeFartorModel;
+            if (factorModel != null)
+            {
+                factorModel.master_option_id.Value = masterOptionModel.id.Value;
+                _userMixCandidateMaterialOptionDB.Save(factorModel);
+                return;
+            }
+            var newFactorModel = _userMixCandidateMaterialOptionDB.New();
+            newFactorModel.master_option_id.Value = masterOptionModel.id.Value;
+            newFactorModel.option_type.Value = (int)UserMixCandidateMaterialOptionDB.OptionType.Factor;
+            newFactorModel.user_mix_candidate_material_id.Value = _userMixCandidateMaterialModel.id.Value;
+            var newModel = _userMixCandidateMaterialOptionDB.Save(newFactorModel);
+            _materialSelectAddFactorPresenter.Setup(newModel.First().Value);
+        }
+
         public void OnClickRemoveMaterial()
         {
-            foreach (var userMixCandidateMaterialOptionModel in _userMixCandidateMaterialModel.UserMixCandidateMaterialOptionModel)
+            foreach (var userMixCandidateMaterialOptionModel in _userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeNormalModel)
             {
                 _userMixCandidateMaterialOptionDB.Delete(userMixCandidateMaterialOptionModel.Value);
             }

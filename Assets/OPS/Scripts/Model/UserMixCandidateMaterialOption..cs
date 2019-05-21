@@ -39,6 +39,12 @@ namespace OPS.Model
             return dataRow;
         }
 
+        public enum OptionType
+        {
+            Normal = 0,
+            Factor = 1 // 特殊能力因子
+        }
+
         public Dictionary<int, UserMixCandidateMaterialOptionModel> MaterialIdListSelect(List<int> materialIdList)
         {
             NameValueCollection whereValues = new NameValueCollection();

@@ -29,6 +29,7 @@ namespace OPS.Presenter
             newUserMixCandidateMaterialOptionModel.user_mix_candidate_material_id.Value = userMixCandidateMaterialModel.id.Value;
             newUserMixCandidateMaterialOptionModel.master_option_id.Value = masterOptionModel.id.Value;
             newUserMixCandidateMaterialOptionModel.sort_index.Value = _userMixCandidateMaterialOptionDB.Where("user_mix_candidate_material_id", userMixCandidateMaterialModel.id.Value.ToString()).Count;
+            newUserMixCandidateMaterialOptionModel.option_type.Value = (int)UserMixCandidateMaterialOptionDB.OptionType.Normal;
             _userMixCandidateMaterialOptionModel = _userMixCandidateMaterialOptionDB.Save(newUserMixCandidateMaterialOptionModel).First().Value;
             _userMixCandidateMaterialOptionModel.master_option_id.Subscribe(id => { culumnText.text = _userMixCandidateMaterialOptionModel.MasterOptionModel.name.Value; }).AddTo(gameObject);;
         }

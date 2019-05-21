@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using UniRx;
 using Zenject;
 
@@ -54,19 +56,24 @@ namespace OPS.Model
         public IntReactiveProperty sort_index = new IntReactiveProperty();
         public IntReactiveProperty ref_user_mix_id = new IntReactiveProperty();
 
-        public Dictionary<int, UserMixCandidateMaterialOptionModel> UserMixCandidateMaterialOptionModel
+        public Dictionary<int, UserMixCandidateMaterialOptionModel> UserMixCandidateMaterialOptionTypeNormalModel
         {
-            get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionDB.Where("user_mix_candidate_material_id", id.Value.ToString()); }
+            get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionDB.Where(new NameValueCollection { { "user_mix_candidate_material_id", id.Value.ToString() }, { "option_type", UserMixCandidateMaterialOptionDB.OptionType.Normal.ToString() } }); }
+        }
+
+        public UserMixCandidateMaterialOptionModel UserMixCandidateMaterialOptionTypeFartorModel
+        {
+            get { return _userMixCandidateMaterialDB._userMixCandidateMaterialOptionDB.Where(new NameValueCollection { { "user_mix_candidate_material_id", id.Value.ToString() }, { "option_type", UserMixCandidateMaterialOptionDB.OptionType.Factor.ToString() } }).First().Value; }
         }
 
         public int OptionCount()
         {
-            return UserMixCandidateMaterialOptionModel.Count;
+            return UserMixCandidateMaterialOptionTypeNormalModel.Count;
         }
 
         public UserMixCandidateMaterialOptionModel SameCategoryIncludeModel(MasterOptionModel masterOptionModel)
         {
-            foreach (var userMixCandidateMaterialOptionModel in UserMixCandidateMaterialOptionModel)
+            foreach (var userMixCandidateMaterialOptionModel in UserMixCandidateMaterialOptionTypeNormalModel)
             {
                 if (masterOptionModel.category_id.Value == userMixCandidateMaterialOptionModel.Value.MasterOptionModel.category_id.Value)
                 {

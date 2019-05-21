@@ -92,13 +92,13 @@ namespace OPS.Model
 
         public void SortSelectAgenda()
         {
-           var userMixCompleteMaterialSelectAgendaModels = UserMixCompleteMaterialSelectAgendaModels;
-           int i = 1;
-           foreach (var userMixCompleteMaterialSelectAgendaModel in userMixCompleteMaterialSelectAgendaModels)
-           {
-               userMixCompleteMaterialSelectAgendaModel.Value.select_agenda.Value = i++;
-               _userMixDB._userMixCompleteMaterialDB.Save(userMixCompleteMaterialSelectAgendaModel.Value);
-           }
+            var userMixCompleteMaterialSelectAgendaModels = UserMixCompleteMaterialSelectAgendaModels;
+            int i = 1;
+            foreach (var userMixCompleteMaterialSelectAgendaModel in userMixCompleteMaterialSelectAgendaModels)
+            {
+                userMixCompleteMaterialSelectAgendaModel.Value.select_agenda.Value = i++;
+                _userMixDB._userMixCompleteMaterialDB.Save(userMixCompleteMaterialSelectAgendaModel.Value);
+            }
         }
 
         public UserMixCandidateMaterialModel BodyUserMixCandidateMaterialModel
@@ -176,6 +176,7 @@ namespace OPS.Model
                     {
                         includeBonusRate += int.Parse(periodRateBonus.value.Value) * 5;
                     }
+                    if (includeBonusRate > 100f) includeBonusRate = 100f;
                     if (!mixOptionRate.ContainsKey(finalMasterMixChainModel.Key.CreateMasterOptionModel))
                     {
                         mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = includeBonusRate;
@@ -238,6 +239,7 @@ namespace OPS.Model
                 }
                 foreach (var materialMasterOptionCount in _userMixDB._userMixCandidateMaterialOptionDB.MaterialIdListSelect(materialIdList))
                 {
+                    if ( materialMasterOptionCount.Value.option_type.Value == (int)UserMixCandidateMaterialOptionDB.OptionType.Factor) continue;
                     var keyMasterOptionModel = materialMasterOptionCount.Value.MasterOptionModel;
                     if (masterOptionModelCount.ContainsKey(keyMasterOptionModel))
                     {
