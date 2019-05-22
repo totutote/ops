@@ -45,9 +45,10 @@ namespace OPS.Model
             Factor = 1 // 特殊能力因子
         }
 
-        public Dictionary<int, UserMixCandidateMaterialOptionModel> MaterialIdListSelect(List<int> materialIdList)
+        public Dictionary<int, UserMixCandidateMaterialOptionModel> MaterialIdListSelect(List<int> materialIdList, OptionType optionType)
         {
             NameValueCollection whereValues = new NameValueCollection();
+            whereValues.Add("user_mix_id", ((int)optionType).ToString());
             foreach (var id in materialIdList)
             {
                 whereValues.Add("user_mix_candidate_material_id", id.ToString());

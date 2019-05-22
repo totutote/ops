@@ -186,6 +186,15 @@ namespace OPS.Model
                         mixOptionRate[finalMasterMixChainModel.Key.CreateMasterOptionModel] = includeBonusRate;
                     }
                 }
+                List<int> materialIdList = new List<int>();
+                foreach (var userMixCandidateMaterialModel in UserMixCandidateMaterialModel)
+                {
+                    materialIdList.Add(userMixCandidateMaterialModel.Value.id.Value);
+                }
+                foreach (var materialOption in _userMixDB._userMixCandidateMaterialOptionDB.MaterialIdListSelect(materialIdList, UserMixCandidateMaterialOptionDB.OptionType.Factor))
+                {
+                    mixOptionRate[materialOption.Value.MasterOptionModel] = 100;
+                }
                 return mixOptionRate.OrderBy(x => x.Key.category_id.Value).OrderBy(x => x.Key.id.Value).ToDictionary(x => x.Key, x => x.Value);
             }
         }
@@ -237,10 +246,9 @@ namespace OPS.Model
                 {
                     materialIdList.Add(userMixCandidateMaterialModel.Value.id.Value);
                 }
-                foreach (var materialMasterOptionCount in _userMixDB._userMixCandidateMaterialOptionDB.MaterialIdListSelect(materialIdList))
+                foreach (var materialOption in _userMixDB._userMixCandidateMaterialOptionDB.MaterialIdListSelect(materialIdList, UserMixCandidateMaterialOptionDB.OptionType.Normal))
                 {
-                    if ( materialMasterOptionCount.Value.option_type.Value == (int)UserMixCandidateMaterialOptionDB.OptionType.Factor) continue;
-                    var keyMasterOptionModel = materialMasterOptionCount.Value.MasterOptionModel;
+                    var keyMasterOptionModel = materialOption.Value.MasterOptionModel;
                     if (masterOptionModelCount.ContainsKey(keyMasterOptionModel))
                     {
                         masterOptionModelCount[keyMasterOptionModel] += 1;

@@ -91,6 +91,14 @@ namespace OPS.Presenter
             _materialSelectAddFactorPresenter.Setup(newModel.First().Value);
         }
 
+        public void RemoveFactor()
+        {
+            var factorModel = _userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeFartorModel;
+            if (factorModel != null) return;
+            _userMixCandidateMaterialOptionDB.Delete(factorModel);
+            _materialSelectAddFactorPresenter.Setup(null);
+        }
+
         public void OnClickRemoveMaterial()
         {
             foreach (var userMixCandidateMaterialOptionModel in _userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeNormalModel)
