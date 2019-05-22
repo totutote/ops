@@ -4,6 +4,7 @@ using OPS.Model;
 using Zenject;
 using System.Linq;
 using UniRx;
+using TMPro;
 
 namespace OPS.Presenter
 {
@@ -13,7 +14,8 @@ namespace OPS.Presenter
         [Inject]
         UserMixCandidateMaterialOptionDB _userMixCandidateMaterialOptionDB = null;
 
-        public Text culumnText;
+        [SerializeField]
+        TextMeshProUGUI culumnText = default;
 
         UserMixCandidateMaterialOptionModel _userMixCandidateMaterialOptionModel;
 

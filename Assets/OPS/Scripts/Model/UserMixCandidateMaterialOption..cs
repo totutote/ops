@@ -48,7 +48,7 @@ namespace OPS.Model
         public Dictionary<int, UserMixCandidateMaterialOptionModel> MaterialIdListSelect(List<int> materialIdList, OptionType optionType)
         {
             NameValueCollection whereValues = new NameValueCollection();
-            whereValues.Add("user_mix_id", ((int)optionType).ToString());
+            whereValues.Add("option_type", ((int)optionType).ToString());
             foreach (var id in materialIdList)
             {
                 whereValues.Add("user_mix_candidate_material_id", id.ToString());
