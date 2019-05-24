@@ -162,7 +162,6 @@ namespace OPS.Model
                 var additionalItem = AdditionalItemMasterOptionModel;
                 if (additionalItem != null) mixOptionRate[additionalItem] = 100f;
                 var sameNameBonus = UserMixSameNameBonusItem;
-                var periodRateBonus = UserMixPeriodRateBonusKeyValue;
                 Dictionary<MasterOptionModel, int> masterOptionModelsCount = MasterOptionModelsCount;
                 foreach (var finalMasterMixChainModel in FinalMasterMixChainModels)
                 {
@@ -171,10 +170,6 @@ namespace OPS.Model
                     if (sameNameBonus != null && int.Parse(sameNameBonus.value.Value) == 1)
                     {
                         includeBonusRate = Math.Round(includeBonusRate * 1.15f, MidpointRounding.AwayFromZero);
-                    }
-                    if (periodRateBonus != null)
-                    {
-                        includeBonusRate += int.Parse(periodRateBonus.value.Value) * 5;
                     }
                     if (includeBonusRate > 100f) includeBonusRate = 100f;
                     if (!mixOptionRate.ContainsKey(finalMasterMixChainModel.Key.CreateMasterOptionModel))

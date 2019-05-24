@@ -81,13 +81,29 @@ namespace OPS.Model
             get { return _userMixCompleteMaterialDB._userMixDB.Id(user_mix_id.Value).First().Value; }
         }
 
+        public double IncludePeriodBonusRate()
+        {
+            var periodRateBonus = UserMixModel.UserMixPeriodRateBonusKeyValue;
+            if (periodRateBonus != null)
+            {
+                return (rate.Value + int.Parse(periodRateBonus.value.Value) * 5) >= 100 ? 100f : rate.Value;
+            }
+            return rate.Value;
+        }
+
         public double IncludeExtraRate()
         {
-            if (!IsExtraSlot())
+            var includeExtraRate = rate.Value;
+            if (IsExtraSlot())
             {
-                return rate.Value;
+                includeExtraRate = Math.Round(includeExtraRate * ExtraRateTable[UserMixModel.UserMixCompleteMaterialSelectAgendaModels.Count()], MidpointRounding.AwayFromZero);
             }
-            return Math.Round(rate.Value * ExtraRateTable[UserMixModel.UserMixCompleteMaterialSelectAgendaModels.Count()], MidpointRounding.AwayFromZero);
+            var periodRateBonus = UserMixModel.UserMixPeriodRateBonusKeyValue;
+            if (periodRateBonus != null)
+            {
+                return (includeExtraRate += int.Parse(periodRateBonus.value.Value) * 5) > 100f ? 100f : includeExtraRate;
+            }
+            return includeExtraRate;
         }
 
         public bool IsExtraSlot()

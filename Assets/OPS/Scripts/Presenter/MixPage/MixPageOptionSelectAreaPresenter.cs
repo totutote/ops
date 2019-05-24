@@ -43,7 +43,7 @@ namespace OPS.Presenter
             _userMixCompleteMaterialModel = _userMixCompleteMaterialDB.Save(userMixCompleteMaterial).First().Value;
 
             _optionNameText.text = _userMixCompleteMaterialModel.MasterOptionModel.name.Value;
-            _rateText.text = _userMixCompleteMaterialModel.rate.ToString() + "%";
+            _rateText.text = _userMixCompleteMaterialModel.IncludePeriodBonusRate().ToString() + "%";
             _userMixCompleteMaterialModel.select_agenda.Subscribe(onoff => {_toggle.isOn = onoff == 0 ? false : true;}).AddTo(gameObject);
         }
 
