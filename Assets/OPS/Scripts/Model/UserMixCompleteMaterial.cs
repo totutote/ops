@@ -86,7 +86,8 @@ namespace OPS.Model
             var periodRateBonus = UserMixModel.UserMixPeriodRateBonusKeyValue;
             if (periodRateBonus != null)
             {
-                return (rate.Value + int.Parse(periodRateBonus.value.Value) * 5) >= 100 ? 100f : rate.Value;
+                var bonusRate = rate.Value + int.Parse(periodRateBonus.value.Value) * 5;
+                return bonusRate >= 100 ? 100f : bonusRate;
             }
             return rate.Value;
         }
