@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UniRx;
 using Zenject;
@@ -30,6 +31,8 @@ namespace OPS.Model
             dataRow["name"] = model.name.Value;
             return dataRow;
         }
+
+        public List<int> SpecialOptionIds = new List<int>() { 62, 63, 64 };
 
         public class Factory : PlaceholderFactory<MasterOptionCategoryDB>
         {

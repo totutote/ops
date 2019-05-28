@@ -81,7 +81,7 @@ namespace OPS.Model
             get
             {
                 var searchCollection = new NameValueCollection { { "user_mix_id", id.Value.ToString() } };
-                var addAbaleOptionCount = _userMixDB._userMixCompleteMaterialDB.New().ExtraRateTable.Count;
+                var addAbaleOptionCount = _userMixDB._userMixCompleteMaterialDB.ExtraRateTable.Count;
                 foreach (var index in Enumerable.Range(1, addAbaleOptionCount))
                 {
                     searchCollection.Add("select_agenda", index.ToString());
