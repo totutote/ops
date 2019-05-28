@@ -16,6 +16,9 @@ namespace OPS.Presenter
         UserMixCandidateMaterialOptionDB _userMixCandidateMaterialOptionDB = null;
 
         [Inject]
+        UserMixCompleteMaterialDB _userMixCompleteMaterialDB = null;
+
+        [Inject]
         MaterialSelectOptionAreaPresenter.Factory _materialSelectOptionAreaFactory = null;
 
         [SerializeField]
@@ -27,9 +30,12 @@ namespace OPS.Presenter
         [SerializeField]
         MaterialSelectAddFactorPresenter _materialSelectAddFactorPresenter = default;
 
+        [SerializeField]
+        MaterialSelectAddOptionPresenter _materialSelectAddOptionPresenter = default;
+
         UserMixCandidateMaterialModel _userMixCandidateMaterialModel;
 
-        public void Recovery(UserMixCandidateMaterialModel userMixCandidateMaterialModel)
+        public void Setup(UserMixCandidateMaterialModel userMixCandidateMaterialModel)
         {
             _userMixCandidateMaterialModel = userMixCandidateMaterialModel;
             var userMixCandidateMaterialOptionModels = _userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeNormalModel;
@@ -38,19 +44,11 @@ namespace OPS.Presenter
                 var rowCpy = _materialSelectOptionAreaFactory.Create();
                 rowCpy.Recovery(userMixCandidateMaterialOptionModel.Value);
                 rowCpy.transform.SetParent(_addRowGameobject.transform, false);
-                rowCpy.transform.SetSiblingIndex(userMixCandidateMaterialOptionModel.Value.sort_index.Value + 1);
+                rowCpy.transform.SetSiblingIndex(userMixCandidateMaterialOptionModel.Value.sort_index.Value);
             }
             _userMixCandidateMaterialModel.sort_index.Subscribe(sort_index => { SetMaterialNameText(sort_index); }).AddTo(gameObject);
             _materialSelectAddFactorPresenter.Setup(_userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeFartorModel);
-        }
-
-        public void AddSetup(UserMixModel userMixModel)
-        {
-            var newUserMixCandidateMaterialModel = _userMixCandidateMaterialDB.New();
-            newUserMixCandidateMaterialModel.user_mix_id.Value = userMixModel.id.Value;
-            newUserMixCandidateMaterialModel.sort_index.Value = _userMixCandidateMaterialDB.Where("user_mix_id", userMixModel.id.Value.ToString()).Count;
-            _userMixCandidateMaterialModel = _userMixCandidateMaterialDB.Save(newUserMixCandidateMaterialModel).First().Value;
-            _userMixCandidateMaterialModel.sort_index.Subscribe(sort_index => { SetMaterialNameText(sort_index); }).AddTo(gameObject);
+            _materialSelectAddOptionPresenter.EnableButton(userMixCandidateMaterialOptionModels.Count < _userMixCompleteMaterialDB.ExtraRateTable.Count);
         }
 
         void SetMaterialNameText(int sortIndex)
@@ -71,6 +69,7 @@ namespace OPS.Presenter
             var rowCpy = _materialSelectOptionAreaFactory.Create();
             rowCpy.SetOption(masterOptionModel, _userMixCandidateMaterialModel);
             rowCpy.transform.SetParent(_addRowGameobject.transform, false);
+            _materialSelectAddOptionPresenter.EnableButton(_userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeNormalModel.Count < _userMixCompleteMaterialDB.ExtraRateTable.Count);
         }
 
         public void AddNewFactor(MasterOptionModel masterOptionModel)

@@ -20,6 +20,9 @@ namespace OPS.Presenter
         [SerializeField]
         MaterialSelectOptionListPresenter _optionListPresenter = default;
 
+		[SerializeField]
+		Button _addOptionButton = default;
+
 		OptionSelectPagePresenter _cpyOptionSelectPage;
 
 		public void OnClick()
@@ -33,6 +36,11 @@ namespace OPS.Presenter
 			_optionListPresenter.AddNewOption(masterOptionModel);
 			this.transform.SetAsLastSibling();
 			_pageManager.DestroyPage<OptionSelectPagePresenter>();
+		}
+
+		public void EnableButton(bool isEnable)
+		{
+			_addOptionButton.interactable = isEnable;
 		}
 
 	}

@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using OPS.Model;
 using UnityEngine;
 using Zenject;
 
@@ -9,6 +11,9 @@ namespace OPS.Presenter
     {
         [Inject]
         MaterialSelectOptionListPresenter.Factory _optionListPresenterFactory = null;
+
+        [Inject]
+        UserMixCandidateMaterialDB _userMixCandidateMaterialDB = null;
 
         [SerializeField]
         MaterialSelectPagePresenter _materialSelectPagePresenter = null;
@@ -22,7 +27,7 @@ namespace OPS.Presenter
             foreach (var userMixCandidateMaterialModel in userMixCandidateMaterialModels)
             {
                 var cpyOptionList = _optionListPresenterFactory.Create();
-                cpyOptionList.Recovery(userMixCandidateMaterialModel.Value);
+                cpyOptionList.Setup(userMixCandidateMaterialModel.Value);
                 cpyOptionList.transform.SetParent(_addOptionListObject.transform, false);
                 cpyOptionList.transform.SetAsLastSibling();
             }
@@ -30,8 +35,12 @@ namespace OPS.Presenter
 
         public void OnAddList()
         {
+            UserMixModel userMixModel = _materialSelectPagePresenter.UserMixModel;
+            var newUserMixCandidateMaterialModel = _userMixCandidateMaterialDB.New();
+            newUserMixCandidateMaterialModel.user_mix_id.Value = userMixModel.id.Value;
+            newUserMixCandidateMaterialModel.sort_index.Value = _userMixCandidateMaterialDB.Where("user_mix_id", userMixModel.id.Value.ToString()).Count;
             var cpyOptionList = _optionListPresenterFactory.Create();
-            cpyOptionList.AddSetup(_materialSelectPagePresenter.UserMixModel);
+            cpyOptionList.Setup(_userMixCandidateMaterialDB.Save(newUserMixCandidateMaterialModel).First().Value);
             cpyOptionList.transform.SetParent(_addOptionListObject.transform, false);
         }
 

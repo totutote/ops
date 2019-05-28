@@ -41,13 +41,9 @@ namespace OPS.Model
             dataRow["rate"] = model.rate.Value;
             return dataRow;
         }
-    }
 
-    public class UserMixCompleteMaterialModel
-    {
         public Dictionary<int, double> ExtraRateTable = new Dictionary<int, double>()
         {
-            {0, 1}, // 合成後スロット数0は本来存在しない。エラー回避のため。
             {1, 1},
             {2, 0.9},
             {3, 0.85},
@@ -57,7 +53,10 @@ namespace OPS.Model
             {7, 0.4},
             {8, 0.3}
         };
+    }
 
+    public class UserMixCompleteMaterialModel
+    {
         UserMixCompleteMaterialDB _userMixCompleteMaterialDB;
 
         public void SetDB(UserMixCompleteMaterialDB userMixCompleteMaterialDB)
@@ -94,10 +93,11 @@ namespace OPS.Model
 
         public double IncludeExtraRate()
         {
+            if (_userMixCompleteMaterialDB._masterOptionDB._masterOptionCategoryDB.SpecialOptionIds.Contains(MasterOptionModel.category_id.Value)) return rate.Value;
             var includeExtraRate = rate.Value;
             if (IsExtraSlot())
             {
-                includeExtraRate = Math.Round(includeExtraRate * ExtraRateTable[UserMixModel.UserMixCompleteMaterialSelectAgendaModels.Count()], MidpointRounding.AwayFromZero);
+                includeExtraRate = Math.Round(includeExtraRate * _userMixCompleteMaterialDB.ExtraRateTable[UserMixModel.UserMixCompleteMaterialSelectAgendaModels.Count()], MidpointRounding.AwayFromZero);
             }
             var periodRateBonus = UserMixModel.UserMixPeriodRateBonusKeyValue;
             if (periodRateBonus != null)
@@ -129,6 +129,7 @@ namespace OPS.Model
                 }
             }
             if (userMixAgendas.Count() > UserMixModel.BodyUserMixCandidateMaterialModel.OptionCount()) return false;
+            if (userMixAgendas.Count() == _userMixCompleteMaterialDB.ExtraRateTable.Count()) return false;
             select_agenda.Value = userMixAgendas.Count() + 1;
             _userMixCompleteMaterialDB.Save(this);
             return true;
