@@ -48,7 +48,6 @@ namespace OPS.Presenter
             }
             _userMixCandidateMaterialModel.sort_index.Subscribe(sort_index => { SetMaterialNameText(sort_index); }).AddTo(gameObject);
             _materialSelectAddFactorPresenter.Setup(_userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeFartorModel);
-            _materialSelectAddOptionPresenter.EnableButton(userMixCandidateMaterialOptionModels.Count < _userMixCompleteMaterialDB.ExtraRateTable.Count);
         }
 
         void SetMaterialNameText(int sortIndex)
@@ -66,10 +65,10 @@ namespace OPS.Presenter
                 _userMixCandidateMaterialOptionDB.Save(sameCategoryIncludeModel);
                 return;
             }
+            if (_userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeNormalModel.Count < _userMixCompleteMaterialDB.ExtraRateTable.Count) return;
             var rowCpy = _materialSelectOptionAreaFactory.Create();
             rowCpy.SetOption(masterOptionModel, _userMixCandidateMaterialModel);
             rowCpy.transform.SetParent(_addRowGameobject.transform, false);
-            _materialSelectAddOptionPresenter.EnableButton(_userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeNormalModel.Count < _userMixCompleteMaterialDB.ExtraRateTable.Count);
         }
 
         public void AddNewFactor(MasterOptionModel masterOptionModel)
