@@ -30,9 +30,6 @@ namespace OPS.Presenter
         [SerializeField]
         MaterialSelectAddFactorPresenter _materialSelectAddFactorPresenter = default;
 
-        [SerializeField]
-        MaterialSelectAddOptionPresenter _materialSelectAddOptionPresenter = default;
-
         UserMixCandidateMaterialModel _userMixCandidateMaterialModel;
 
         public void Setup(UserMixCandidateMaterialModel userMixCandidateMaterialModel)
