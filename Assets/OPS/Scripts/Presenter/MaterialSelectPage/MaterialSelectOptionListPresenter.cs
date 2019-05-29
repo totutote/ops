@@ -62,7 +62,7 @@ namespace OPS.Presenter
                 _userMixCandidateMaterialOptionDB.Save(sameCategoryIncludeModel);
                 return;
             }
-            if (_userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeNormalModel.Count < _userMixCompleteMaterialDB.ExtraRateTable.Count) return;
+            if (_userMixCandidateMaterialModel.UserMixCandidateMaterialOptionTypeNormalModel.Count >= _userMixCompleteMaterialDB.ExtraRateTable.Count) return;
             var rowCpy = _materialSelectOptionAreaFactory.Create();
             rowCpy.SetOption(masterOptionModel, _userMixCandidateMaterialModel);
             rowCpy.transform.SetParent(_addRowGameobject.transform, false);
