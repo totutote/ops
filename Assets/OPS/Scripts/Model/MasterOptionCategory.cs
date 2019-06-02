@@ -32,7 +32,7 @@ namespace OPS.Model
             return dataRow;
         }
 
-        public List<int> SpecialOptionIds = new List<int>() { 62, 63, 64 };
+        public List<int> SpecialOptionIds = new List<int>() { 58, 59, 60 };
 
         public class Factory : PlaceholderFactory<MasterOptionCategoryDB>
         {
