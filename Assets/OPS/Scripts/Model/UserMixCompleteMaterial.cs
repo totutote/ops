@@ -83,12 +83,17 @@ namespace OPS.Model
         public double IncludePeriodBonusRate()
         {
             var periodRateBonus = UserMixModel.UserMixPeriodRateBonusKeyValue;
+            var includePeriodBonusRate = rate.Value;
+            if (UserMixModel.BodyUserMixCandidateMaterialModel.IsIncludeSmeltingOption())
+            {
+                includePeriodBonusRate = (includePeriodBonusRate + 5) > 100 ? 100 : includePeriodBonusRate + 5;
+            }
             if (periodRateBonus != null)
             {
-                var bonusRate = rate.Value + int.Parse(periodRateBonus.value.Value) * 5;
+                var bonusRate = includePeriodBonusRate + int.Parse(periodRateBonus.value.Value) * 5;
                 return bonusRate >= 100 ? 100f : bonusRate;
             }
-            return rate.Value;
+            return includePeriodBonusRate;
         }
 
         public double IncludeExtraRate()
@@ -98,6 +103,10 @@ namespace OPS.Model
             if (IsExtraSlot())
             {
                 includeExtraRate = Math.Round(includeExtraRate * _userMixCompleteMaterialDB.ExtraRateTable[UserMixModel.UserMixCompleteMaterialSelectAgendaModels.Count()], MidpointRounding.AwayFromZero);
+            }
+            if (UserMixModel.BodyUserMixCandidateMaterialModel.IsIncludeSmeltingOption())
+            {
+                includeExtraRate = (includeExtraRate + 5) > 100 ? 100 : includeExtraRate + 5;
             }
             var periodRateBonus = UserMixModel.UserMixPeriodRateBonusKeyValue;
             if (periodRateBonus != null)

@@ -71,6 +71,15 @@ namespace OPS.Model
             return UserMixCandidateMaterialOptionTypeNormalModel.Count;
         }
 
+        public bool IsIncludeSmeltingOption()
+        {
+            foreach (var normalOptionModels in UserMixCandidateMaterialOptionTypeNormalModel)
+            {
+                if (normalOptionModels.Value.master_option_id.Value == 334) return true;
+            }
+            return false;
+        }
+
         public UserMixCandidateMaterialOptionModel SameCategoryIncludeModel(MasterOptionModel masterOptionModel)
         {
             foreach (var userMixCandidateMaterialOptionModel in UserMixCandidateMaterialOptionTypeNormalModel)
