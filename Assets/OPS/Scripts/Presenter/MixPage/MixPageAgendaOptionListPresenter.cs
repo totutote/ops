@@ -26,9 +26,7 @@ namespace OPS.Presenter
                 var _cpyMixPageOptionAgendaArea = _mixPageOptionAgendaAreaFactory.Create();
                 _cpyMixPageOptionAgendaArea.Setup(userMixCompleteMaterialModel.Value);
                 _cpyMixPageOptionAgendaArea.transform.SetParent(AddAgendaOptionListObject.transform, false);
-                _cpyMixPageOptionAgendaArea.transform.SetSiblingIndex(userMixCompleteMaterialModel.Value.select_agenda.Value - 1);
             }
         }
-
     }
 }

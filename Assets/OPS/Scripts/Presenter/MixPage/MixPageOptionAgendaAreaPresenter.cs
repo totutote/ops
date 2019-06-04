@@ -19,6 +19,11 @@ namespace OPS.Presenter
 
         UserMixCompleteMaterialModel _userMixCompleteMaterialModel;
 
+        void Update()
+        {
+            transform.SetSiblingIndex(_userMixCompleteMaterialModel.select_agenda.Value - 1);
+        }
+
         public void Setup(UserMixCompleteMaterialModel userMixCompleteMaterialModel)
         {
             _userMixCompleteMaterialModel = userMixCompleteMaterialModel;

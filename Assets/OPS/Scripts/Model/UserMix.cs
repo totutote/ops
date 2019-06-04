@@ -94,7 +94,7 @@ namespace OPS.Model
         {
             var userMixCompleteMaterialSelectAgendaModels = UserMixCompleteMaterialSelectAgendaModels;
             int i = 1;
-            foreach (var userMixCompleteMaterialSelectAgendaModel in userMixCompleteMaterialSelectAgendaModels)
+            foreach (var userMixCompleteMaterialSelectAgendaModel in userMixCompleteMaterialSelectAgendaModels.OrderBy(x => x.Value.select_agenda.Value).ToDictionary(x => x.Key, x => x.Value))
             {
                 userMixCompleteMaterialSelectAgendaModel.Value.select_agenda.Value = i++;
                 _userMixDB._userMixCompleteMaterialDB.Save(userMixCompleteMaterialSelectAgendaModel.Value);
