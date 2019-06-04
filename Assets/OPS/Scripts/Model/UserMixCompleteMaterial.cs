@@ -83,8 +83,9 @@ namespace OPS.Model
         public double IncludePeriodBonusRate()
         {
             var periodRateBonus = UserMixModel.UserMixPeriodRateBonusKeyValue;
+            var userMixModel = UserMixModel;
             var includePeriodBonusRate = rate.Value;
-            if (UserMixModel.BodyUserMixCandidateMaterialModel.IsIncludeSmeltingOption())
+            if (userMixModel.BodyUserMixCandidateMaterialModel.IsIncludeSmeltingOption())
             {
                 includePeriodBonusRate = (includePeriodBonusRate + 5) > 100 ? 100 : includePeriodBonusRate + 5;
             }
@@ -99,16 +100,17 @@ namespace OPS.Model
         public double IncludeExtraRate()
         {
             if (_userMixCompleteMaterialDB._masterOptionDB._masterOptionCategoryDB.SpecialOptionIds.Contains(MasterOptionModel.category_id.Value)) return rate.Value;
+            var userMixModel = UserMixModel;
             var includeExtraRate = rate.Value;
             if (IsExtraSlot())
             {
-                includeExtraRate = Math.Round(includeExtraRate * _userMixCompleteMaterialDB.ExtraRateTable[UserMixModel.UserMixCompleteMaterialSelectAgendaModels.Count()], MidpointRounding.AwayFromZero);
+                includeExtraRate = Math.Round(includeExtraRate * _userMixCompleteMaterialDB.ExtraRateTable[userMixModel.UserMixCompleteMaterialSelectAgendaModels.Count()], MidpointRounding.AwayFromZero);
             }
-            if (UserMixModel.BodyUserMixCandidateMaterialModel.IsIncludeSmeltingOption())
+            if (userMixModel.BodyUserMixCandidateMaterialModel.IsIncludeSmeltingOption())
             {
                 includeExtraRate = (includeExtraRate + 5) > 100 ? 100 : includeExtraRate + 5;
             }
-            var periodRateBonus = UserMixModel.UserMixPeriodRateBonusKeyValue;
+            var periodRateBonus = userMixModel.UserMixPeriodRateBonusKeyValue;
             if (periodRateBonus != null)
             {
                 return (includeExtraRate += int.Parse(periodRateBonus.value.Value) * 5) > 100f ? 100f : includeExtraRate;
