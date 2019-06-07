@@ -47,7 +47,7 @@ namespace OPS.Presenter
         {
             var newUserMix = UserMixDB.New();
             Debug.Log(newUserMix);
-            newUserMix.name.Value = "合成名";
+            newUserMix.name.Value = "合成";
             _userMixModel = UserMixDB.Save(newUserMix).Values.First();
             _userMixModel.name.Value += _userMixModel.id.Value;
             UserMixDB.Save(_userMixModel);
