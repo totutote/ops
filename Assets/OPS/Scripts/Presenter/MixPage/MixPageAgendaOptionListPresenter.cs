@@ -1,4 +1,5 @@
-﻿using OPS.Model;
+﻿using System.Linq;
+using OPS.Model;
 using UnityEngine;
 using Zenject;
 
@@ -22,11 +23,12 @@ namespace OPS.Presenter
                 GameObject.Destroy(child.gameObject);
             }
             AddAgendaOptionListObject.transform.DetachChildren();
-            foreach (var userMixCompleteMaterialModel in _userMixModel.UserMixCompleteMaterialSelectAgendaModels)
+            foreach (var userMixCompleteMaterialModel in _userMixModel.UserMixCompleteMaterialSelectAgendaModels.OrderBy(x => x.Value.select_agenda.Value))
             {
                 var _cpyMixPageOptionAgendaArea = _mixPageOptionAgendaAreaFactory.Create();
                 _cpyMixPageOptionAgendaArea.Setup(userMixCompleteMaterialModel.Value);
                 _cpyMixPageOptionAgendaArea.transform.SetParent(AddAgendaOptionListObject.transform, false);
+                _cpyMixPageOptionAgendaArea.transform.SetSiblingIndex(userMixCompleteMaterialModel.Value.select_agenda.Value - 1);
             }
         }
     }
