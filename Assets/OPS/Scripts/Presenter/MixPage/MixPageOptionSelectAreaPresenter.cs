@@ -47,17 +47,18 @@ namespace OPS.Presenter
             _userMixCompleteMaterialModel.select_agenda.Subscribe(onoff => {_toggle.isOn = onoff == 0 ? false : true;}).AddTo(gameObject);
         }
 
-        public void SelectOption()
+        public void SelectOption(Toggle toggle)
         {
-            if (_toggle.isOn)
+            if (toggle.isOn)
             {
                 if (!_userMixCompleteMaterialModel.SelectAgenda())
                 {
-                    _toggle.isOn = false;
+                    toggle.isOn = false;
                 }
             }
             else
             {
+                if (_userMixCompleteMaterialModel.select_agenda.Value == 0) return;
                 _userMixCompleteMaterialModel.select_agenda.Value = 0;
                 _userMixCompleteMaterialDB.Save(_userMixCompleteMaterialModel);
                 _userMixModel.SortSelectAgenda();
