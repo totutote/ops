@@ -69,6 +69,11 @@ namespace OPS.Presenter
             }
         }
 
+        public void SelectOptionByButton()
+        {
+            _toggle.isOn = !_toggle.isOn;
+        }
+
         public class Factory : PlaceholderFactory<MixPageOptionSelectAreaPresenter>
         {
         }
