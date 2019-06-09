@@ -4,7 +4,7 @@ using Zenject;
 
 public partial class SROptions
 {
-
+#if UNITY_EDITOR
     public void ForceUpdateMasterSchema()
     {
         var db = new SqliteDatabase("master.sqlite3");
@@ -27,5 +27,5 @@ public partial class SROptions
         var db = new DatabaseConnection("user.sqlite3", "user_mix_candidate_material_options");
         Debug.Log(db.All());
     }
-
+#endif
 }
