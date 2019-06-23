@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	>
+    <supports-screens
+		android:anyDensity="true"
+		android:smallScreens="true"
+		android:normalScreens="true"
+		android:largeScreens="true"
+		android:xlargeScreens="true"
+		>
+	</supports-screens>
+	<application
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
+        android:theme="@style/UnityThemeSelector"
+        >
+		<activity
+            android:label="@string/app_name"
+			android:name="com.unity3d.player.UnityPlayerActivity"
+			>
+            <intent-filter
+				>
+				<action
+					android:name="android.intent.action.MAIN"
+					>
+				</action>
+				<category
+					android:name="android.intent.category.LAUNCHER"
+					>
+				</category>
+			</intent-filter>
+			<meta-data
+				android:name="unityplayer.UnityActivity"
+				android:value="true"
+				>
+			</meta-data>
+            <meta-data
+                android:name="google_analytics_adid_collection_enabled"
+                android:value="false"
+                >
+            </meta-data>
+		</activity>
+	</application>
+</manifest>
