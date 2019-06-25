@@ -12,6 +12,11 @@ namespace OPS
         [Inject]
         CompleteSelectPagePresenter.Factory _startPageFactory = null;
 
+        void Awake()
+        {
+            disableAnylitics();
+        }
+
         void Start()
         {
             var masterDb = new SqliteDatabase("master.sqlite3");
@@ -22,6 +27,11 @@ namespace OPS
 
             var cpyStartPage = _startPageFactory.Create();
             _pageManager.ChangePage(cpyStartPage);
+        }
+
+        void disableAnylitics()
+        {
+            UnityEngine.Analytics.PerformanceReporting.enabled = false;
         }
 
     }
